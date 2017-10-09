@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div>
+        <h3>Подробности</h3>
+        <table>
+            @foreach (var item in ViewBag.Ads)
+            {
+                <tr><p>ID @item.Id</p></tr>
+                    <tr><p>Header @item.Title</p></tr>
+                    <tr><p>Type @item.Type</p></tr>
+                    <tr><p>City @item.City</p></tr>
+                    <tr><p>Region @item.Region</p></tr>
+                    <tr><p>Address @item.Address</p></tr>
+                    <tr><p>Area: @item.Area</p></tr>
+                    <tr><p>Price: @item.Price</p></tr>
+                    <tr><p>Phone: @item.Phone</p></tr>
+            }
+        </table>
+    </div>
+</body>
+</html>
