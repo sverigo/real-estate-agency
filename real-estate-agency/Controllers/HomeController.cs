@@ -26,5 +26,11 @@ namespace real_estate_agency.Controllers
             ViewBag.Ads = currentAd;
             return View();
         }
+
+        public ActionResult Click()
+        {
+            return View();
+        }
+
     }
 }

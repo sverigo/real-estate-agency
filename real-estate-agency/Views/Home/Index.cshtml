@@ -50,7 +50,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="parser-block">
-                    <input type="submit" class="parser" value="Неведомая кнопка, которая будет парсить" />
+                    @using (Html.BeginForm("Click", "Home"))
+                    {
+                        <input type="submit" value="Ebaniy parser" class="btn btn-default" />
+                    }
                 </div>
                 <div class="block-2 col-md-12">
                     <div class="row">
