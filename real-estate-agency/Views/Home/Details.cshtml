@@ -9,7 +9,14 @@
     <meta name="viewport" content="width=device-width" />
     <title>Details</title>
     <style>
+        #map{
+            height: 500px;
+            width: 800px;
+            background-color: gray;
+        }
     </style>
+    <script src="~/Scripts/mapInitialize.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs0eQvxU2jsqf71-Smlevn-NsX8W_V74g&callback=initMap"></script>
 </head>
 <body>
     <div>
@@ -20,12 +27,13 @@
                 <tr><p>ID @item.Id</p></tr>
                     <tr><p>Header @item.Title</p></tr>
                     <tr><p>Type @item.Type</p></tr>
-                    <tr><p>City @item.City</p></tr>
+                    <tr><p>City <span id="City">@item.City</span></p></tr>
                     <tr><p>Region @item.Region</p></tr>
-                    <tr><p>Address @item.Address</p></tr>
+                    <tr><p>Address <span id="Address">@item.Address</span></p></tr>
                     <tr><p>Area: @item.Area</p></tr>
                     <tr><p>Price: @item.Price</p></tr>
                     <tr><p>Phone: @item.Phone</p></tr>
+                    <tr><div id="map"></div></tr>
             }
         </table>
         <form method="POST" action="https://www.liqpay.com/api/3/checkout"
