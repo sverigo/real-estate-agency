@@ -17,14 +17,24 @@ namespace real_estate_agency.Controllers
             return View(Items);
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
             IEnumerable<Ad> ads = db.Ads;
+            if (id == null || id > ads.ToList().Count)
+            {
+                return Redirect("/Home/Index");
+            }
             var currentAd = from i in ads
                             where i.Id == id
                             select i;
             ViewBag.Ads = currentAd;
             return View();
         }
+
+        public ActionResult Click()
+        {
+            return View();
+        }
+
     }
 }
