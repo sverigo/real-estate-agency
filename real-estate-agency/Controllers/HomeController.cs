@@ -22,10 +22,10 @@ namespace real_estate_agency.Controllers
         public ActionResult Details(int? id)
         {
             IEnumerable<Ad> ads = db.Ads;
-            /*if (id == null || id > ads.ToList().Count)
+            if (id == null)
             {
                 return Redirect("/Home/Index");
-            }*/
+            }
             var currentAd = from i in ads
                             where i.Id == id
                             select i;
