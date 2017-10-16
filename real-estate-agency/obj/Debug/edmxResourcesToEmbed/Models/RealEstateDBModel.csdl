@@ -14,6 +14,8 @@
     <Property Name="Price" Type="Int32" />
     <Property Name="Phone" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
     <Property Name="PreviewPhoto" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Latitude" Type="Double" />
+    <Property Name="Longitude" Type="Double" />
   </EntityType>
   <EntityContainer Name="RealEstateDBEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Ads" EntityType="Self.Ad" />

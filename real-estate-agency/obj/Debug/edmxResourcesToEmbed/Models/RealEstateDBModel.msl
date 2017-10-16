@@ -4,6 +4,8 @@
     <EntitySetMapping Name="Ads">
       <EntityTypeMapping TypeName="RealEstateDBModel.Ad">
         <MappingFragment StoreEntitySet="Ad">
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Type" ColumnName="Type" />
