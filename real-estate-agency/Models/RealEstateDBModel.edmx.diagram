@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a45adc36374d4867893b61e1c029e8a9" Name="Diagram1">
-        <EntityTypeShape EntityType="RealEstateDBModel.Ad" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RealEstateDBModel.Ad" Width="1.5" PointX="4.625" PointY="0.5" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

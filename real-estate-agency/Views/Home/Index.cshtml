@@ -52,7 +52,6 @@
                 <div class="parser-block">
                     @using (Html.BeginForm("Click", "Home"))
                     {
-                        <input type="submit" value="Ebaniy parser" class="btn btn-default" />
                         <input type="submit" value="TBA parser" class="btn btn-default" />
                     }
                 </div>
@@ -69,7 +68,6 @@
                                         <p>@item.Title</p>
                                         <p>Тип: @item.Type</p>
                                         <p>Город: @item.City</p>
-                                        <p>Район: @item.Region</p>
                                         <p>Адрес: @item.Address</p>
                                         <p><a href="/Home/Details/@item.Id">Подробнее</a></p>
                                     </div>

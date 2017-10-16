@@ -22,10 +22,10 @@ namespace real_estate_agency.Controllers
         public ActionResult Details(int? id)
         {
             IEnumerable<Ad> ads = db.Ads;
-            if (id == null || id > ads.ToList().Count)
+            /*if (id == null || id > ads.ToList().Count)
             {
                 return Redirect("/Home/Index");
-            }
+            }*/
             var currentAd = from i in ads
                             where i.Id == id
                             select i;
@@ -35,7 +35,7 @@ namespace real_estate_agency.Controllers
 
         public ActionResult Click()
         {
-            var result = DataParser.DataParser.CollectFromOLX(2);
+            var result = DataParser.DataParser.CollectFromOLX(3);
             return View();
         }
 
