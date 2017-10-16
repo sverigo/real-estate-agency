@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using real_estate_agency.Models;
+using DataParser;
+
 
 namespace real_estate_agency.Controllers
 {
@@ -33,6 +35,7 @@ namespace real_estate_agency.Controllers
 
         public ActionResult Click()
         {
+            var result = DataParser.DataParser.CollectFromOLX(2);
             return View();
         }
 
