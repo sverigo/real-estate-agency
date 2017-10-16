@@ -61,6 +61,7 @@ namespace DataParser.DataCollectors.PhoneCollectors
                     else
                     {
                         found = false;
+                        contactButton.InvokeMember("click");
                     }
 
                     if (tryCount > HelperConstants.MaxTryCount)

@@ -9,10 +9,8 @@ namespace DataParser.DataCollectors.PhoneCollectors
 {
     abstract class AbstractPhoneCollector
     {
-        //[DllImport("psapi.dll")]
-        //private static extern bool EmptyWorkingSet(IntPtr hProcess);
-
         protected IEnumerable<string> phones;
+        private WebBrowser browser;
 
         public virtual IEnumerable<string> CollectPhone(string url)
         {
@@ -25,7 +23,7 @@ namespace DataParser.DataCollectors.PhoneCollectors
 
                     var thread = Thread.CurrentThread;
                     
-                    var browser = new WebBrowser();
+                    browser = new WebBrowser();
                     browser.ScriptErrorsSuppressed = true;
                     //browser.Dock = DockStyle.Fill;
                     //form.Controls.Add(browser);
@@ -43,18 +41,19 @@ namespace DataParser.DataCollectors.PhoneCollectors
                     browser.AllowNavigation = true;
                     browser.Navigate(url);
                     browser.Refresh();
-
                     browser.DocumentCompleted += DocumentCompletedHandler;
+                    var timer = new System.Windows.Forms.Timer();
+
+                    timer.Interval = 5000;
+                    timer.Tick += TimerTickHandler;
+                    timer.Start();
 
                     Application.Run();
-                    browser.DocumentCompleted -= DocumentCompletedHandler;
-                    //browser.Dispose();
-                    //browser = null;
-                    //System.GC.Collect();
-                    //System.GC.WaitForPendingFinalizers();
-                    //System.GC.Collect();
 
-                    //EmptyWorkingSet(Process.GetCurrentProcess().Handle);
+                    timer.Stop();
+                    timer.Tick -= TimerTickHandler;
+                    browser.DocumentCompleted -= DocumentCompletedHandler;
+                    browser = null;
                 }
                 catch (Exception)
                 {
@@ -67,6 +66,12 @@ namespace DataParser.DataCollectors.PhoneCollectors
             t.Join();
 
             return phones;
+        }
+
+        private void TimerTickHandler(object sender, EventArgs handler)
+        {
+            if (phones == null)
+                browser.Refresh();
         }
 
         protected abstract void DocumentCompletedHandler(object sender, WebBrowserDocumentCompletedEventArgs e);

@@ -8,7 +8,7 @@ namespace DataParser.Constants.Common
 {
     internal class HelperConstants
     {
-        internal const int MaxTryCount = 10;
+        internal const int MaxTryCount = 40;
     }
 
     internal class DictionaryConstants
