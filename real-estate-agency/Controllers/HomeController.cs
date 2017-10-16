@@ -35,7 +35,30 @@ namespace real_estate_agency.Controllers
 
         public ActionResult Click()
         {
-            var result = DataParser.DataParser.CollectFromOLX(3);
+            var result = DataParser.DataParser.CollectFromOLX(1);
+            foreach (var item in result)
+            {
+                var newAd = new Ad();
+                newAd.Title = item.Title;
+                newAd.Type = item.AdType;
+                newAd.City = "Днепр";
+                newAd.Address = item.Address;
+                newAd.Area = item.Area;
+                newAd.Author = item.AuthorName;
+                newAd.Floors = item.Floor;
+                newAd.FloorsCount = item.FloorCount;
+                newAd.RoomsCount = item.RoomCount;
+                //newAd.Images = item.Images;
+                //newAd.Phone = item.Phones;
+                newAd.Value = item.Price;
+                newAd.Details = item.Details;
+                using (var dbRea = new RealEstateDBEntities())
+                {
+                    dbRea.Ads.Add(newAd);
+                    //dbRea.Entry(newAd).State = System.Data.Entity.EntityState.Added;
+                    dbRea.SaveChanges();
+                }
+            }
             return View();
         }
 

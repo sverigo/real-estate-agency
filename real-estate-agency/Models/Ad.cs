@@ -30,19 +30,11 @@ public partial class Ad
 
     public string Area { get; set; }
 
-    public string PreviewPhoto { get; set; }
-
     public Nullable<double> Latitude { get; set; }
 
     public Nullable<double> Longitude { get; set; }
 
     public string Author { get; set; }
-
-    public Nullable<int> Floor { get; set; }
-
-    public Nullable<int> FloorCount { get; set; }
-
-    public Nullable<int> RoomCount { get; set; }
 
     public string Images { get; set; }
 
@@ -51,6 +43,12 @@ public partial class Ad
     public string Value { get; set; }
 
     public string Details { get; set; }
+
+    public string Floors { get; set; }
+
+    public string FloorsCount { get; set; }
+
+    public string RoomsCount { get; set; }
 
 }
 
