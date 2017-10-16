@@ -236,7 +236,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DataParser\DataParser.csproj">
+      <Project>{c9724bb2-9a52-496c-81f6-86db4bebe65e}</Project>
+      <Name>DataParser</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
