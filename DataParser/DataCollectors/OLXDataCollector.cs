@@ -11,9 +11,9 @@ namespace DataParser.DataCollectors
 {
     internal class OLXDataCollector : IDataCollector
     {
-        private const string startUri = @"https://www.olx.ua/nedvizhimost/arenda-kvartir/";
+        private const string startUri = @"https://www.olx.ua/nedvizhimost/arenda-kvartir/dnepr/";
 
-        public IEnumerable<AdvertismentModel> Collect(int count)
+        public IEnumerable<AdvertismentModel> Collect(int count = 0)
         {
             OLXPagesCollector pagesCollector = new OLXPagesCollector(startUri);
             var pages = pagesCollector.CollectPagesUri(count);

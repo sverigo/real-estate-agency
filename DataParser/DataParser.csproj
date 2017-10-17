@@ -43,6 +43,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -63,6 +64,7 @@
     <Compile Include="DataCollectors\PagesCollectors\OLXPagesCollector.cs" />
     <Compile Include="DataCollectors\PhoneCollectors\AbstractPhoneCollector.cs" />
     <Compile Include="DataCollectors\PhoneCollectors\OLXPhoneCollector.cs" />
+    <Compile Include="DataCollectors\PhoneCollectors\WebBrowserController.cs" />
     <Compile Include="DataConverters\AbstractDataConverter.cs" />
     <Compile Include="DataConverters\OLXDataConverter.cs" />
     <Compile Include="DataParser.cs" />

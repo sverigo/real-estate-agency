@@ -14,6 +14,11 @@ namespace DataParser.DataCollectors.PhoneCollectors
         private bool found;
         private int tryCount;
 
+        internal OLXPhoneCollector() : base()
+        {
+
+        }
+
         protected override void DocumentCompletedHandler(object sender, System.Windows.Forms.WebBrowserDocumentCompletedEventArgs e)
         {
             var browser = sender as System.Windows.Forms.WebBrowser;
@@ -56,16 +61,15 @@ namespace DataParser.DataCollectors.PhoneCollectors
                         }
 
                         phones = numbers;
-                        System.Windows.Forms.Application.Exit();
+                        browser.Stop();
+
+                        resetEvent.Set();
                     }
                     else
                     {
                         found = false;
                         contactButton.InvokeMember("click");
                     }
-
-                    if (tryCount > HelperConstants.MaxTryCount)
-                        System.Windows.Forms.Application.Exit();
                 }
             }
             catch (Exception)
@@ -74,5 +78,7 @@ namespace DataParser.DataCollectors.PhoneCollectors
             }
             
         }
+
+        
     }
 }

@@ -23,9 +23,14 @@ namespace DataParser.DataCollectors.AdsCollectors
         internal override IEnumerable<CollectedData> CollectAd()
         {
             List<CollectedData> data = new List<CollectedData>();
+            OLXPhoneCollector phoneCollector = new OLXPhoneCollector();
             HtmlWeb web = new HtmlWeb();
+
+            System.Diagnostics.Debug.WriteLine("Collecting ads...");
             pagesWithAds.ToList().ForEach(page =>
             {
+                System.Diagnostics.Debug.WriteLine(page);
+                System.Diagnostics.Debug.WriteLine("Collecting data...");
                 try
                 {
                     HtmlDocument document = web.Load(page);
@@ -36,7 +41,7 @@ namespace DataParser.DataCollectors.AdsCollectors
 
                     if (HasPhoneButton(document))
                     {
-                        OLXPhoneCollector phoneCollector = new OLXPhoneCollector();
+                        System.Diagnostics.Debug.WriteLine("Collecting phones...");
                         this.phones = phoneCollector.CollectPhone(page);
                     }
 
