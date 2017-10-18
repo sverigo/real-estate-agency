@@ -12,19 +12,15 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nchar" MaxLength="50" />
           <Property Name="Type" Type="nchar" MaxLength="30" />
-          <Property Name="City" Type="nchar" MaxLength="50" />
           <Property Name="Address" Type="nchar" MaxLength="50" />
           <Property Name="Area" Type="nchar" MaxLength="50" />
           <Property Name="Latitude" Type="float" />
           <Property Name="Longitude" Type="float" />
           <Property Name="Author" Type="nvarchar" MaxLength="50" />
-          <Property Name="FloorCount" Type="nvarchar" MaxLength="3" />
-          <Property Name="RoomCount" Type="nvarchar" MaxLength="3" />
           <Property Name="Images" Type="varchar" MaxLength="2000" />
           <Property Name="Phone" Type="varchar" MaxLength="50" />
           <Property Name="Value" Type="nvarchar" MaxLength="50" />
           <Property Name="Details" Type="nvarchar" MaxLength="2000" />
-          <Property Name="Floor" Type="varchar" MaxLength="3" />
           <Property Name="Floors" Type="varchar" MaxLength="3" />
           <Property Name="FloorsCount" Type="varchar" MaxLength="3" />
           <Property Name="RoomsCount" Type="varchar" MaxLength="3" />
@@ -43,7 +39,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Type" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Area" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Latitude" Type="Double" />
@@ -82,7 +77,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Area" ColumnName="Area" />
               </MappingFragment>

@@ -17,9 +17,7 @@ function initMap() {
 }
 // Getting the address from fields
 function geocodeAddress(geocoder, resultsMap) {
-    var city = document.getElementById('City').innerHTML;
-    var addr = document.getElementById('Address').innerHTML;
-    var address = city + addr;
+    var address = document.getElementById('Address').innerHTML;
     
     geocoder.geocode({ 'address': address }, function (results, status) {
         if (status === 'OK') {
