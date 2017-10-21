@@ -25,14 +25,18 @@
             @foreach (var item in ViewBag.Ads)
             {
                 <tr><p>ID @item.Id</p></tr>
-                    <tr><p>Header @item.Title</p></tr>
-                    <tr><p>Type @item.Type</p></tr>
-                    <tr><p>City <span id="City">@item.City</span></p></tr>
-                    <tr><p>Region @item.Region</p></tr>
+                    <tr><p>@item.Title</p></tr>
+                    <tr><p>@item.Type</p></tr>
                     <tr><p>Address <span id="Address">@item.Address</span></p></tr>
                     <tr><p>Area: @item.Area</p></tr>
-                    <tr><p>Price: @item.Price</p></tr>
+                    <tr><p>Latitude: @item.Latitude</p></tr>
+                    <tr><p>Longitude: @item.Longitude</p></tr>
+                    <tr><p>@item.Author</p></tr>
+                    <tr><p>Этаж: @item.Floors из @item.FloorsCount</p></tr>
+                    <tr><p>Комнат: @item.RoomsCount</p></tr>
                     <tr><p>Phone: @item.Phone</p></tr>
+                    <tr><p>Value: @item.Value</p></tr>
+                    <tr><p>@item.Details</p></tr>
                     <tr><div id="map"></div></tr>
             }
         </table>

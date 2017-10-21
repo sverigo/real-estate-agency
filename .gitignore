@@ -1,4 +1,4 @@
-###################
+﻿###################
 # compiled source #
 ###################
 *.com
@@ -73,3 +73,8 @@ _[Ss]cripts
 *.ncrunchsolution
 *.dot[Cc]over
 .vs/
+.vs/real-estate-agency/v15/.suo
+.vs/real-estate-agency/v15/sqlite3/storage.ide
+real-estate-agency/obj/Debug/real-estate-agency.dll
+real-estate-agency/App_Data/real-estate.mdf
+*.dll

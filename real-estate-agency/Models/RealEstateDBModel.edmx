@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище RealEstateDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище RealEstateDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Ad">
           <Key>
             <PropertyRef Name="Id" />
@@ -12,19 +12,23 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nchar" MaxLength="50" />
           <Property Name="Type" Type="nchar" MaxLength="30" />
-          <Property Name="City" Type="nchar" MaxLength="50" />
-          <Property Name="Region" Type="nchar" MaxLength="50" />
           <Property Name="Address" Type="nchar" MaxLength="50" />
           <Property Name="Area" Type="nchar" MaxLength="50" />
-          <Property Name="Price" Type="int" />
-          <Property Name="Phone" Type="nchar" MaxLength="30" />
-          <Property Name="PreviewPhoto" Type="nchar" MaxLength="100" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Author" Type="nvarchar" MaxLength="50" />
+          <Property Name="Images" Type="varchar" MaxLength="2000" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" />
+          <Property Name="Details" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Floors" Type="varchar" MaxLength="3" />
+          <Property Name="FloorsCount" Type="varchar" MaxLength="3" />
+          <Property Name="RoomsCount" Type="varchar" MaxLength="3" />
         </EntityType>
         <EntityContainer Name="Хранилище RealEstateDBModelContainer">
           <EntitySet Name="Ad" EntityType="Self.Ad" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RealEstateDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -35,13 +39,18 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Type" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="Region" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Area" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="Price" Type="Int32" />
-          <Property Name="Phone" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="PreviewPhoto" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Images" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Floors" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="FloorsCount" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="RoomsCount" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="RealEstateDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Ads" EntityType="Self.Ad" />
@@ -55,16 +64,21 @@
           <EntitySetMapping Name="Ads">
             <EntityTypeMapping TypeName="RealEstateDBModel.Ad">
               <MappingFragment StoreEntitySet="Ad">
+                <ScalarProperty Name="RoomsCount" ColumnName="RoomsCount" />
+                <ScalarProperty Name="FloorsCount" ColumnName="FloorsCount" />
+                <ScalarProperty Name="Floors" ColumnName="Floors" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Region" ColumnName="Region" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Area" ColumnName="Area" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="PreviewPhoto" ColumnName="PreviewPhoto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
