@@ -32,47 +32,57 @@ namespace real_estate_agency.Controllers
             var currentAd = from i in ads
                             where i.Id == id
                             select i;
-            ViewBag.Ads = currentAd;
+            ViewBag.Ads = currentAd.Reverse();
             return View();
         }
 
         public ActionResult Click()
         {
-            var result = DataParser.DataParser.CollectFromOLX(1);
-            foreach (var item in result)
-            {
-                XmlSerializer formatter = new XmlSerializer(typeof(List<string>));
-                using (StringWriter writer = new StringWriter())
-                {
-                    formatter.Serialize(writer, item.Images.ToList());
-                    img = writer.ToString();
-                    //formatter.Serialize(writer, item.Phones.ToList());
-                    //phone = writer.ToString();
-                }
+            //var result = DataCollector.CollectFromOLX(2);
+            //foreach (var item in result)
+            //{
+            //    XmlSerializer formatter = new XmlSerializer(typeof(List<string>));
+            //    using (StringWriter writer = new StringWriter())
+            //    {
+            //        formatter.Serialize(writer, item.Images.ToList());
+            //        img = writer.ToString();
+            //        //formatter.Serialize(writer, item.Phones.ToList());
+            //        //phone = writer.ToString();
+            //    }
 
-                var newAd = new Ad()
-                {
-                    Title = item.Title,
-                    Type = item.AdType,
-                    Address = item.Address,
-                    Area = item.Area,
-                    Author = item.AuthorName,
-                    Floors = item.Floor,
-                    FloorsCount = item.FloorCount,
-                    RoomsCount = item.RoomCount,
-                    Images = img, // Collection
-                    //Phone = phone, // Collection
-                    Value = item.Price,
-                    Details = item.Details
-                };
-                using (var dbRea = new RealEstateDBEntities())
-                {
-                    //dbRea.Ads.Add(newAd);
-                    dbRea.Entry(newAd).State = System.Data.Entity.EntityState.Added;
-                    dbRea.SaveChanges();
-                }
-            }
-            return View();
+            //    var newAd = new Ad()
+            //    {
+            //        Title = item.Title,
+            //        Type = item.AdType,
+            //        Address = item.Address,
+            //        Area = item.Area,
+            //        Author = item.AuthorName,
+            //        Floors = item.Floor,
+            //        FloorsCount = item.FloorCount,
+            //        RoomsCount = item.RoomCount,
+            //        Images = img, // Collection
+            //        //Phone = phone, // Collection
+            //        Value = item.Price,
+            //        Details = item.Details
+            //    };
+            //    using (var dbRea = new RealEstateDBEntities())
+            //    {
+            //        //dbRea.Ads.Add(newAd);
+            //        dbRea.Entry(newAd).State = System.Data.Entity.EntityState.Added;
+
+            //        try
+            //        {
+            //            dbRea.SaveChanges();
+            //        }
+            //        catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            //        {
+
+            //            throw;
+            //        }
+
+            //    }
+            //}
+            return View("Index", db.Ads);
         }
 
     }
