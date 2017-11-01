@@ -16,7 +16,8 @@ namespace real_estate_agency.Controllers
         AdManager db = new AdManager();
         private string img, phone;
         XmlSerializer formatter = new XmlSerializer(typeof(List<string>));
-        List<string> test = new List<string>();
+        List<string> imgList = new List<string>();
+        List<string> phoneList = new List<string>();
 
         public ActionResult Index()
         {
@@ -37,17 +38,31 @@ namespace real_estate_agency.Controllers
                             select i;
             ViewBag.Ads = currentAd;
             var currentImg = from i in ads where i.Id == id select i.Images;
+            var currentPhone = from j in ads where j.Id == id select j.Phone;
             using (StringReader reader = new StringReader(currentImg.FirstOrDefault()))
             {
-                test = (List<string>)formatter.Deserialize(reader);
+                imgList = (List<string>)formatter.Deserialize(reader);
             }
-            ViewBag.ImgItems = test;
+            try
+            {
+                using (StringReader reader = new StringReader(currentPhone.FirstOrDefault()))
+                {
+                    phoneList = (List<string>)formatter.Deserialize(reader);
+                }
+            } catch
+            {
+                throw;
+            }
+
+            
+            ViewBag.ImgItems = imgList;
+            ViewBag.PhoneItems = phoneList;
             return View();
         }
 
         public ActionResult Click()
         {
-            var result = DataParser.DataParser.CollectFromOLX(1);
+            var result = DataCollector.CollectFromOLX(2);
             foreach (var item in result)
             {
                 using (StringWriter writer = new StringWriter())
@@ -57,12 +72,10 @@ namespace real_estate_agency.Controllers
                     //formatter.Serialize(writer, item.Phones.ToList());
                     //phone = writer.ToString();
                 }
-
-
-                
-                using (StringReader reader = new StringReader(img))
+                using (StringWriter phoneWriter = new StringWriter())
                 {
-                    test = (List<string>)formatter.Deserialize(reader);
+                    formatter.Serialize(phoneWriter, item.Phones.ToList());
+                    phone = phoneWriter.ToString();
                 }
 
                 var newAd = new Ad()
@@ -76,7 +89,7 @@ namespace real_estate_agency.Controllers
                     FloorsCount = item.FloorCount,
                     RoomsCount = item.RoomCount,
                     Images = img, // Collection
-                    //Phone = phone, // Collection
+                    Phone = phone, // Collection
                     Value = item.Price,
                     Details = item.Details
                 };
@@ -84,7 +97,14 @@ namespace real_estate_agency.Controllers
                 {
                     dbRea.Ads.Add(newAd);
                     //dbRea.Entry(newAd).State = System.Data.Entity.EntityState.Added;
-                    dbRea.SaveChanges();
+                    try
+                    {
+                        dbRea.SaveChanges();
+                    }  
+                    catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+                    {
+                        throw;
+                    }
                 }
             }
             return View();

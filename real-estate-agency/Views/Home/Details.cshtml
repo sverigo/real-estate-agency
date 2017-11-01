@@ -34,13 +34,18 @@
                     <tr><p>@item.Author</p></tr>
                     <tr><p>Этаж: @item.Floors из @item.FloorsCount</p></tr>
                     <tr><p>Комнат: @item.RoomsCount</p></tr>
-                    <tr><p>Phone: @item.Phone</p></tr>
                     <tr><p>Value: @item.Value</p></tr>
                     <tr><p>@item.Details</p></tr>
                 foreach (var i in ViewBag.ImgItems)
                 {
                    <img width="150px" height="100px" src='@i' />
                 }
+
+                foreach (var i in ViewBag.PhoneItems)
+                {
+                    <p>@i</p>
+                }
+
                     <tr><div id="map"></div></tr>
             }
         </table>
