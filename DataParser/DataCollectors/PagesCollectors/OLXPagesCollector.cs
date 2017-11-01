@@ -23,14 +23,26 @@ namespace DataParser.DataCollectors.PagesCollectors
             HtmlWeb web = new HtmlWeb();
             List<string> links = new List<string>();
 
+            System.Diagnostics.Debug.WriteLine("Collecting pages...");
+
             StartUris.ToList().ForEach(startPage =>
             {
                 var htmlDoc = web.Load(startPage);
                 bool isRunning = true;
 
-                while(isRunning)
+                int previousNumber = GetPageNumber(GetNextNavLink(htmlDoc));
+
+                while (isRunning)
                 {
-                    htmlDoc?.DocumentNode.SelectNodes("//td").Where("class", string.Format(regexOfferPattern, "offer")).ToList().ForEach(offer =>
+                    string nextLink = GetNextNavLink(htmlDoc);
+                    int pageNumber = GetPageNumber(nextLink);
+
+                    if (pageNumber < previousNumber)
+                        break;
+
+                    previousNumber = pageNumber;
+
+                    htmlDoc?.DocumentNode.SelectSingleNode("//table[@id='offers_table']").SelectNodes("//td").Where("class", string.Format(regexOfferPattern, "offer")).ToList().ForEach(offer =>
                     {
                         var aNode = offer.SelectSingleNode(".//a");
 
@@ -40,7 +52,7 @@ namespace DataParser.DataCollectors.PagesCollectors
                             isRunning = false;
                     });
 
-                    string nextLink = GetNextNavLink(htmlDoc);
+                    System.Diagnostics.Debug.WriteLine(nextLink);
 
                     if (string.IsNullOrEmpty(nextLink))
                         isRunning = false;
@@ -55,10 +67,20 @@ namespace DataParser.DataCollectors.PagesCollectors
 
         private static string GetNextNavLink(HtmlDocument htmlDoc)
         {
-            var node = htmlDoc?.DocumentNode.SelectNodes("//div[@class]").FirstWhere("class", regexPagerPattern).
-                SelectNodes("./span[@class]").Where("class", regexNextPattern).First().SelectSingleNode("./a[@href]");
+            var node = htmlDoc.DocumentNode.SelectNodes("//div[@class]").FirstWhere("class", regexPagerPattern)?.
+                SelectNodes("./span[@class]").Where("class", regexNextPattern).FirstOrDefault()?.SelectSingleNode("./a[@href]");
 
             return node == null ? string.Empty : node.GetAttributeValue("href", string.Empty);
+        }
+
+        private static int GetPageNumber(string uri)
+        {
+            var queryString = new Uri(uri).Query;
+            var queryDictionary = System.Web.HttpUtility.ParseQueryString(queryString);
+
+            string index = queryDictionary.Get("page");
+
+            return int.Parse(index);
         }
     }
 }

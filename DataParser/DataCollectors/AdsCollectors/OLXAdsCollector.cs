@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Diagnostics;
 using DataParser.Models;
 using HtmlAgilityPack;
 using DataParser.Extensions;
@@ -22,22 +23,35 @@ namespace DataParser.DataCollectors.AdsCollectors
         internal override IEnumerable<CollectedData> CollectAd()
         {
             List<CollectedData> data = new List<CollectedData>();
+            OLXPhoneCollector phoneCollector = new OLXPhoneCollector();
+            HtmlWeb web = new HtmlWeb();
+
+            System.Diagnostics.Debug.WriteLine("Collecting ads...");
             pagesWithAds.ToList().ForEach(page =>
             {
-                HtmlWeb web = new HtmlWeb();
-                HtmlDocument document = web.Load(page);
-
-                var commonFields = CollectCommonData(document);
-                var variativeFieds = CollectVariativeData(document);
-                var images = CollectPhotos(document);
-
-                if (HasPhoneButton(document))
+                System.Diagnostics.Debug.WriteLine(page);
+                System.Diagnostics.Debug.WriteLine("Collecting data...");
+                try
                 {
-                    OLXPhoneCollector phoneCollector = new OLXPhoneCollector();
-                    this.phones = phoneCollector.CollectPhone(page);
-                }
+                    HtmlDocument document = web.Load(page);
 
-                data.Add(new CollectedData(commonFields, variativeFieds, images, this.phones, page));
+                    var commonFields = CollectCommonData(document);
+                    var variativeFieds = CollectVariativeData(document);
+                    var images = CollectPhotos(document);
+
+                    if (HasPhoneButton(document))
+                    {
+                        System.Diagnostics.Debug.WriteLine("Collecting phones...");
+                        this.phones = phoneCollector.CollectPhone(page);
+                    }
+
+                    data.Add(new CollectedData(commonFields, variativeFieds, images, this.phones, page));
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(page);
+                    Debug.WriteLine(ex.Message);
+                } 
             });
 
             return data;
@@ -47,40 +61,48 @@ namespace DataParser.DataCollectors.AdsCollectors
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>();
 
-            var titleDiv = document.DocumentNode.SelectNodes("//div").FirstWhere("class", titleDivRegex);
-            string title = titleDiv.SelectSingleNode("//h1").InnerText.Trim();
-
-            dictionary.Add(DictionaryConstants.TitleKey, title);
-
-            string address = titleDiv.SelectNodes(".//a[@class]").FirstWhere("class", addressLabelRegex).
-                SelectSingleNode("./strong").InnerText;
-
-            dictionary.Add(DictionaryConstants.AddressKey, address);
-
-            var priceDiv = document.DocumentNode.SelectNodes("//div[@class]").FirstWhere("class", priceDivRegex);
-            string price = priceDiv.SelectSingleNode("./strong").InnerText.Trim();
-
-            dictionary.Add(DictionaryConstants.PriceKey, price);
-
-            var detailsDiv = document.DocumentNode.SelectNodes("//div[@id]").FirstWhere("id", detailsDivRegex);
-            var spoilersHidden = detailsDiv.SelectNodes(".//span[@class]")?.Where("class", spoilerHiddenRegex);
-            if(spoilersHidden != null)
+            try
             {
-                this.phones = spoilersHidden.Select(span => span.GetAttributeValue("data-phone", string.Empty).Insert(0,"("));
-                spoilersHidden.ToList().ForEach(span =>
+                var titleDiv = document.DocumentNode.SelectNodes("//div").FirstWhere("class", titleDivRegex);
+                string title = titleDiv.SelectSingleNode("//h1").InnerText.Trim();
+
+                dictionary.Add(DictionaryConstants.TitleKey, title);
+
+                string address = titleDiv.SelectNodes(".//a[@class]").FirstWhere("class", addressLabelRegex).
+                    SelectSingleNode("./strong").InnerText;
+
+                dictionary.Add(DictionaryConstants.AddressKey, address);
+
+                var priceDiv = document.DocumentNode.SelectNodes("//div[@class]").FirstWhere("class", priceDivRegex);
+                string price = priceDiv.SelectSingleNode("./strong").InnerText.Trim();
+
+                dictionary.Add(DictionaryConstants.PriceKey, price);
+
+                var detailsDiv = document.DocumentNode.SelectNodes("//div[@id]").FirstWhere("id", detailsDivRegex);
+                var spoilersHidden = detailsDiv.SelectNodes(".//span[@class]")?.Where("class", spoilerHiddenRegex);
+                if (spoilersHidden != null)
                 {
-                    span.PreviousSibling.Remove();
-                    span.Remove();
-                });
+                    this.phones = spoilersHidden.Select(span => span.GetAttributeValue("data-phone", string.Empty).Insert(0, "("));
+                    spoilersHidden.ToList().ForEach(span =>
+                    {
+                        span.PreviousSibling.Remove();
+                        span.Remove();
+                    });
+                }
+                string details = detailsDiv.SelectSingleNode("./p").InnerText.Trim();
+
+                dictionary.Add(DictionaryConstants.DetailsKey, details);
+
+                var userDiv = document.DocumentNode.SelectNodes(".//div[@class]").FirstWhere("class", userDivRegex);
+                string userName = userDiv.SelectSingleNode("./h4").GetInnermostNode().InnerText.Trim();
+
+                dictionary.Add(DictionaryConstants.AuthorNameKey, userName);
             }
-            string details = detailsDiv.SelectSingleNode("./p").InnerText.Trim();
-
-            dictionary.Add(DictionaryConstants.DetailsKey, details);
-
-            var userDiv = document.DocumentNode.SelectNodes(".//div[@class]").FirstWhere("class", userDivRegex);
-            string userName = userDiv.SelectSingleNode("./h4").GetInnermostNode().InnerText.Trim();
-
-            dictionary.Add(DictionaryConstants.AuthorNameKey, userName);
+            catch (Exception)
+            {
+                throw;
+            }
+            
 
             return dictionary;
         }
@@ -90,31 +112,54 @@ namespace DataParser.DataCollectors.AdsCollectors
         {
             Dictionary<string, string> data = new Dictionary<string, string>();
 
-            var tBodyNode = document.DocumentNode.SelectNodes("//table[@class]").FirstWhere("class", detailsTableRegex);
-            var tables = tBodyNode.SelectNodes("./tr").SelectMany(row => row.SelectNodes(".//table[@class]"));
-
-            tables.ToList().ForEach(table =>
+            try
             {
-                string key = table.SelectSingleNode(".//th").InnerText.Trim();
-                var td = table.SelectSingleNode(".//td").GetInnermostNode();
-                string value = td.InnerText.Trim();
+                var tBodyNode = document.DocumentNode.SelectNodes("//table[@class]").FirstWhere("class", detailsTableRegex);
+                var tables = tBodyNode.SelectNodes("./tr").SelectMany(row => row.SelectNodes(".//table[@class]"));
 
-                data.Add(key, value);
-            });
+                tables.ToList().ForEach(table =>
+                {
+                    string key = table.SelectSingleNode(".//th").InnerText.Trim();
+                    var td = table.SelectSingleNode(".//td").GetInnermostNode();
+                    string value = td.InnerText.Trim();
 
+                    data.Add(key, value);
+                });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
             return data;
         }
 
         private static IEnumerable<string> CollectPhotos(HtmlDocument document)
         {
-            List<string> imgUrls = new List<string>();
-            var imgDivs = document.DocumentNode.SelectNodes("//div[@class]").Where("class", imgDivRegex).ToList();
-            return imgDivs.Select(div => div.SelectSingleNode(".//img")?.GetAttributeValue("src", string.Empty)).ToList();
+            try
+            {
+                List<string> imgUrls = new List<string>();
+                var imgDivs = document.DocumentNode.SelectNodes("//div[@class]").Where("class", imgDivRegex).ToList();
+                return imgDivs.Select(div => div.SelectSingleNode(".//img")?.GetAttributeValue("src", string.Empty)).ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
 
         private static bool HasPhoneButton(HtmlDocument document)
         {
-            return document.DocumentNode.SelectNodes("//div[@class]").FirstWhere("class", contactButtonRegex) != null;
+            try
+            {
+                return document.DocumentNode.SelectNodes("//div[@class]").FirstWhere("class", contactButtonRegex) != null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            } 
         }
 
         private static string titleDivRegex = string.Format(RegexConstants.RegexFullWordPattern, "offer-titlebox");
