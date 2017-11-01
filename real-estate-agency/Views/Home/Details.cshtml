@@ -37,15 +37,13 @@
                     <tr><p>Phone: @item.Phone</p></tr>
                     <tr><p>Value: @item.Value</p></tr>
                     <tr><p>@item.Details</p></tr>
+                foreach (var i in ViewBag.ImgItems)
+                {
+                   <img width="150px" height="100px" src='@i' />
+                }
                     <tr><div id="map"></div></tr>
             }
         </table>
-        <form method="POST" action="https://www.liqpay.com/api/3/checkout"
-              accept-charset="utf-8">
-            <input type="hidden" name="data" value="eyJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJwYXkiLCJwdWJsaWNfa2V5IjoiaTkwNDY5MDI2OSIsImFtb3VudCI6IjEwMDUwMCIsImN1cnJlbmN5IjoiVUFIIiwiZGVzY3JpcHRpb24iOiLQnNC90LUg0L3QsCDQu9C10YfQtdC90LjQtSIsInR5cGUiOiJidXkiLCJsYW5ndWFnZSI6InJ1In0=" />
-            <input type="hidden" name="signature" value="Zi+s13IxDwwMIlmiezcDDe+EK7A=" />
-            <input type="image" src="//static.liqpay.ua/buttons/p1ru.radius.png" name="btn_text" />
-        </form>
     </div>
 </body>
 </html>

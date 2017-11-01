@@ -13,18 +13,21 @@ namespace real_estate_agency.Controllers
 {
     public class HomeController : Controller
     {
-        private RealEstateDBEntities db = new RealEstateDBEntities();
-        string img, phone;
+        AdManager db = new AdManager();
+        private string img, phone;
+        XmlSerializer formatter = new XmlSerializer(typeof(List<string>));
+        List<string> test = new List<string>();
 
         public ActionResult Index()
         {
-            var Items = db.Ads;
+            var Items = db.GetItems();
+            var currentImg = from i in Items select i.Images;
             return View(Items);
         }
 
         public ActionResult Details(int? id)
         {
-            IEnumerable<Ad> ads = db.Ads;
+            IEnumerable<Ad> ads = db.GetItems();
             if (id == null)
             {
                 return Redirect("/Home/Index");
@@ -33,6 +36,12 @@ namespace real_estate_agency.Controllers
                             where i.Id == id
                             select i;
             ViewBag.Ads = currentAd;
+            var currentImg = from i in ads where i.Id == id select i.Images;
+            using (StringReader reader = new StringReader(currentImg.FirstOrDefault()))
+            {
+                test = (List<string>)formatter.Deserialize(reader);
+            }
+            ViewBag.ImgItems = test;
             return View();
         }
 
@@ -41,13 +50,19 @@ namespace real_estate_agency.Controllers
             var result = DataParser.DataParser.CollectFromOLX(1);
             foreach (var item in result)
             {
-                XmlSerializer formatter = new XmlSerializer(typeof(List<string>));
                 using (StringWriter writer = new StringWriter())
                 {
                     formatter.Serialize(writer, item.Images.ToList());
                     img = writer.ToString();
                     //formatter.Serialize(writer, item.Phones.ToList());
                     //phone = writer.ToString();
+                }
+
+
+                
+                using (StringReader reader = new StringReader(img))
+                {
+                    test = (List<string>)formatter.Deserialize(reader);
                 }
 
                 var newAd = new Ad()
@@ -67,13 +82,12 @@ namespace real_estate_agency.Controllers
                 };
                 using (var dbRea = new RealEstateDBEntities())
                 {
-                    //dbRea.Ads.Add(newAd);
-                    dbRea.Entry(newAd).State = System.Data.Entity.EntityState.Added;
+                    dbRea.Ads.Add(newAd);
+                    //dbRea.Entry(newAd).State = System.Data.Entity.EntityState.Added;
                     dbRea.SaveChanges();
                 }
             }
             return View();
         }
-
     }
 }
