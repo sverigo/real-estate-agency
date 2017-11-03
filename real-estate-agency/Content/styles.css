@@ -55,7 +55,7 @@ body {
 /*PAGES */
 
 .box {
-    height: 300px;
+    
     padding-top: 20px;
     border-bottom: 1px solid #c2bfcb;
 }
@@ -147,4 +147,35 @@ main {
 
 .pagesSwitch {
     text-align: center;
+}
+
+/* REMOVE BUTTON */
+
+.remove {
+    position: absolute;
+    border: 1px solid red;
+    width: 32px;
+    height: 32px;
+    opacity: 1;
+}
+
+.block .box .remove:hover {
+    opacity: 1;
+}
+
+.block .box .remove:before, .block .box .remove:after {
+    position: absolute;
+    left: 15px;
+    content: '';
+    height: 33px;
+    width: 2px;
+    background-color: #333;
+}
+
+.block .box .remove:before {
+    transform: rotate(45deg);
+}
+
+.block .box .after:before {
+    transform: rotate(-45deg);
 }

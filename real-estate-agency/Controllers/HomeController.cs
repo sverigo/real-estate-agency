@@ -8,6 +8,7 @@ using DataParser;
 using System.Xml.Serialization;
 using System.IO;
 using PagedList;
+using System.Data.Entity;
 
 namespace real_estate_agency.Controllers
 {
@@ -37,12 +38,11 @@ namespace real_estate_agency.Controllers
             {
                 return Redirect("/Home/Index");
             }
-            var currentAd = from i in ads
-                            where i.Id == id
-                            select i;
-            ViewBag.Ads = currentAd;
+
+            var currentAd = from i in ads where i.Id == id select i;
             var currentImg = from i in ads where i.Id == id select i.Images;
             var currentPhone = from j in ads where j.Id == id select j.Phone;
+
             using (StringReader reader = new StringReader(currentImg.FirstOrDefault()))
             {
                 imgList = (List<string>)formatter.Deserialize(reader);
@@ -53,12 +53,11 @@ namespace real_estate_agency.Controllers
                 {
                     phoneList = (List<string>)formatter.Deserialize(reader);
                 }
-            } catch
-            {
+            } catch {
                 throw;
             }
 
-            
+            ViewBag.Ads = currentAd;
             ViewBag.ImgItems = imgList;
             ViewBag.PhoneItems = phoneList;
             return View();
@@ -73,8 +72,6 @@ namespace real_estate_agency.Controllers
                 {
                     formatter.Serialize(writer, item.Images.ToList());
                     img = writer.ToString();
-                    //formatter.Serialize(writer, item.Phones.ToList());
-                    //phone = writer.ToString();
                 }
                 using (StringWriter phoneWriter = new StringWriter())
                 {
@@ -112,6 +109,15 @@ namespace real_estate_agency.Controllers
                 }
             }
             return View();
+        }
+
+        public ActionResult Remove(int id)
+        {
+            RealEstateDBEntities db = new RealEstateDBEntities();
+            Ad ad = new Ad { Id = id };
+            db.Entry(ad).State = EntityState.Deleted;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

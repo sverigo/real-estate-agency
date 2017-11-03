@@ -21,5 +21,10 @@ namespace real_estate_agency.Models
         {
             return _db.Ads.ToList();
         }
+
+        public void AddAd()
+        {
+
+        }
     }
 }
