@@ -65,7 +65,7 @@ namespace real_estate_agency.Controllers
 
         public ActionResult Click()
         {
-            var result = DataCollector.CollectFromOLX(20);
+            var result = DataCollector.CollectFromOLX(2);
             foreach (var item in result)
             {
                 using (StringWriter writer = new StringWriter())
