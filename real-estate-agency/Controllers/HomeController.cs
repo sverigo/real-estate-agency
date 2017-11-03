@@ -7,7 +7,7 @@ using real_estate_agency.Models;
 using DataParser;
 using System.Xml.Serialization;
 using System.IO;
-
+using PagedList;
 
 namespace real_estate_agency.Controllers
 {
@@ -19,11 +19,15 @@ namespace real_estate_agency.Controllers
         List<string> imgList = new List<string>();
         List<string> phoneList = new List<string>();
 
-        public ActionResult Index()
+        public ActionResult Index(int ?page)
         {
-            var Items = db.GetItems();
+            var Items = db.GetItems().ToList();
             var currentImg = from i in Items select i.Images;
-            return View(Items);
+
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+
+            return View(Items.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Details(int? id)
@@ -62,7 +66,7 @@ namespace real_estate_agency.Controllers
 
         public ActionResult Click()
         {
-            var result = DataCollector.CollectFromOLX(2);
+            var result = DataCollector.CollectFromOLX(20);
             foreach (var item in result)
             {
                 using (StringWriter writer = new StringWriter())

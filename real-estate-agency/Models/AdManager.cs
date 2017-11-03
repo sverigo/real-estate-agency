@@ -19,7 +19,7 @@ namespace real_estate_agency.Models
 
         public IEnumerable<Ad> GetItems()
         {
-            return _db.Ads;
+            return _db.Ads.ToList();
         }
     }
 }
