@@ -24,6 +24,7 @@
           <Property Name="Floors" Type="varchar" MaxLength="3" />
           <Property Name="FloorsCount" Type="varchar" MaxLength="3" />
           <Property Name="RoomsCount" Type="varchar" MaxLength="3" />
+          <Property Name="PrevImage" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityContainer Name="Хранилище RealEstateDBModelContainer">
           <EntitySet Name="Ad" EntityType="Self.Ad" Schema="dbo" store:Type="Tables" />
@@ -51,6 +52,7 @@
           <Property Name="Floors" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="FloorsCount" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="RoomsCount" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="PrevImage" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="RealEstateDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Ads" EntityType="Self.Ad" />
@@ -64,6 +66,7 @@
           <EntitySetMapping Name="Ads">
             <EntityTypeMapping TypeName="RealEstateDBModel.Ad">
               <MappingFragment StoreEntitySet="Ad">
+                <ScalarProperty Name="PrevImage" ColumnName="PrevImage" />
                 <ScalarProperty Name="RoomsCount" ColumnName="RoomsCount" />
                 <ScalarProperty Name="FloorsCount" ColumnName="FloorsCount" />
                 <ScalarProperty Name="Floors" ColumnName="Floors" />

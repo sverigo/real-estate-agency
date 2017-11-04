@@ -89,6 +89,7 @@ namespace real_estate_agency.Controllers
                     Floors = item.Floor,
                     FloorsCount = item.FloorCount,
                     RoomsCount = item.RoomCount,
+                    PrevImage = item.PreviewImg,
                     Images = img, // Collection
                     Phone = phone, // Collection
                     Value = item.Price,
