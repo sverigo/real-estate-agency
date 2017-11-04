@@ -14,6 +14,7 @@ namespace DataParser.Models
         public string Details { get; set; }
         public string AuthorName { get; set; }
         public string Address { get; set; }
+        public string PreviewImg { get; set; }
         public IEnumerable<string> Images { get; set; }
         public IEnumerable<string> Phones { get; set; }
 
