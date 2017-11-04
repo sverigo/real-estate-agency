@@ -16,7 +16,13 @@ namespace DataParser.DataConverters
             AdvertismentModel model = new AdvertismentModel();
 
             model.Url = data.Url;
-            model.Images = data.Images;
+
+            var imgList = data.Images.ToList();
+            model.PreviewImg = imgList.FirstOrDefault();
+            imgList.Remove(model.PreviewImg);
+
+            model.Images = imgList;
+            
             model.Phones = data.Phones;
 
             ConvertCommonParameters(ref model, data.CommonFields);
