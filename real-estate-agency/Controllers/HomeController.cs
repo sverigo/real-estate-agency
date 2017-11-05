@@ -8,15 +8,12 @@ using DataParser;
 using System.Xml.Serialization;
 using System.IO;
 
-
 namespace real_estate_agency.Controllers
 {
     public class HomeController : Controller
     {
         AdManager db = new AdManager();
         XmlSerializer formatter = new XmlSerializer(typeof(List<string>));
-        List<string> imgList = new List<string>();
-        List<string> phoneList = new List<string>();
 
         public ActionResult Index()
         {
@@ -38,6 +35,9 @@ namespace real_estate_agency.Controllers
             ViewBag.Ads = currentAd;
             var currentImg = from i in ads where i.Id == id select i.Images;
             var currentPhone = from j in ads where j.Id == id select j.Phone;
+
+            List<string> imgList = new List<string>();
+            List<string> phoneList = new List<string>();
             using (StringReader reader = new StringReader(currentImg.FirstOrDefault()))
             {
                 imgList = (List<string>)formatter.Deserialize(reader);
