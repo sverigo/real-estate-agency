@@ -1,0 +1,72 @@
+﻿
+@{
+    Layout = "~/Views/Shared/header.cshtml";
+}
+
+<main>
+    <div class="add-title">
+        <h2>Edit the Ad</h2>
+    </div>
+    @foreach (var item in ViewBag.Ads)
+    {
+        <form method="post" action="#">
+            <div class="add-container">
+                <table class="add-table">
+                    <tr>
+                        <th>Заголовок</th>
+                        <td><input type="text" name="Title" value="@item.Title" /></td>
+                    </tr>
+                    <tr>
+                        <th>Категория</th>
+                        <td><input type="text" name="Type" value="@item.Type" /></td>
+                    </tr>
+                    <tr>
+                        <th>Адрес</th>
+                        <td><input type="text" name="Address" value="@item.Address" /></td>
+                    </tr>
+                    <tr>
+                        <th>Площадь</th>
+                        <td><input type="text" name="Area" value="@item.Area" /></td>
+                    </tr>
+                    <tr>
+                        <th>Автор</th>
+                        <td><input type="text" name="Author" value="@item.Author" /></td>
+                    </tr>
+                    <tr>
+                        <th>Цена</th>
+                        <td><input type="text" name="Value" value="@item.Value" /></td>
+                    </tr>
+                    <tr>
+                        <th>Описание</th>
+                        <td><textarea name="Details">@item.Details.ToString()</textarea></td>
+                    </tr>
+                    <tr>
+                        <th>Этаж</th>
+                        <td><input type="text" name="Floors" value="@item.Floors" /></td>
+                    </tr>
+                    <tr>
+                        <th>Этажность</th>
+                        <td><input type="text" name="FloorsCount" value="@item.FloorsCount" /></td>
+                    </tr>
+                    <tr>
+                        <th>Количество комнат</th>
+                        <td><input type="text" name="RoomsCount" value="@item.RoomsCount" /></td>
+                    </tr>
+                    <tr>
+                        <th>Телефон</th>
+                        @foreach (var phoneItem in ViewBag.PhoneItems)
+                        {
+                            <td><input type="text" name="Phone" value="@phoneItem" /></td>
+                        }
+                    </tr>
+                    <tr>
+                        <td class="add-submit" colspan="2"><input type="submit" value="Изменить" /></td>
+                    </tr>
+                </table>
+
+            </div>
+        </form>
+
+    }
+
+</main>

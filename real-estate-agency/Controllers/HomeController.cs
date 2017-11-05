@@ -20,7 +20,7 @@ namespace real_estate_agency.Controllers
         List<string> imgList = new List<string>();
         List<string> phoneList = new List<string>();
 
-        public ActionResult Index(int ?page)
+        public ActionResult Index(int? page)
         {
             var Items = db.GetItems().ToList();
             var currentImg = from i in Items select i.Images;
@@ -53,7 +53,9 @@ namespace real_estate_agency.Controllers
                 {
                     phoneList = (List<string>)formatter.Deserialize(reader);
                 }
-            } catch {
+            }
+            catch
+            {
                 throw;
             }
 
@@ -102,7 +104,7 @@ namespace real_estate_agency.Controllers
                     try
                     {
                         dbRea.SaveChanges();
-                    }  
+                    }
                     catch (System.Data.Entity.Validation.DbEntityValidationException ex)
                     {
                         throw;
@@ -110,6 +112,97 @@ namespace real_estate_agency.Controllers
                 }
             }
             return View();
+        }
+
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add(Ad ad)
+        {
+            RealEstateDBEntities dbb = new RealEstateDBEntities();
+            List<string> phones = new List<string>();
+            phones.Add(ad.Phone);
+            var image = ad.Images;
+
+            try
+            {
+                using (StringWriter writer = new StringWriter())
+                {
+                    formatter.Serialize(writer, phones);
+                    ad.Phone = writer.ToString();
+                }
+                using (StringWriter writer = new StringWriter())
+                {
+                    formatter.Serialize(writer, image);
+                    ad.Images = writer.ToString();
+                }
+            }
+            catch { throw; }
+            dbb.Entry(ad).State = EntityState.Added;
+            dbb.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            IEnumerable<Ad> ads = db.GetItems();
+            if (id == null)
+            {
+                return Redirect("/Home/Index");
+            }
+
+            var currentAd = from i in ads where i.Id == id select i;
+            var currentImg = from i in ads where i.Id == id select i.Images;
+            var currentPhone = from j in ads where j.Id == id select j.Phone;
+
+            using (StringReader reader = new StringReader(currentImg.FirstOrDefault()))
+            {
+                imgList = (List<string>)formatter.Deserialize(reader);
+            }
+            try
+            {
+                using (StringReader reader = new StringReader(currentPhone.FirstOrDefault()))
+                {
+                    phoneList = (List<string>)formatter.Deserialize(reader);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            ViewBag.Ads = currentAd;
+            ViewBag.ImgItems = imgList;
+            ViewBag.PhoneItems = phoneList;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Ad ad)
+        {
+            RealEstateDBEntities dbb = new RealEstateDBEntities();
+            List<string> phones = new List<string>();
+            phones.Add(ad.Phone);
+            var image = ad.Images;
+            try
+            {
+                using (StringWriter writer = new StringWriter())
+                {
+                    formatter.Serialize(writer, phones);
+                    ad.Phone = writer.ToString();
+                }
+                using (StringWriter writer = new StringWriter())
+                {
+                    formatter.Serialize(writer, image);
+                    ad.Images = writer.ToString();
+                }
+            }
+            catch { throw; }
+            dbb.Entry(ad).State = EntityState.Modified;
+            dbb.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         public ActionResult Remove(int id)

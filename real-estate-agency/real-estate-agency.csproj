@@ -188,6 +188,7 @@
     <Content Include="Content\images\ex-1.jpg" />
     <Content Include="Content\images\ex-2.jpg" />
     <Content Include="Content\images\ex-3.jpg" />
+    <Content Include="Content\images\nophoto.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
@@ -245,6 +246,8 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\header.cshtml" />
+    <Content Include="Views\Home\Add.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataParser\DataParser.csproj">

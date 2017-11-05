@@ -43,26 +43,25 @@ body {
     margin: auto;
 }
 
-.buttons-block li {
-    list-style-type: none;
-    display: inline-block;
+    .buttons-block li {
+        list-style-type: none;
+        display: inline-block;
+    }
 
-}
-.buttons-block ul {
-    margin: 0;
-}
+    .buttons-block ul {
+        margin: 0;
+    }
 
 /*PAGES */
 
 .box {
-    
-    padding-top: 20px;
+    padding: 15px 0px;
     border-bottom: 1px solid #c2bfcb;
 }
 
-.box:hover {
-    background: #e4eefd;
-}
+    .box:hover {
+        background: #e4eefd;
+    }
 
 .img-box {
     width: 50%;
@@ -71,10 +70,10 @@ body {
     text-align: center;
 }
 
-.img-box img {
-    width: auto;
-    height: 200px;
-}
+    .img-box img {
+        width: auto;
+        height: 200px;
+    }
 
 .block .title {
     text-align: center;
@@ -111,11 +110,14 @@ main {
 .prev-image {
     width: 50%;
     padding: 10px;
+    text-align: center;
 }
 
-.prev-image img {
-    width: 100%;
-}
+    .prev-image img {
+        width: auto;
+        max-height: 500px;
+        max-width: 100%;
+    }
 
 .detail-title {
     padding: 15px;
@@ -129,11 +131,11 @@ main {
     text-align: justify;
 }
 
-.image-set img {
-    height: 180px;
-    width: auto;
-    padding: 10px 0px;
-}
+    .image-set img {
+        height: 180px;
+        width: auto;
+        padding: 10px 0px;
+    }
 
 .map-block {
     padding: 25px 0px;
@@ -179,4 +181,65 @@ main {
 
 .block .box .remove:before {
     transform: rotate(-45deg);
+}
+
+/*ADD PAGE*/
+
+.add-title {
+    margin: 15px;
+}
+
+.add-table {
+    width: 90%;
+    margin-left: 5%;
+}
+
+    .add-table td, .add-table th {
+        padding: 5px;
+    }
+
+    .add-table th {
+        text-align: right;
+        width: 35%;
+    }
+
+    .add-table input, .add-table textarea {
+        width: 80%;
+        padding: 5px;
+    }
+
+    .add-table textarea {
+        min-height: 200px;
+    }
+
+.add-container {
+    margin-bottom: 10%;
+}
+
+.add-submit {
+    text-align: center;
+}
+
+/*EDIT BUTTON*/
+.edit {
+    position: absolute;
+    right: 19px;
+    top: 46px;
+    opacity: 0.3;
+    color: black;
+}
+
+.block .box .edit:before {
+    position: absolute;
+    left: 15px;
+    content: '\270F';
+    font-size: 18px;
+    height: 10px;
+    width: 0px;
+    transform: rotate(135deg);
+}
+
+.block .box .edit:hover {
+    opacity: 1;
+    color: black;
 }

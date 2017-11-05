@@ -5,13 +5,18 @@
 <main>
     @foreach (var item in ViewBag.Ads)
     {
+        var src = item.PrevImage;
+        if (item.PrevImage == null)
+        {
+            src = "../../Content/images/nophoto.png";
+        }
         <div class="information">
             <div class="detail-title">
                 <h2>@item.Title</h2>
             </div>
             <div class="row">
                 <div class="prev-image">
-                    <img src="@item.PrevImage" />
+                    <img src="@src" />
                 </div>
                 <div class="general-info">
                     <p><strong>Тип: </strong>@item.Type </p>
@@ -24,7 +29,7 @@
                     @if (item.Area != null)
                     {
                         <p><strong>Площадь: </strong>@item.Area </p>
-                    } 
+                    }
                     <p><strong>Цена: </strong>   @item.Value </p>
                     <p><strong>Арендатор: </strong>@item.Author </p>
                     <div class="phone-set">

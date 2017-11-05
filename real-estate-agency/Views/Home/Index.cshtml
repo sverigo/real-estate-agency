@@ -7,7 +7,7 @@
 }
 <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 
-   <main>
+<main>
     <div class="container-fluid">
         <div class="row">
             <div class="parser-block">
@@ -20,12 +20,19 @@
                 <div class="row">
                     @foreach (var item in Model)
                     {
+                        var src = item.PrevImage;
+                        if (item.PrevImage == null)
+                        {
+                            src = "../Content/images/nophoto.png";
+                        }
                         <div class="box col-md-6">
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "edit" })
                             @Html.ActionLink(" ", "Remove", new { id = item.Id }, new { @class = "remove" })
+
                             <p class="title">@item.Title</p>
                             <div class="row">
                                 <div class="img-box">
-                                    <img src="@item.PrevImage">
+                                    <img src="@src">
                                 </div>
                                 <div class="text-box">
                                     <p><strong>Тип:</strong> @item.Type</p>
@@ -43,8 +50,12 @@
     </div>
     <div class="pagesSwitch">
         @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
-        { LinkToFirstPageFormat = "<<", LinkToPreviousPageFormat = "Назад",
-        LinkToNextPageFormat = "Вперед", LinkToLastPageFormat = ">>"})
+   {
+       LinkToFirstPageFormat = "<<",
+       LinkToPreviousPageFormat = "Назад",
+       LinkToNextPageFormat = "Вперед",
+       LinkToLastPageFormat = ">>"
+   })
     </div>
 </main>
 @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
