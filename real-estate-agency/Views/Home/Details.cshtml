@@ -14,6 +14,10 @@
             <div class="detail-title">
                 <h2>@item.Title</h2>
             </div>
+            <div style="text-align: right;">
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "" })
+                @Html.ActionLink("Remove", "Remove", new { id = item.Id }, new { @class = "" })
+            </div>
             <div class="row">
                 <div class="prev-image">
                     <img src="@src" />
