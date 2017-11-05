@@ -10,10 +10,23 @@ namespace DataParser
 {
     public static class DataCollector
     {
-        public static IEnumerable<AdvertismentModel> CollectFromOLX(int count = 0)
+        public static IEnumerable<AdvertismentModel> CollectFromOLX(int count)
         {
+            if (count == 0)
+                throw new InvalidOperationException("Zero argument");
+
             OLXDataCollector dataCollector = new OLXDataCollector();
             return dataCollector.Collect(count);
+        }
+
+        /// <summary>
+        /// Parses todays and yesterdays ads
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<AdvertismentModel> CollectFromOLX()
+        {
+            OLXDataCollector dataCollector = new OLXDataCollector();
+            return dataCollector.Collect(0);
         }
     }
 }

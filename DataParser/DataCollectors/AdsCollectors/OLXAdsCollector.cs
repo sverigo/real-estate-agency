@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
+using System.Threading.Tasks;
 using System.Diagnostics;
 using DataParser.Models;
 using HtmlAgilityPack;
@@ -27,7 +27,9 @@ namespace DataParser.DataCollectors.AdsCollectors
             HtmlWeb web = new HtmlWeb();
 
             System.Diagnostics.Debug.WriteLine("Collecting ads...");
-            pagesWithAds.ToList().ForEach(page =>
+            System.Diagnostics.Debug.WriteLine("Ads to parse: " + pagesWithAds.Count());
+
+            Parallel.ForEach(pagesWithAds.ToList(), page =>
             {
                 System.Diagnostics.Debug.WriteLine(page);
                 System.Diagnostics.Debug.WriteLine("Collecting data...");
@@ -45,8 +47,31 @@ namespace DataParser.DataCollectors.AdsCollectors
                 {
                     Debug.WriteLine(page);
                     Debug.WriteLine(ex.Message);
-                } 
+                }
             });
+
+            //pagesWithAds.ToList().ForEach(page =>
+            //{
+            //    System.Diagnostics.Debug.WriteLine(page);
+            //    System.Diagnostics.Debug.WriteLine("Collecting data...");
+            //    try
+            //    {
+            //        HtmlDocument document = web.Load(page);
+
+            //        var commonFields = CollectCommonData(document);
+            //        var variativeFieds = CollectVariativeData(document);
+            //        var images = CollectPhotos(document);
+
+            //        data.Add(new CollectedData(commonFields, variativeFieds, images, this.phones ?? new List<string>(), page));
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Debug.WriteLine(page);
+            //        Debug.WriteLine(ex.Message);
+            //    }
+            //});
+
+
 
             return data;
         }
