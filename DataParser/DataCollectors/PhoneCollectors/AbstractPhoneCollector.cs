@@ -10,10 +10,11 @@ namespace DataParser.DataCollectors.PhoneCollectors
     abstract class AbstractPhoneCollector
     {
         private int tryCount;
-
+        
         protected IEnumerable<string> phones;
         
         protected AutoResetEvent resetEvent = new AutoResetEvent(false);
+        private static object locker = new object();
 
         protected AbstractPhoneCollector()
         {
@@ -22,31 +23,35 @@ namespace DataParser.DataCollectors.PhoneCollectors
 
         internal IEnumerable<string> CollectPhone(string url)
         {
-            var controller = WebBrowserController.Instance;
-
-            controller.Browser.DocumentCompleted += DocumentCompletedHandler;
-            controller.Timer.Interval = 6000;
-            controller.Timer.Tick += TimerTickHandler;
-
-            controller.Browser.Invoke(new Action(() =>
+            lock(locker)
             {
-                controller.Browser.Navigate(url);
-                controller.Timer.Start();
+                resetEvent.Reset();
+                var controller = WebBrowserController.Instance;
+
+                controller.Browser.DocumentCompleted += DocumentCompletedHandler;
+                controller.Timer.Interval = 6000;
+                controller.Timer.Tick += TimerTickHandler;
+
+                controller.Browser.Invoke(new Action(() =>
+                {
+                    controller.Browser.Navigate(url);
+                    controller.Timer.Start();
+                }
+               ));
+
+                resetEvent.WaitOne();
+
+                controller.Browser.Invoke(new Action(() =>
+                {
+                    controller.Browser.Stop();
+                    controller.Timer.Stop();
+                }
+               ));
+
+                controller.Browser.DocumentCompleted -= DocumentCompletedHandler;
+                controller.Timer.Tick -= TimerTickHandler;
             }
-           ));
-
-            resetEvent.WaitOne();
-
-            controller.Browser.Invoke(new Action(() =>
-            {
-                controller.Browser.Stop();
-                controller.Timer.Stop();
-            }
-           ));
-
-            controller.Browser.DocumentCompleted -= DocumentCompletedHandler;
-            controller.Timer.Tick -= TimerTickHandler;
-
+            
             return this.phones;
         }
 

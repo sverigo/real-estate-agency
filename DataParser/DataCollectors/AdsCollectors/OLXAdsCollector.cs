@@ -39,13 +39,7 @@ namespace DataParser.DataCollectors.AdsCollectors
                     var variativeFieds = CollectVariativeData(document);
                     var images = CollectPhotos(document);
 
-                    if (HasPhoneButton(document))
-                    {
-                        System.Diagnostics.Debug.WriteLine("Collecting phones...");
-                        this.phones = phoneCollector.CollectPhone(page);
-                    }
-
-                    data.Add(new CollectedData(commonFields, variativeFieds, images, this.phones, page));
+                    data.Add(new CollectedData(commonFields, variativeFieds, images, this.phones ?? new List<string>(), page));
                 }
                 catch (Exception ex)
                 {

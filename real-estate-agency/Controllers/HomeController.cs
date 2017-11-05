@@ -14,7 +14,6 @@ namespace real_estate_agency.Controllers
     public class HomeController : Controller
     {
         AdManager db = new AdManager();
-        private string img, phone;
         XmlSerializer formatter = new XmlSerializer(typeof(List<string>));
         List<string> imgList = new List<string>();
         List<string> phoneList = new List<string>();
@@ -62,49 +61,54 @@ namespace real_estate_agency.Controllers
 
         public ActionResult Click()
         {
-            var result = DataCollector.CollectFromOLX(2);
-            foreach (var item in result)
+            var result = DataCollector.CollectFromOLX(5);
+            var preparedEntities = result.Select(adModel =>
             {
+                string xmlImages = string.Empty;
+                string xmlPhones = string.Empty; 
                 using (StringWriter writer = new StringWriter())
                 {
-                    formatter.Serialize(writer, item.Images.ToList());
-                    img = writer.ToString();
+                    formatter.Serialize(writer, adModel.Images.ToList());
+                    xmlImages = writer.ToString();
                     //formatter.Serialize(writer, item.Phones.ToList());
                     //phone = writer.ToString();
                 }
                 using (StringWriter phoneWriter = new StringWriter())
                 {
-                    formatter.Serialize(phoneWriter, item.Phones.ToList());
-                    phone = phoneWriter.ToString();
+                    formatter.Serialize(phoneWriter, adModel.Phones.ToList());
+                    xmlPhones = phoneWriter.ToString();
                 }
 
                 var newAd = new Ad()
                 {
-                    Title = item.Title,
-                    Type = item.AdType,
-                    Address = item.Address,
-                    Area = item.Area,
-                    Author = item.AuthorName,
-                    Floors = item.Floor,
-                    FloorsCount = item.FloorCount,
-                    RoomsCount = item.RoomCount,
-                    Images = img, // Collection
-                    Phone = phone, // Collection
-                    Value = item.Price,
-                    Details = item.Details
+                    Title = adModel.Title,
+                    Type = adModel.AdType,
+                    Address = adModel.Address,
+                    Area = adModel.Area,
+                    Author = adModel.AuthorName,
+                    Floors = adModel.Floor,
+                    FloorsCount = adModel.FloorCount,
+                    RoomsCount = adModel.RoomCount,
+                    Images = xmlImages, // Collection
+                    Phone = xmlPhones, // Collection
+                    Value = adModel.Price,
+                    Details = adModel.Details
                 };
-                using (var dbRea = new RealEstateDBEntities())
+
+                return newAd;
+            });
+
+            using (var dbRea = new RealEstateDBEntities())
+            {
+                dbRea.Ads.AddRange(preparedEntities);
+                //dbRea.Entry(newAd).State = System.Data.Entity.EntityState.Added;
+                try
                 {
-                    dbRea.Ads.Add(newAd);
-                    //dbRea.Entry(newAd).State = System.Data.Entity.EntityState.Added;
-                    try
-                    {
-                        dbRea.SaveChanges();
-                    }  
-                    catch (System.Data.Entity.Validation.DbEntityValidationException ex)
-                    {
-                        throw;
-                    }
+                    dbRea.SaveChanges();
+                }
+                catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+                {
+                    throw;
                 }
             }
             return View();

@@ -14,9 +14,16 @@ namespace DataParser.DataCollectors.PhoneCollectors
         private bool found;
         private int tryCount;
 
-        internal OLXPhoneCollector() : base()
-        {
+        private static OLXPhoneCollector instance;
 
+        public static OLXPhoneCollector Instanse {
+            get
+            {
+                if (instance != null) return instance;
+
+                instance = new OLXPhoneCollector();
+                return instance;
+            }
         }
 
         protected override void DocumentCompletedHandler(object sender, System.Windows.Forms.WebBrowserDocumentCompletedEventArgs e)
