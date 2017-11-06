@@ -10,20 +10,21 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="nchar" MaxLength="500" />
-          <Property Name="Type" Type="nchar" MaxLength="100" />
-          <Property Name="Address" Type="nchar" MaxLength="500" />
-          <Property Name="Area" Type="nchar" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="500" />
+          <Property Name="Type" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="Area" Type="nvarchar" MaxLength="50" />
           <Property Name="Latitude" Type="float" />
           <Property Name="Longitude" Type="float" />
-          <Property Name="Author" Type="nchar" MaxLength="100" />
+          <Property Name="Author" Type="nvarchar" MaxLength="100" />
           <Property Name="Images" Type="varchar" MaxLength="8000" />
           <Property Name="Phone" Type="varchar" MaxLength="8000" />
-          <Property Name="Value" Type="nchar" MaxLength="100" />
-          <Property Name="Details" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Value" Type="nvarchar" MaxLength="100" />
+          <Property Name="Details" Type="nvarchar" MaxLength="4000" />
           <Property Name="Floors" Type="varchar" MaxLength="3" />
           <Property Name="FloorsCount" Type="varchar" MaxLength="3" />
           <Property Name="RoomsCount" Type="varchar" MaxLength="3" />
+          <Property Name="PrevImage" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityContainer Name="Хранилище RealEstateDBModelContainer">
           <EntitySet Name="Ad" EntityType="Self.Ad" Schema="dbo" store:Type="Tables" />
@@ -37,20 +38,21 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
-          <Property Name="Type" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
-          <Property Name="Area" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Latitude" Type="Double" />
           <Property Name="Longitude" Type="Double" />
-          <Property Name="Author" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Author" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Images" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
           <Property Name="Phone" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
-          <Property Name="Value" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Details" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="Floors" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="FloorsCount" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="RoomsCount" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="PrevImage" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="RealEstateDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Ads" EntityType="Self.Ad" />
@@ -64,6 +66,7 @@
           <EntitySetMapping Name="Ads">
             <EntityTypeMapping TypeName="RealEstateDBModel.Ad">
               <MappingFragment StoreEntitySet="Ad">
+                <ScalarProperty Name="PrevImage" ColumnName="PrevImage" />
                 <ScalarProperty Name="RoomsCount" ColumnName="RoomsCount" />
                 <ScalarProperty Name="FloorsCount" ColumnName="FloorsCount" />
                 <ScalarProperty Name="Floors" ColumnName="Floors" />

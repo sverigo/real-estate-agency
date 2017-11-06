@@ -1,54 +1,84 @@
 ﻿@{
-    Layout = null;
+    Layout = "~/Views/Shared/header.cshtml";
 }
 
-<!DOCTYPE html>
+<script>
+    var model = @Html.Raw(Json.Encode(Model));
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-    <style>
-        #map{
-            height: 500px;
-            width: 800px;
-            background-color: gray;
+    function showPhone() {
+
+        alert(model.Title);
+
+        //$.ajax({
+        //    type: "GET",
+        //    url: "/Home/FirstAjax",
+        //    contentType: "application/json; charset=utf-8",
+        //    success: function (response, status) {
+        //        alert(response);
+        //    },
+        //    failure: function (response) {
+        //        alert(response);
+        //    }
+        //});
+    }
+</script>
+<main>
+    @foreach (var item in ViewBag.Ads)
+    {
+        var src = item.PrevImage;
+        if (item.PrevImage == null)
+        {
+            src = "../../Content/images/nophoto.png";
         }
-    </style>
-    <script src="~/Scripts/mapInitialize.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs0eQvxU2jsqf71-Smlevn-NsX8W_V74g&callback=initMap"></script>
-</head>
-<body>
-    <div>
-        <h3>Подробности</h3>
-        <table>
-            @foreach (var item in ViewBag.Ads)
-            {
-                <tr><p>ID @item.Id</p></tr>
-                    <tr><p>@item.Title</p></tr>
-                    <tr><p>@item.Type</p></tr>
-                    <tr><p>Address <span id="Address">@item.Address</span></p></tr>
-                    <tr><p>Area: @item.Area</p></tr>
-                    <tr><p>Latitude: @item.Latitude</p></tr>
-                    <tr><p>Longitude: @item.Longitude</p></tr>
-                    <tr><p>@item.Author</p></tr>
-                    <tr><p>Этаж: @item.Floors из @item.FloorsCount</p></tr>
-                    <tr><p>Комнат: @item.RoomsCount</p></tr>
-                    <tr><p>Value: @item.Value</p></tr>
-                    <tr><p>@item.Details</p></tr>
-                foreach (var i in ViewBag.ImgItems)
+        <div class="information">
+            <div class="detail-title">
+                <h2>@Model.Title</h2>
+            </div>
+            <div class="row">
+                <div class="prev-image">
+                    <img src="@src" />
+                </div>
+                <div class="general-info">
+                    <p><strong>Тип: </strong>@item.Type </p>
+                    <p><strong>Адрес: </strong><span id="Address">@item.Address</span> </p>
+                    <p><strong>Комнат: </strong> @item.RoomsCount </p>
+                    @if (item.Floors != null && item.FloorsCount != null)
+                    {
+                        <p><strong>Этаж: </strong>   @item.Floors из @item.FloorsCount </p>
+                    }
+                    @if (item.Area != null)
+                    {
+                        <p><strong>Площадь: </strong>@item.Area </p>
+                    }
+                    <p><strong>Цена: </strong>   @item.Value </p>
+                    <p><strong>Арендатор: </strong>@item.Author </p>
+                    <div class="phone-set">
+                        <p><strong>Телефон(ы): </strong></p>
+                        @foreach (var phoneItem in ViewBag.PhoneItems)
+                        {
+                            <p>@phoneItem</p>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="description">
+                <p>@item.Details</p>
+            </div>
+            <div class="image-set">
+                @foreach (var i in ViewBag.ImgItems)
                 {
-                   <img width="150px" height="100px" src='@i' />
+                    <img src='@i' />
                 }
+            </div>
+            <div class="map-block">
+                <div id="map"></div>
+            </div>
+            <form id="frm" method="post">
+                <button type="button" onclick="showPhone()">Click</button>
 
-                foreach (var i in ViewBag.PhoneItems)
-                {
-                    <p>@i</p>
-                }
-
-                    <tr><div id="map"></div></tr>
-            }
-        </table>
-    </div>
-</body>
-</html>
+            </form>
+        </div>
+    }
+</main>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs0eQvxU2jsqf71-Smlevn-NsX8W_V74g&callback=initMap"></script>
+<script src="~/Scripts/mapInitialize.js"></script>

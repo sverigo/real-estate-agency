@@ -1,87 +1,65 @@
-﻿@model IEnumerable<real_estate_agency.Models.Ad>
-@{
-    Layout = null;
-}
+﻿@model PagedList.IPagedList<real_estate_agency.Models.Ad>
+@using PagedList.Mvc
 
-<!DOCTYPE HTML>
-<html lang="ru">
-<head>
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>fckn dyplom</title>
-    <link rel="shortcut icon" href="#">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link rel="stylesheet" href="~/Content/style.css">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">LOGO</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Недвижимость
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Квартиры</a>
-                        <a class="dropdown-item" href="#">Дома</a>
-                        <a class="dropdown-item" href="#">Участки</a>
-                        <a class="dropdown-item" href="#">Коммерция</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">О нас</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Контакты</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
-    <main>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="parser-block">
-                    @using (Html.BeginForm("Click", "Home"))
+
+@{
+    Layout = "~/Views/Shared/header.cshtml";
+}
+<link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
+
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="parser-block">
+                @using (Html.BeginForm("Click", "Home"))
+                {
+                    <input type="submit" value="TBA Parser" class="btn btn-default" />
+                }
+            </div>
+            <div class="block col-md-12">
+                <div class="row">
+                    @foreach (var item in Model)
                     {
-                        <input type="submit" value="TBA parser" class="btn btn-default" />
-                    }
-                </div>
-                <div class="block-2 col-md-12">
-                    <div class="row">
-                        @foreach (var item in Model)
+                        var src = item.PrevImage;
+                        if (item.PrevImage == null)
                         {
-                            <div class="box col-md-12">
-                                <div class="row">
-                                    <div class="img-box">
-                                        <img src="~/Content/images/ex-1.jpg">
-                                    </div>
-                                    <div class="text-box">
-                                        <p>@item.Title</p>
-                                        <p>Тип: @item.Type</p>
-                                        <p>Адрес: @item.Address</p>
-                                        <p><a href="/Home/Details/@item.Id">Подробнее</a></p>
-                                    </div>
-                                </div>
-                            </div>
+                            src = "../Content/images/nophoto.png";
                         }
-                    </div>
+                        <div class="box col-md-6">
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "edit" })
+                            @Html.ActionLink(" ", "Remove", new { id = item.Id }, new { @class = "remove" })
+
+                            <p class="title">@item.Title</p>
+                            <div class="row">
+                                <div class="img-box">
+                                    <img src="@src">
+                                </div>
+                                <div class="text-box">
+                                    <p><strong>Тип:</strong> @item.Type</p>
+                                    <p><strong>Адрес:</strong> @item.Address</p>
+                                    <p><strong>Стоимость:</strong> @item.Value</p>
+                                    <p><a href="/Home/Details/@item.Id">Подробнее</a></p>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
-    </main>
-    @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
-    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-</body>
-</html>
+    </div>
+    <div class="pagesSwitch">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
+   {
+       LinkToFirstPageFormat = "<<",
+       LinkToPreviousPageFormat = "Назад",
+       LinkToNextPageFormat = "Вперед",
+       LinkToLastPageFormat = ">>"
+   })
+    </div>
+</main>
+@Scripts.Render("~/scripts/jquery-1.10.2.min.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>

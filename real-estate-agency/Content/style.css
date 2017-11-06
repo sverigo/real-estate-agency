@@ -1,41 +1,90 @@
-﻿* {
+﻿/* MAIN STYLES */
+
+* {
     margin: 0;
     padding: 0;
 }
 
-/* NAVBAR */
-
-.navbar-collapse {
-    margin-left: 30%;
+body {
+    background: #fcfcfc;
 }
 
-.block-1 {
-    display: inline-block;
-    background: #f4f8ff;
+#map {
+    height: 600px;
+    background-color: gray;
 }
 
-.block-2 {
-    display: inline-block;
+.clearfix {
+    clear: both;
 }
 
-.block-3 {
-    display: inline-block;
-    background: #f4f8ff;
+/* NAVIGATION */
+
+.navigation {
+    display: flex;
+    width: 90%;
+    margin: 0 5%;
+    font-size: 24px;
+    margin-bottom: 20px;
+    background: #bac9f5;
+    box-shadow: 0px -39px 50px 83px rgba(186,201,245,1);
 }
+
+.logo-block {
+    width: 50%;
+    font-weight: bold;
+    margin: auto;
+}
+
+.buttons-block {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    margin: auto;
+}
+
+    .buttons-block li {
+        list-style-type: none;
+        display: inline-block;
+    }
+
+    .buttons-block ul {
+        margin: 0;
+    }
+
+/*PAGES */
 
 .box {
-    height: 300px;
-    background: #d1e2ff;
-    padding-top: 20px;
+    padding: 15px 0px;
+    border-bottom: 1px solid #c2bfcb;
 }
+
+    .box:hover {
+        background: #e4eefd;
+    }
 
 .img-box {
     width: 50%;
+    float: left;
     height: 200px;
+    text-align: center;
+}
+
+    .img-box img {
+        width: auto;
+        height: 200px;
+    }
+
+.block .title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .text-box {
+    float: right;
     width: 50%;
+    padding: 10px;
 }
 
 button {
@@ -43,7 +92,154 @@ button {
     margin: 20px auto;
 }
 
-.img-box img {
-    width: 250px;
-    height: 200px;
+main {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.information {
+    width: 80%;
+    margin-left: 10%;
+}
+
+.general-info {
+    width: 50%;
+    padding: 5px 20px;
+}
+
+.prev-image {
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+}
+
+    .prev-image img {
+        width: auto;
+        max-height: 500px;
+        max-width: 100%;
+    }
+
+.detail-title {
+    padding: 15px;
+}
+
+.description {
+    padding: 20px 0px;
+}
+
+.image-set {
+    text-align: justify;
+}
+
+    .image-set img {
+        height: 180px;
+        width: auto;
+        padding: 10px 0px;
+    }
+
+.map-block {
+    padding: 25px 0px;
+}
+
+.information .row {
+    background-color: #e4eefd;
+    padding: 10px 0px;
+    border-bottom: 1px solid #c2bfcb;
+}
+
+.pagesSwitch {
+    text-align: center;
+}
+
+/* REMOVE BUTTON */
+
+.remove {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    width: 16px;
+    height: 16px;
+    opacity: 0.3;
+}
+
+.block .box .remove:hover {
+    opacity: 1;
+}
+
+.block .box .remove:before, .block .box .remove:after {
+    position: absolute;
+    left: 15px;
+    content: '';
+    height: 17px;
+    width: 2px;
+    background-color: #333;
+}
+
+.block .box .remove:after {
+    transform: rotate(45deg);
+}
+
+.block .box .remove:before {
+    transform: rotate(-45deg);
+}
+
+/*ADD PAGE*/
+
+.add-title {
+    margin: 15px;
+}
+
+.add-table {
+    width: 90%;
+    margin-left: 5%;
+}
+
+    .add-table td, .add-table th {
+        padding: 5px;
+    }
+
+    .add-table th {
+        text-align: right;
+        width: 35%;
+    }
+
+    .add-table input, .add-table textarea {
+        width: 80%;
+        padding: 5px;
+    }
+
+    .add-table textarea {
+        min-height: 200px;
+    }
+
+.add-container {
+    margin-bottom: 10%;
+}
+
+.add-submit {
+    text-align: center;
+}
+
+/*EDIT BUTTON*/
+.edit {
+    position: absolute;
+    right: 19px;
+    top: 46px;
+    opacity: 0.3;
+    color: black;
+}
+
+.block .box .edit:before {
+    position: absolute;
+    left: 15px;
+    content: '\270F';
+    font-size: 18px;
+    height: 10px;
+    width: 0px;
+    transform: rotate(135deg);
+}
+
+.block .box .edit:hover {
+    opacity: 1;
+    color: black;
 }

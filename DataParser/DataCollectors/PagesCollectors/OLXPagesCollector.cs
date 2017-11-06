@@ -29,12 +29,12 @@ namespace DataParser.DataCollectors.PagesCollectors
             {
                 var htmlDoc = web.Load(startPage);
                 bool isRunning = true;
-                int previousNumber = GetPageNumber(GetNextNavLink(htmlDoc));
+                int previousNumber = 1;
 
                 while (isRunning)
                 {
                     string nextLink = GetNextNavLink(htmlDoc);
-                    int pageNumber = GetPageNumber(nextLink);
+                    int pageNumber = GetPageNumber(web.ResponseUri);
 
                     if (pageNumber < previousNumber)
                         break;
@@ -79,9 +79,9 @@ namespace DataParser.DataCollectors.PagesCollectors
             return node == null ? string.Empty : node.GetAttributeValue("href", string.Empty);
         }
 
-        private static int GetPageNumber(string uri)
+        private static int GetPageNumber(Uri uri)
         {
-            var queryString = new Uri(uri).Query;
+            var queryString = uri.Query;
             var queryDictionary = System.Web.HttpUtility.ParseQueryString(queryString);
 
             string index = queryDictionary.Get("page");

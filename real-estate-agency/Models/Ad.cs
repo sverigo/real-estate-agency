@@ -48,6 +48,8 @@ public partial class Ad
 
     public string RoomsCount { get; set; }
 
+    public string PrevImage { get; set; }
+
 }
 
 }
