@@ -2,59 +2,88 @@
     Layout = "~/Views/Shared/header.cshtml";
 }
 
-<main>
-    @foreach (var item in ViewBag.Ads)
+@using System.Xml.Serialization;
+
+@{ 
+    XmlSerializer formatter = new XmlSerializer(typeof(List<string>));
+    List<string> imgList = new List<string>();
+    List<string> phoneList = new List<string>();
+}
+
+@using (StringReader reader = new StringReader(Model.Images))
+{
+    imgList = (List<string>)formatter.Deserialize(reader);
+}
+@try
+{
+    using (StringReader reader = new StringReader(Model.Phone))
     {
-        var src = item.PrevImage;
-        if (item.PrevImage == null)
-        {
-            src = "../../Content/images/nophoto.png";
-        }
-        <div class="information">
-            <div class="detail-title">
-                <h2>@item.Title</h2>
+        phoneList = (List<string>)formatter.Deserialize(reader);
+    }
+} catch
+{
+    throw;
+}
+
+<main>
+@{
+    <div style="text-align: right;">
+        <a href="@Model.AdUrl" class="origin">Go to origin</a>
+    </div>
+    var src = Model.PrevImage;
+    if (Model.PrevImage == null)
+    {
+        src = "../../Content/images/nophoto.png";
+    }
+    <div class="information">
+        <div class="detail-title">
+            <h2>@Model.Title</h2>
+        </div>
+        <div style="text-align: right;">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "" })
+            @Html.ActionLink("Remove", "Remove", new { id = Model.Id }, new { @class = "" })
+        </div>
+        <div class="row">
+            <div class="prev-image">
+                <img src="@src" />
             </div>
-            <div class="row">
-                <div class="prev-image">
-                    <img src="@src" />
-                </div>
-                <div class="general-info">
-                    <p><strong>Тип: </strong>@item.Type </p>
-                    <p><strong>Адрес: </strong><span id="Address">@item.Address</span> </p>
-                    <p><strong>Комнат: </strong> @item.RoomsCount </p>
-                    @if (item.Floors != null && item.FloorsCount != null)
-                    {
-                        <p><strong>Этаж: </strong>   @item.Floors из @item.FloorsCount </p>
-                    }
-                    @if (item.Area != null)
-                    {
-                        <p><strong>Площадь: </strong>@item.Area </p>
-                    }
-                    <p><strong>Цена: </strong>   @item.Value </p>
-                    <p><strong>Арендатор: </strong>@item.Author </p>
-                    <div class="phone-set">
-                        <p><strong>Телефон(ы): </strong></p>
-                        @foreach (var phoneItem in ViewBag.PhoneItems)
-                        {
-                            <p>@phoneItem</p>
-                        }
-                    </div>
-                </div>
-            </div>
-            <div class="description">
-                <p>@item.Details</p>
-            </div>
-            <div class="image-set">
-                @foreach (var i in ViewBag.ImgItems)
+            <div class="general-info">
+                <p><strong>Тип: </strong>@Model.Type </p>
+                <p><strong>Адрес: </strong><span id="Address">@Model.Address</span> </p>
+                <p><strong>Комнат: </strong> @Model.RoomsCount </p>
+                @if (Model.Floors != null && Model.FloorsCount != null)
                 {
-                    <img src='@i' />
+                    <p><strong>Этаж: </strong>   @Model.Floors из @Model.FloorsCount </p>
                 }
-            </div>
-            <div class="map-block">
-                <div id="map"></div>
+                @if (Model.Area != null)
+                {
+                    <p><strong>Площадь: </strong>@Model.Area </p>
+                }
+                <p><strong>Цена: </strong>   @Model.Value </p>
+                <p><strong>Арендатор: </strong>@Model.Author </p>
+                <div class="phone-set">
+                    <p><strong>Телефон(ы): </strong></p>
+                    @foreach (var phoneItem in phoneList)
+                    {
+                        <p>@phoneItem</p>
+                    }
+                </div>
             </div>
         </div>
-    }
+        <div class="description">
+            <p>@Model.Details</p>
+        </div>
+        <div class="image-set">
+            @foreach (var img in imgList)
+            {
+                <img src='@img' />
+            }
+        </div>
+        <div class="map-block">
+            <div id="map"></div>
+        </div>
+    </div>
+}
 </main>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs0eQvxU2jsqf71-Smlevn-NsX8W_V74g&callback=initMap"></script>
 <script src="~/Scripts/mapInitialize.js"></script>

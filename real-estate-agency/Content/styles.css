@@ -22,12 +22,18 @@ body {
 
 .navigation {
     display: flex;
-    width: 90%;
-    margin: 0 5%;
+    width: 100%;
+    padding: 20px 5%;
     font-size: 24px;
     margin-bottom: 20px;
-    background: #bac9f5;
-    box-shadow: 0px -39px 50px 83px rgba(186,201,245,1);
+    background: #485a90;
+    border-bottom: 5px solid white;
+    color: #fff;
+}
+
+.navigation a {
+    color: #fff;
+    text-decoration: none;
 }
 
 .logo-block {
@@ -43,25 +49,39 @@ body {
     margin: auto;
 }
 
-    .buttons-block li {
-        list-style-type: none;
-        display: inline-block;
-    }
+.buttons-block li {
+    list-style-type: none;
+    display: inline-block;
+    transition: 0.2s;
+}
 
-    .buttons-block ul {
-        margin: 0;
-    }
+.buttons-block li:hover {
+    background: #fff;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+.buttons-block li .nav-link:hover {
+    color: #485a90;
+    transition: 0.2s;
+}
+
+.buttons-block ul {
+    margin: 0;
+}
 
 /*PAGES */
 
 .box {
     padding: 15px 0px;
     border-bottom: 1px solid #c2bfcb;
+    transition: 0.7s;
 }
 
-    .box:hover {
-        background: #e4eefd;
-    }
+.box:hover {
+    background: #b6d3ff;
+    transition: 0.5s;
+}
 
 .img-box {
     width: 50%;
@@ -142,7 +162,7 @@ main {
 }
 
 .information .row {
-    background-color: #e4eefd;
+    background-color: #b6d3ff;
     padding: 10px 0px;
     border-bottom: 1px solid #c2bfcb;
 }

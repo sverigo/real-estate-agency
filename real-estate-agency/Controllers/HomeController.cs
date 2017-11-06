@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using real_estate_agency.Models;
 using DataParser;
@@ -15,15 +14,11 @@ namespace real_estate_agency.Controllers
     public class HomeController : Controller
     {
         AdManager db = new AdManager();
-        private string img, phone;
         XmlSerializer formatter = new XmlSerializer(typeof(List<string>));
-        List<string> imgList = new List<string>();
-        List<string> phoneList = new List<string>();
 
         public ActionResult Index(int? page)
         {
             var Items = db.GetItems().ToList();
-            var currentImg = from i in Items select i.Images;
 
             int pageNumber = page ?? 1;
             int pageSize = 10;
@@ -35,34 +30,11 @@ namespace real_estate_agency.Controllers
         {
             IEnumerable<Ad> ads = db.GetItems();
             if (id == null)
-            {
                 return Redirect("/Home/Index");
-            }
 
             var currentAd = from i in ads where i.Id == id select i;
-            var currentImg = from i in ads where i.Id == id select i.Images;
-            var currentPhone = from j in ads where j.Id == id select j.Phone;
 
-            using (StringReader reader = new StringReader(currentImg.FirstOrDefault()))
-            {
-                imgList = (List<string>)formatter.Deserialize(reader);
-            }
-            try
-            {
-                using (StringReader reader = new StringReader(currentPhone.FirstOrDefault()))
-                {
-                    phoneList = (List<string>)formatter.Deserialize(reader);
-                }
-            }
-            catch
-            {
-                throw;
-            }
-
-            ViewBag.Ads = currentAd;
-            ViewBag.ImgItems = imgList;
-            ViewBag.PhoneItems = phoneList;
-            return View();
+            return View(currentAd.FirstOrDefault());
         }
 
         public ActionResult Click()
@@ -76,8 +48,6 @@ namespace real_estate_agency.Controllers
                 {
                     formatter.Serialize(writer, adModel.Images.ToList());
                     xmlImages = writer.ToString();
-                    //formatter.Serialize(writer, item.Phones.ToList());
-                    //phone = writer.ToString();
                 }
                 using (StringWriter phoneWriter = new StringWriter())
                 {
@@ -95,11 +65,12 @@ namespace real_estate_agency.Controllers
                     Floors = adModel.Floor,
                     FloorsCount = adModel.FloorCount,
                     RoomsCount = adModel.RoomCount,
-                    Images = xmlImages, // Collection
-                    Phone = xmlPhones, // Collection
+                    Images = xmlImages,
+                    Phone = xmlPhones,
                     Value = adModel.Price,
                     Details = adModel.Details,
-                    PrevImage = adModel.PreviewImg
+                    PrevImage = adModel.PreviewImg,
+                    AdUrl = adModel.Url
                 };
 
                 return newAd;
@@ -108,7 +79,6 @@ namespace real_estate_agency.Controllers
             using (var dbRea = new RealEstateDBEntities())
             {
                 dbRea.Ads.AddRange(preparedEntities);
-                //dbRea.Entry(newAd).State = System.Data.Entity.EntityState.Added;
                 try
                 {
                     dbRea.SaveChanges();
@@ -119,7 +89,7 @@ namespace real_estate_agency.Controllers
                 }
             }
 
-            return View();
+            return Redirect("/Home/Index");
         }
 
         public ActionResult Add()
@@ -148,7 +118,9 @@ namespace real_estate_agency.Controllers
                     ad.Images = writer.ToString();
                 }
             }
-            catch { throw; }
+            catch {
+                throw;
+            }
             dbb.Entry(ad).State = EntityState.Added;
             dbb.SaveChanges();
             return RedirectToAction("Index");
@@ -158,33 +130,11 @@ namespace real_estate_agency.Controllers
         {
             IEnumerable<Ad> ads = db.GetItems();
             if (id == null)
-            {
                 return Redirect("/Home/Index");
-            }
 
             var currentAd = from i in ads where i.Id == id select i;
-            var currentImg = from i in ads where i.Id == id select i.Images;
-            var currentPhone = from j in ads where j.Id == id select j.Phone;
 
-            using (StringReader reader = new StringReader(currentImg.FirstOrDefault()))
-            {
-                imgList = (List<string>)formatter.Deserialize(reader);
-            }
-            try
-            {
-                using (StringReader reader = new StringReader(currentPhone.FirstOrDefault()))
-                {
-                    phoneList = (List<string>)formatter.Deserialize(reader);
-                }
-            }
-            catch
-            {
-                throw;
-            }
-            ViewBag.Ads = currentAd;
-            ViewBag.ImgItems = imgList;
-            ViewBag.PhoneItems = phoneList;
-            return View();
+            return View(currentAd.FirstOrDefault());
         }
 
         [HttpPost]
@@ -207,7 +157,9 @@ namespace real_estate_agency.Controllers
                     ad.Images = writer.ToString();
                 }
             }
-            catch { throw; }
+            catch {
+                throw;
+            }
             dbb.Entry(ad).State = EntityState.Modified;
             dbb.SaveChanges();
             return RedirectToAction("Index");
