@@ -28,7 +28,14 @@
 <main>
 @{
     <div style="text-align: right;">
-        <a href="@Model.AdUrl" class="origin">Go to origin</a>
+        @if (Model.AdUrl != null)
+        {
+            <a href="@Model.AdUrl" class="origin">Go to origin</a>
+        }
+        else
+        {
+            <p class="origin">It is origin</p>
+        }
     </div>
     var src = Model.PrevImage;
     if (Model.PrevImage == null)

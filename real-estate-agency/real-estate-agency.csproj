@@ -190,7 +190,7 @@
     <Content Include="Content\images\ex-3.jpg" />
     <Content Include="Content\images\nophoto.png" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Content\styles.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
