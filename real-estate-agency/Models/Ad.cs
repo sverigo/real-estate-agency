@@ -50,6 +50,8 @@ public partial class Ad
 
     public string PrevImage { get; set; }
 
+    public string AdUrl { get; set; }
+
 }
 
 }

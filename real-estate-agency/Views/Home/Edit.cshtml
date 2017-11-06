@@ -1,72 +1,96 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/header.cshtml";
+}
+
+@using System.Xml.Serialization;
+
+@{
+    XmlSerializer formatter = new XmlSerializer(typeof(List<string>));
+    List<string> imgList = new List<string>();
+    List<string> phoneList = new List<string>();
+}
+
+@using (StringReader reader = new StringReader(Model.Images))
+{
+    imgList = (List<string>)formatter.Deserialize(reader);
+}
+@try
+{
+    using (StringReader reader = new StringReader(Model.Phone))
+    {
+        phoneList = (List<string>)formatter.Deserialize(reader);
+    }
+} catch
+{
+    throw;
 }
 
 <main>
     <div class="add-title">
         <h2>Edit the Ad</h2>
     </div>
-    @foreach (var item in ViewBag.Ads)
-    {
-        <form method="post" action="#">
-            <div class="add-container">
-                <table class="add-table">
-                    <tr>
-                        <th>Заголовок</th>
-                        <td><input type="text" name="Title" value="@item.Title" /></td>
-                    </tr>
-                    <tr>
-                        <th>Категория</th>
-                        <td><input type="text" name="Type" value="@item.Type" /></td>
-                    </tr>
-                    <tr>
-                        <th>Адрес</th>
-                        <td><input type="text" name="Address" value="@item.Address" /></td>
-                    </tr>
-                    <tr>
-                        <th>Площадь</th>
-                        <td><input type="text" name="Area" value="@item.Area" /></td>
-                    </tr>
-                    <tr>
-                        <th>Автор</th>
-                        <td><input type="text" name="Author" value="@item.Author" /></td>
-                    </tr>
-                    <tr>
-                        <th>Цена</th>
-                        <td><input type="text" name="Value" value="@item.Value" /></td>
-                    </tr>
-                    <tr>
-                        <th>Описание</th>
-                        <td><textarea name="Details">@item.Details.ToString()</textarea></td>
-                    </tr>
-                    <tr>
-                        <th>Этаж</th>
-                        <td><input type="text" name="Floors" value="@item.Floors" /></td>
-                    </tr>
-                    <tr>
-                        <th>Этажность</th>
-                        <td><input type="text" name="FloorsCount" value="@item.FloorsCount" /></td>
-                    </tr>
-                    <tr>
-                        <th>Количество комнат</th>
-                        <td><input type="text" name="RoomsCount" value="@item.RoomsCount" /></td>
-                    </tr>
-                    <tr>
-                        <th>Телефон</th>
-                        @foreach (var phoneItem in ViewBag.PhoneItems)
-                        {
-                            <td><input type="text" name="Phone" value="@phoneItem" /></td>
-                        }
-                    </tr>
-                    <tr>
-                        <td class="add-submit" colspan="2"><input type="submit" value="Изменить" /></td>
-                    </tr>
-                </table>
-
-            </div>
-        </form>
-
-    }
-
+    <form method="post" action="#">
+        <div class="add-container">
+            <table class="add-table">
+                <tr>
+                    <th>prevImage</th>
+                    <td>
+                        <img src="@Model.PrevImage" />
+                        <input type="text" name="PrevImage" value="@Model.PrevImage" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Заголовок</th>
+                    <td><input type="text" name="Title" value="@Model.Title" /></td>
+                </tr>
+                <tr>
+                    <th>Категория</th>
+                    <td><input type="text" name="Type" value="@Model.Type" /></td>
+                </tr>
+                <tr>
+                    <th>Адрес</th>
+                    <td><input type="text" name="Address" value="@Model.Address" /></td>
+                </tr>
+                <tr>
+                    <th>Площадь</th>
+                    <td><input type="text" name="Area" value="@Model.Area" /></td>
+                </tr>
+                <tr>
+                    <th>Автор</th>
+                    <td><input type="text" name="Author" value="@Model.Author" /></td>
+                </tr>
+                <tr>
+                    <th>Цена</th>
+                    <td><input type="text" name="Value" value="@Model.Value" /></td>
+                </tr>
+                <tr>
+                    <th>Описание</th>
+                    <td><textarea name="Details">@Model.Details.ToString()</textarea></td>
+                </tr>
+                <tr>
+                    <th>Этаж</th>
+                    <td><input type="text" name="Floors" value="@Model.Floors" /></td>
+                </tr>
+                <tr>
+                    <th>Этажность</th>
+                    <td><input type="text" name="FloorsCount" value="@Model.FloorsCount" /></td>
+                </tr>
+                <tr>
+                    <th>Количество комнат</th>
+                    <td><input type="text" name="RoomsCount" value="@Model.RoomsCount" /></td>
+                </tr>
+                <tr>
+                    <th>Телефон</th>
+                    @foreach (var phoneItem in phoneList)
+                    {
+                        <td><input type="text" name="Phone" value="@phoneItem" /></td>
+                    }
+                </tr>
+                <tr>
+                    <td class="add-submit" colspan="2"><input type="submit" value="Изменить" /></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+}
 </main>
