@@ -18,7 +18,7 @@ namespace real_estate_agency.Controllers
 
         public ActionResult Index(int? page)
         {
-            var Items = db.GetItems().ToList();
+            var Items = db.GetItems().Reverse().ToList();
 
             int pageNumber = page ?? 1;
             int pageSize = 10;
