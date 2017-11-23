@@ -7,6 +7,16 @@ namespace DataParser.Models
     internal enum Resource { NULL = 0, OLX }
     public class AdvertismentModel
     {
+        public AdvertismentModel()
+        {
+
+        }
+
+        public AdvertismentModel(string url)
+        {
+            Url = url;
+        }
+
         private string url;
 
         public string Url { get { return url; }

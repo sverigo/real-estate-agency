@@ -173,5 +173,45 @@ namespace real_estate_agency.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public JsonResult GetPhoneAjax(int id)
+        {
+            IEnumerable<Ad> ads = db.GetItems();
+            var currentAd = (from i in ads where i.Id == id select i).FirstOrDefault();
+
+            List<string> numbers = null;
+
+            List<string> phonesList = null;
+            using (StringReader reader = new StringReader(currentAd.Phone))
+            {
+                phonesList = (List<string>)formatter.Deserialize(reader);
+            }
+
+            if(phonesList.Count == 0)
+            {
+                var parserModel = new DataParser.Models.AdvertismentModel(currentAd.AdUrl);
+                numbers = parserModel.CollectPhones().ToList();
+
+                string xmlPhones = string.Empty;
+                using (StringWriter writer = new StringWriter())
+                {
+                    formatter.Serialize(writer, numbers);
+                    xmlPhones = writer.ToString();
+                }
+
+                currentAd.Phone = xmlPhones;
+
+                RealEstateDBEntities dbb = new RealEstateDBEntities();
+                dbb.Entry(currentAd).State = EntityState.Modified;
+                dbb.SaveChanges();
+            }
+            else
+            {
+                numbers = phonesList;
+            }
+            
+            return Json(numbers.ToList(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -29,24 +29,30 @@ namespace DataParser.DataCollectors.PagesCollectors
             {
                 var htmlDoc = web.Load(startPage);
                 bool isRunning = true;
-
-                int previousNumber = GetPageNumber(GetNextNavLink(htmlDoc));
+                int previousNumber = 1;
 
                 while (isRunning)
                 {
                     string nextLink = GetNextNavLink(htmlDoc);
-                    int pageNumber = GetPageNumber(nextLink);
+                    int pageNumber = GetPageNumber(web.ResponseUri);
 
                     if (pageNumber < previousNumber)
                         break;
 
                     previousNumber = pageNumber;
 
-                    htmlDoc?.DocumentNode.SelectSingleNode("//table[@id='offers_table']").SelectNodes("//td").Where("class", string.Format(regexOfferPattern, "offer")).ToList().ForEach(offer =>
+                    htmlDoc?.DocumentNode.SelectSingleNode("//table[@id='offers_table']").SelectNodes(".//td").Where("class", string.Format(regexOfferPattern, "offer")).ToList().ForEach(offer =>
                     {
                         var aNode = offer.SelectSingleNode(".//a");
+                        var dateString = offer.SelectSingleNode(".//div[@class='space rel']/p[2]").InnerText.Trim();
 
-                        if (count == 0 || links.Count < count)
+                        bool containsToday = dateString.Contains("Сегодня");
+                        bool containsYesterday = dateString.Contains("Вчера");
+                        
+                        if (count == 0 && !containsToday && !containsYesterday)
+                            isRunning = false;
+
+                        if (isRunning && (count == 0 || links.Count < count))
                             links.Add(aNode.GetAttributeValue("href", string.Empty));
                         else
                             isRunning = false;
@@ -73,9 +79,9 @@ namespace DataParser.DataCollectors.PagesCollectors
             return node == null ? string.Empty : node.GetAttributeValue("href", string.Empty);
         }
 
-        private static int GetPageNumber(string uri)
+        private static int GetPageNumber(Uri uri)
         {
-            var queryString = new Uri(uri).Query;
+            var queryString = uri.Query;
             var queryDictionary = System.Web.HttpUtility.ParseQueryString(queryString);
 
             string index = queryDictionary.Get("page");

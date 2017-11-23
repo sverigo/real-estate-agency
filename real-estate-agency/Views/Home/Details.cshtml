@@ -10,22 +10,47 @@
     List<string> phoneList = new List<string>();
 }
 
-@using (StringReader reader = new StringReader(Model.Images))
-{
-    imgList = (List<string>)formatter.Deserialize(reader);
-}
-@try
-{
-    using (StringReader reader = new StringReader(Model.Phone))
+@{using (StringReader reader = new StringReader(Model.Images))
     {
-        phoneList = (List<string>)formatter.Deserialize(reader);
+        imgList = (List<string>)formatter.Deserialize(reader);
     }
-} catch
-{
-    throw;
-}
+    try
+    {
+        using (StringReader reader = new StringReader(Model.Phone))
+        {
+            phoneList = (List<string>)formatter.Deserialize(reader);
+        }
+    } catch
+    {
+        throw;
+    } }
+
+<script>
+    var viewModel = { phones: ko.observableArray() }
+
+    $(document).ready(function () {
+        ko.applyBindings(viewModel);
+    });
+
+    function showPhone() {
+
+         $.ajax({
+             type: "GET",
+             url: "/Home/GetPhoneAjax",
+             data: {"id" : @Model.Id },
+             contentType: "application/json; charset=utf-8",
+             success: function (response, status) {
+                 viewModel.phones.push.apply(viewModel.phones, response);
+             },
+             failure: function (response) {
+                 alert(response);
+             }
+         });
+     }
+</script>
 
 <main>
+   
 @{
     <div style="text-align: right;">
         @if (Model.AdUrl != null)
@@ -89,6 +114,16 @@
         <div class="map-block">
             <div id="map"></div>
         </div>
+
+        <ul data-bind="foreach: phones">
+            <li data-bind="text: $data"></li>
+        </ul>
+
+        <form id="frm" method="get">
+            <button id="button" type="button" onclick="showPhone()">Click</button>
+
+        </form>
+        
     </div>
 }
 </main>
