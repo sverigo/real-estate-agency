@@ -39,7 +39,7 @@ namespace real_estate_agency.Controllers
 
         public ActionResult Click()
         {
-            var result = DataCollector.CollectFromOLX(1);
+            var result = DataCollector.CollectFromOLX(5);
             var preparedEntities = result.Select(adModel =>
             {
                 string xmlImages = string.Empty;
