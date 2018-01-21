@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "~/Views/Shared/header.cshtml";
+}
+
+<main>
+    <div class="add-title">
+        <h2>Add something new</h2>
+    </div>
+    <form method="post" action="#">
+        <div class="add-container">
+            <table class="add-table">
+                <tr>
+                    <th>Заголовок</th>
+                    <td><input type="text" name="Title" /></td>
+                </tr>
+                <tr>
+                    <th>Категория</th>
+                    <td><input type="text" name="Type" /></td>
+                </tr>
+                <tr>
+                    <th>Адрес</th>
+                    <td><input type="text" name="Address" /></td>
+                </tr>
+                <tr>
+                    <th>Площадь</th>
+                    <td><input type="text" name="Area" /></td>
+                </tr>
+                <tr>
+                    <th>Автор</th>
+                    <td><input type="text" name="Author" /></td>
+                </tr>
+                <tr>
+                    <th>Цена</th>
+                    <td><input type="text" name="Value" /></td>
+                </tr>
+                <tr>
+                    <th>Описание</th>
+                    <td><textarea name="Details"></textarea></td>
+
+                </tr>
+                <tr>
+                    <th>Этаж</th>
+                    <td><input type="text" name="Floors" /></td>
+                </tr>
+                <tr>
+                    <th>Этажность</th>
+                    <td><input type="text" name="FloorsCount" /></td>
+                </tr>
+                <tr>
+                    <th>Количество комнат</th>
+                    <td><input type="text" name="RoomsCount" /></td>
+                </tr>
+                <tr>
+                    <th>Телефон</th>
+                    <td><input type="text" name="Phone" /></td>
+                </tr>
+                <tr>
+                    <td class="add-submit" colspan="2"><input type="submit" value="Добавить" /></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</main>

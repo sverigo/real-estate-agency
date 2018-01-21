@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
+using System.Threading.Tasks;
 using System.Diagnostics;
 using DataParser.Models;
 using HtmlAgilityPack;
@@ -18,8 +18,6 @@ namespace DataParser.DataCollectors.AdsCollectors
         public OLXAdsCollector(IEnumerable<string> pagesWithAd) : base(pagesWithAd) { }
         public OLXAdsCollector(string pageWithAd) : base(pageWithAd) { }
 
-        private IEnumerable<string> phones;
-
         internal override IEnumerable<CollectedData> CollectAd()
         {
             List<CollectedData> data = new List<CollectedData>();
@@ -27,39 +25,37 @@ namespace DataParser.DataCollectors.AdsCollectors
             HtmlWeb web = new HtmlWeb();
 
             System.Diagnostics.Debug.WriteLine("Collecting ads...");
-            pagesWithAds.ToList().ForEach(page =>
+            System.Diagnostics.Debug.WriteLine("Ads to parse: " + pagesWithAds.Count());
+
+            Parallel.ForEach(pagesWithAds.ToList(), page =>
             {
+                IEnumerable<string> phones;
                 System.Diagnostics.Debug.WriteLine(page);
                 System.Diagnostics.Debug.WriteLine("Collecting data...");
                 try
                 {
                     HtmlDocument document = web.Load(page);
 
-                    var commonFields = CollectCommonData(document);
+                    var commonFields = CollectCommonData(document, out phones);
                     var variativeFieds = CollectVariativeData(document);
                     var images = CollectPhotos(document);
 
-                    if (HasPhoneButton(document))
-                    {
-                        System.Diagnostics.Debug.WriteLine("Collecting phones...");
-                        this.phones = phoneCollector.CollectPhone(page);
-                    }
-
-                    data.Add(new CollectedData(commonFields, variativeFieds, images, this.phones, page));
+                    data.Add(new CollectedData(commonFields, variativeFieds, images, phones, page));
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine(page);
                     Debug.WriteLine(ex.Message);
-                } 
+                }
             });
 
             return data;
         }
 
-        private Dictionary<string, string> CollectCommonData(HtmlDocument document)
+        private Dictionary<string, string> CollectCommonData(HtmlDocument document, out IEnumerable<string> phones)
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            phones = null;
 
             try
             {
@@ -82,7 +78,7 @@ namespace DataParser.DataCollectors.AdsCollectors
                 var spoilersHidden = detailsDiv.SelectNodes(".//span[@class]")?.Where("class", spoilerHiddenRegex);
                 if (spoilersHidden != null)
                 {
-                    this.phones = spoilersHidden.Select(span => span.GetAttributeValue("data-phone", string.Empty).Insert(0, "("));
+                    phones = spoilersHidden.Select(span => span.GetAttributeValue("data-phone", string.Empty).Insert(0, "("));
                     spoilersHidden.ToList().ForEach(span =>
                     {
                         span.PreviousSibling.Remove();
