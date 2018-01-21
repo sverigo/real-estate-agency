@@ -10,8 +10,8 @@ namespace DataParser.DataCollectors.PhoneCollectors
     internal class WebBrowserController
     {
         internal WebBrowser Browser { get; private set; }
-        internal System.Windows.Forms.Timer Timer { get; private set; }
         private static WebBrowserController instance;
+        private Thread thread;
 
         internal static WebBrowserController Instance
         {
@@ -28,12 +28,12 @@ namespace DataParser.DataCollectors.PhoneCollectors
                     {
                         //System.Windows.Forms.Form form = new System.Windows.Forms.Form();
 
-                        var thread = Thread.CurrentThread;
+                        instance.thread = Thread.CurrentThread;
 
                         instance.Browser = new WebBrowser();
                         instance.Browser.ScriptErrorsSuppressed = true;
-                        //browser.Dock = DockStyle.Fill;
-                        //form.Controls.Add(browser);
+                        instance.Browser.Dock = DockStyle.Fill;
+                        //form.Controls.Add(instance.Browser);
                         //form.FormClosed += (o, e) =>
                         //{
 
@@ -46,20 +46,9 @@ namespace DataParser.DataCollectors.PhoneCollectors
                         //};
                         //form.Show();
                         instance.Browser.AllowNavigation = true;
-                        instance.Timer = new System.Windows.Forms.Timer();
 
                         local.Set();
                         Application.Run();
-
-                        instance.Timer.Stop();
-                        instance.Browser.Dispose();
-                        instance.Browser = null;
-                        instance.Timer.Dispose();
-                        instance.Timer = null;
-
-                        GC.Collect();
-                        GC.Collect();
-
                     }
                     catch (Exception)
                     {
@@ -73,6 +62,11 @@ namespace DataParser.DataCollectors.PhoneCollectors
 
                 return instance;
             }
+        }
+
+        internal void Dispose()
+        {
+            instance.Browser.Invoke(new Action(() => Application.Exit()));
         }
     }
 }

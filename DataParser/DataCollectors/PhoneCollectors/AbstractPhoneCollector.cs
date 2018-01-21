@@ -8,13 +8,12 @@ using System.Windows.Forms;
 namespace DataParser.DataCollectors.PhoneCollectors
 {
     abstract class AbstractPhoneCollector
-    {
-        private int tryCount;
-        
+    {      
         protected IEnumerable<string> phones;
         
         protected AutoResetEvent resetEvent = new AutoResetEvent(false);
         private static object locker = new object();
+        protected string currentUrl;
 
         protected AbstractPhoneCollector()
         {
@@ -25,46 +24,43 @@ namespace DataParser.DataCollectors.PhoneCollectors
         {
             lock(locker)
             {
+                currentUrl = url;
                 resetEvent.Reset();
                 var controller = WebBrowserController.Instance;
 
                 controller.Browser.DocumentCompleted += DocumentCompletedHandler;
-                controller.Timer.Interval = 6000;
-                controller.Timer.Tick += TimerTickHandler;
 
                 controller.Browser.Invoke(new Action(() =>
-                {
-                    controller.Browser.Navigate(url);
-                    controller.Timer.Start();
-                }
-               ));
+                    {
+                        controller.Browser.Navigate(url);
+                        Initialize();
+                    }
+                ));
 
+                
                 resetEvent.WaitOne();
 
                 controller.Browser.Invoke(new Action(() =>
                 {
                     controller.Browser.Stop();
-                    controller.Timer.Stop();
+                    Dispose();
                 }
                ));
 
                 controller.Browser.DocumentCompleted -= DocumentCompletedHandler;
-                controller.Timer.Tick -= TimerTickHandler;
             }
             
             return this.phones;
         }
 
-        private void TimerTickHandler(object sender, EventArgs handler)
+        private void Browser_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
-            if (phones == null)
-                WebBrowserController.Instance.Browser.Refresh();
-
-            tryCount++;
-            if (tryCount > Constants.Common.HelperConstants.MaxTryCount)
-                resetEvent.Set();
+           
+            throw new NotImplementedException();
         }
 
+        protected abstract void Initialize();
+        protected abstract void Dispose();
         protected abstract void DocumentCompletedHandler(object sender, WebBrowserDocumentCompletedEventArgs e);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DataParser.DataCollectors.PhoneCollectors;
 
 namespace DataParser.Models
@@ -52,6 +53,8 @@ namespace DataParser.Models
 
         public IEnumerable<string> CollectPhones()
         {
+            if (Phones != null && Phones.Count() > 0) return Phones;
+
             switch(Resource)
             {
                 case Resource.OLX:
