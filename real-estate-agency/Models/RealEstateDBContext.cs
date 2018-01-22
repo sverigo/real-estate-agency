@@ -7,6 +7,8 @@ using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using real_estate_agency.Infrastructure;
 
 namespace real_estate_agency.Models
 {
@@ -14,7 +16,10 @@ namespace real_estate_agency.Models
     {
         public DbSet<Ad> Ads { get; set; }
 
-        public RealEstateDBContext() : base("RealEstateAgencyDB") { }
+        public RealEstateDBContext() : base("RealEstateAgencyDB")
+        {
+            HttpContext.Current.GetOwinContext().GetUserManager<AppUserManager>().Users.FirstOrDefault();
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

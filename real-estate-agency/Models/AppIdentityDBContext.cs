@@ -56,7 +56,7 @@ namespace real_estate_agency.Models
             string email = "admin@gmail.com";
 
             if (!roleMng.RoleExists(roleName))
-                roleMng.CreateAsync(new AppRole(roleName));
+                roleMng.Create(new AppRole(roleName));
 
             AppUser user = userMng.FindByName(userName);
             if (user == null)
