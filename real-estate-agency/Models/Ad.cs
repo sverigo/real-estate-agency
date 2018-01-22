@@ -44,8 +44,8 @@ namespace real_estate_agency.Models
 
         public bool IsPremium { get; set; }
 
-        //user
-
-        //user bookmark
+        public virtual AppUser Owner { get; set; }
+        
+        public virtual HashSet<AppUser> UsersBookmarks { get; set; }
     }
 }
