@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace real_estate_agency.Infrastructure
 {
@@ -11,6 +9,7 @@ namespace real_estate_agency.Infrastructure
     {
         public override async Task<IdentityResult> ValidateAsync(string password)
         {
+            IdentityResult result = await base.ValidateAsync(password);
             List<string> errors = new List<string>();
 
             if (password.Length < 6)
@@ -27,7 +26,7 @@ namespace real_estate_agency.Infrastructure
             if (errors.Any())
                 return new IdentityResult(errors);
             else
-                return new IdentityResult();
+                return result;
         }
     }
 }
