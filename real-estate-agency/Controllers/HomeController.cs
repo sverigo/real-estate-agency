@@ -79,7 +79,7 @@ namespace real_estate_agency.Controllers
                 return newAd;
             });
 
-            using (var dbRea = new RealEstateDBEntities())
+            using (var dbRea = new RealEstateDBContext())
             {
                 dbRea.Ads.AddRange(preparedEntities);
                 try
@@ -103,7 +103,7 @@ namespace real_estate_agency.Controllers
         [HttpPost]
         public ActionResult Add(Ad ad)
         {
-            RealEstateDBEntities dbb = new RealEstateDBEntities();
+            RealEstateDBContext dbb = new RealEstateDBContext();
             List<string> phones = new List<string>();
             phones.Add(ad.Phone);
             var image = ad.Images;
@@ -143,7 +143,7 @@ namespace real_estate_agency.Controllers
         [HttpPost]
         public ActionResult Edit(Ad ad)
         {
-            RealEstateDBEntities dbb = new RealEstateDBEntities();
+            RealEstateDBContext dbb = new RealEstateDBContext();
             List<string> phones = new List<string>();
             phones.Add(ad.Phone);
             var image = ad.Images;
@@ -170,7 +170,7 @@ namespace real_estate_agency.Controllers
 
         public ActionResult Remove(int id)
         {
-            RealEstateDBEntities db = new RealEstateDBEntities();
+            RealEstateDBContext db = new RealEstateDBContext();
             Ad ad = new Ad { Id = id };
             db.Entry(ad).State = EntityState.Deleted;
             db.SaveChanges();
@@ -206,7 +206,7 @@ namespace real_estate_agency.Controllers
 
                 currentAd.Phone = xmlPhones;
 
-                RealEstateDBEntities dbb = new RealEstateDBEntities();
+                RealEstateDBContext dbb = new RealEstateDBContext();
                 dbb.Entry(currentAd).State = EntityState.Modified;
                 dbb.SaveChanges();
             }
