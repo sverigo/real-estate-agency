@@ -39,7 +39,7 @@ namespace real_estate_agency.Infrastructure
             if (id <= 0)
                 throw new Exception("Invalid ID");
 
-            var adToDelete = dataBase.Ads.Where(ad => ad.Id == id).FirstOrDefault();
+            var adToDelete = FindById(id);
             dataBase.Ads.Remove(adToDelete);
             dataBase.SaveChanges();
         }
@@ -96,7 +96,7 @@ namespace real_estate_agency.Infrastructure
         public List<string> GetPhonesForAd(int id)
         {
             List<string> phoneList;
-            Ad currentAd = dataBase.Ads.Where(ad => ad.Id == id).FirstOrDefault();
+            Ad currentAd = FindById(id);
 
             phoneList = StringImgPhoneConverter.StringToList(currentAd.Phone);
 
