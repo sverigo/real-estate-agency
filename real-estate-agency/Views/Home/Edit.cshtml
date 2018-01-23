@@ -2,28 +2,7 @@
     Layout = "~/Views/Shared/header.cshtml";
 }
 
-@using System.Xml.Serialization;
-
-@{
-    XmlSerializer formatter = new XmlSerializer(typeof(List<string>));
-    List<string> imgList = new List<string>();
-    List<string> phoneList = new List<string>();
-}
-
-@using (StringReader reader = new StringReader(Model.Images))
-{
-    imgList = (List<string>)formatter.Deserialize(reader);
-}
-@try
-{
-    using (StringReader reader = new StringReader(Model.Phone))
-    {
-        phoneList = (List<string>)formatter.Deserialize(reader);
-    }
-} catch
-{
-    throw;
-}
+@using real_estate_agency.Infrastructure;
 
 <main>
     <div class="add-title">
@@ -81,7 +60,7 @@
                 </tr>
                 <tr>
                     <th>Телефон</th>
-                    @foreach (var phoneItem in phoneList)
+                    @foreach (var phoneItem in StringImgPhoneConverter.StringToList(Model.Phone))
                     {
                         <td><input type="text" name="Phone" value="@phoneItem" /></td>
                     }
