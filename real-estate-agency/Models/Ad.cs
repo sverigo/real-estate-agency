@@ -32,11 +32,11 @@ namespace real_estate_agency.Models
 
         public string Details { get; set; }
 
-        public string Floors { get; set; }
+        public int Floors { get; set; }
 
-        public string FloorsCount { get; set; }
+        public int FloorsCount { get; set; }
 
-        public string RoomsCount { get; set; }
+        public int RoomsCount { get; set; }
 
         public string PrevImage { get; set; }
 
