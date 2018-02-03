@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-
+using Microsoft.Owin.Security.DataProtection;
 
 namespace real_estate_agency.Infrastructure
 {
@@ -23,10 +23,14 @@ namespace real_estate_agency.Infrastructure
             AppUserManager manager = new AppUserManager(new UserStore<AppUser>(db));
 
             manager.PasswordValidator = new CustomPassValidator();
-            manager.UserValidator = new UserValidator<AppUser>(manager)
+            manager.UserValidator = new CustomUserValidator(manager)
             {
-                RequireUniqueEmail = true
+                AllowOnlyAlphanumericUserNames = false
             };
+
+            var provider = new DpapiDataProtectionProvider("real-estate-agency");
+            manager.UserTokenProvider = new DataProtectorTokenProvider<AppUser>(
+                provider.Create("TokenProvider"));
 
             return manager;
         }

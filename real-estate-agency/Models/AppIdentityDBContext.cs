@@ -51,24 +51,26 @@ namespace real_estate_agency.Models
             AppRoleManager roleMng = new AppRoleManager(new RoleStore<AppRole>(context));
 
             string roleName = "Admins";
-            string userName = "Admin";
-            string pass = "adminpass";
+            string login = "Admin";
+            string name = "Administrator";
+            string pass = "adminpass1";
             string email = "admin@gmail.com";
 
             if (!roleMng.RoleExists(roleName))
                 roleMng.Create(new AppRole(roleName));
 
-            AppUser user = userMng.FindByName(userName);
+            AppUser user = userMng.FindByName(login);
             if (user == null)
             {
                 userMng.Create(new AppUser()
                 {
-                    UserName = userName,
+                    UserName = login,
+                    Name = name,
                     Email = email
                 },
                 pass);
 
-                user = userMng.FindByName(userName);
+                user = userMng.FindByName(login);
             }
 
             if (!userMng.IsInRole(user.Id, roleName))

@@ -8,6 +8,6 @@ namespace real_estate_agency.Models
 {
     public class AppUser: IdentityUser
     {
-        public virtual ICollection<Ad> PublishedAds { get; set; }
+        public string Name { get; set; }
     }
 }

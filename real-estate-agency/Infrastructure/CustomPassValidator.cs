@@ -9,7 +9,6 @@ namespace real_estate_agency.Infrastructure
     {
         public override async Task<IdentityResult> ValidateAsync(string password)
         {
-            IdentityResult result = await base.ValidateAsync(password);
             List<string> errors = new List<string>();
 
             if (password.Length < 6)
@@ -17,16 +16,20 @@ namespace real_estate_agency.Infrastructure
                 errors.Add("Длина пароля должна быть не менее 6 символов!");
             }
 
-            if ((password.Where(ch => char.IsDigit(ch)).Count() == 0) ||
-                (password.Where(ch => char.IsLetter(ch)).Count() == 0))
+            if (password.Where(ch => char.IsDigit(ch)).Count() == 0 ||
+                password.Where(ch => 
+                {
+                    char c = char.ToLower(ch);
+                    return char.IsLetter(c) && c >= 'a' && c <= 'z';
+                }).Count() == 0)
             {
-                errors.Add("Пароль должен содержать и цифры, и буквы!");
+                errors.Add("Пароль должен содержать и цифры, и буквы латинского алфавита!");
             }
 
             if (errors.Any())
                 return new IdentityResult(errors);
             else
-                return result;
+                return IdentityResult.Success;
         }
     }
 }

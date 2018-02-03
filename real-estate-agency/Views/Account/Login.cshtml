@@ -1,4 +1,6 @@
-﻿@{
+﻿@using real_estate_agency.Models.ViewModels;
+@model UserLoginViewModel
+@{
     Layout = "~/Views/Shared/header.cshtml";
 }
 
@@ -11,7 +13,22 @@
 </head>
 <body>
     <div> 
-        <h1>Эта страница для входа</h1>
+        <h1>Вход</h1>
+        @Html.ValidationSummary(false)
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="returnURL" value="@ViewBag.returnURL" />
+            <div>
+                <label>Логин или Email</label>
+                @Html.TextBoxFor(x => x.LoginOrEmail)
+            </div>
+            <div>
+                <label>Пароль</label>
+                @Html.PasswordFor(x => x.Password)
+            </div>
+            <button type="submit">Войти</button>
+        }
     </div>
 </body>
 </html>

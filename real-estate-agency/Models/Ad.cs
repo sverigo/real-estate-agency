@@ -7,7 +7,6 @@ namespace real_estate_agency.Models
 {
     public class Ad
     {
-
         public int Id { get; set; }
 
         public string Title { get; set; }
@@ -43,9 +42,5 @@ namespace real_estate_agency.Models
         public string AdUrl { get; set; }
 
         public bool IsPremium { get; set; }
-
-        public virtual AppUser Owner { get; set; }
-        
-        public virtual HashSet<AppUser> UsersBookmarks { get; set; }
     }
 }

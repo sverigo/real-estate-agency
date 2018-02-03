@@ -1,4 +1,5 @@
-﻿@{
+﻿@model real_estate_agency.Models.ViewModels.UserRegisterViewModel
+@{
     Layout = "~/Views/Shared/header.cshtml";
 }
 
@@ -11,7 +12,32 @@
 </head>
 <body>
     <div> 
-        <h1>Это страница для регистрации</h1>
+        <h1>Регистрация</h1>
+        @Html.ValidationSummary(false)
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+        {
+            <div>
+                <label>Логин</label>
+                @Html.TextBoxFor(x => x.Login)
+            </div>
+            <div>
+                <label>Имя</label>
+                @Html.TextBoxFor(x => x.Name)
+            </div>
+            <div>
+                <label>Email</label>
+                @Html.TextBoxFor(x => x.Email)
+            </div>
+            <div>
+                <label>Пароль</label>
+                @Html.PasswordFor(x => x.Password)
+            </div>
+            <div>
+                <label>Подтвердите пароль</label>
+                @Html.PasswordFor(x => x.ConfirmPassword)
+            </div>
+            <button type="submit">Продолжить</button>
+        }
     </div>
 </body>
 </html>
