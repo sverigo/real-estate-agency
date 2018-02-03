@@ -9,7 +9,7 @@ using System.Security.Policy;
 using System.Web.Mvc;
 using real_estate_agency.Models;
 
-namespace StNicholasDay.Email
+namespace real_estate_agency.Email
 {
     public class EmailSender
     {

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using StNicholasDay.Email;
+using real_estate_agency.Email;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
 
