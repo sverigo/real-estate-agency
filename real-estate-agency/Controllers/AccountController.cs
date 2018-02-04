@@ -99,11 +99,13 @@ namespace real_estate_agency.Controllers
                     if (result.Succeeded)
                     {
                         //send email
-                        string id = user.Id;
-                        string token = UserManager.GenerateEmailConfirmationToken(id);
-                        string link = Url.Action("ConfirmEmail", "Account", new { id = user.Id, token = token });
+                        string token = UserManager.GenerateEmailConfirmationToken(user.Id);
+                        string link = Url.Action("ConfirmEmail", "Account", new { id = user.Id, token = token }, 
+                            Request.Url.Scheme);
                         EmailSender.SendConfirmEmail(user, link);
-                        return View("EmailSended", null, user.Email);
+                        string info = $"На вашу почту {user.Email} было отправлено письмо с ссылкой для активации " +
+                            $"учетной записи!";
+                        return View("Info", null, info);
                     }
                     else
                         result.Errors.ToList().ForEach(err => ModelState.AddModelError("", err));
@@ -127,16 +129,74 @@ namespace real_estate_agency.Controllers
             return View("Error", result.Errors);
         }
 
-        //[HttpGet]
-        //public ActionResult ResetPassword(string id, string token)
-        //{
+        [HttpGet]
+        public ActionResult PasswordResetRequest()
+        {
+            return View();
+        }
 
-        //}
+        [HttpPost]
+        public async Task<ActionResult> PasswordResetRequest(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                ModelState.AddModelError("", "Укажите Email!");
+                return View(email);
+            }
 
-        //[HttpPost]
-        //public ActionResult ResetPassword(ResetPasswordViewModel model)
-        //{
+            AppUser user = await UserManager.FindByEmailAsync(email);
+            if (user == null)
+                ModelState.AddModelError("", "Пользователя с таким Email не существует");
+            else
+            {
+                string token = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                string link = Url.Action("ResetPassword", "Account", new { id = user.Id, token = token }, 
+                    Request.Url.Scheme);
+                EmailSender.SendPasswordResetMail(user, link);
+                string info = $"На вашу почту {user.Email} было отправлено письмо с ссылкой для " +
+                            $"сброса пароля!";
+                return View("Info", null, info);
+            }
 
-        //}
+            return View(email);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> ResetPassword(string id, string token)
+        {
+            AppUser user = await UserManager.FindByIdAsync(id);
+            if (user == null)
+                return View("Error");
+
+            ResetPasswordViewModel model = new ResetPasswordViewModel
+            {
+                Id = id,
+                Token = token,
+                Email = user.Email
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                if (model.Password != model.ConfirmPassword)
+                    ModelState.AddModelError("", "Введенные пароли не одинаковы!");
+                else
+                {
+                    IdentityResult result = await UserManager.ResetPasswordAsync(model.Id, 
+                        model.Token, model.Password);
+                    if (result.Succeeded)
+                        return View("Info", null, "Новый пароль успешно установлен!");
+                    else
+                        result.Errors.ToList().ForEach(err => ModelState.AddModelError("", err));
+                }
+            }
+
+            return View(model);
+        }
     }
 }

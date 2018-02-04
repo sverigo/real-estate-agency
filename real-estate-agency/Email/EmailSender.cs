@@ -47,7 +47,7 @@ namespace real_estate_agency.Email
             };
             message.Body = $"Здравствуйте, {user.Name}<br>" +
                 $"Для завершения регистрации активируйте Вашу учетную запись.<br>" +
-                $"<a href=\"http://localhost:53687{link}\">Активировать!</a>";
+                $"<a href=\"{link}\">Активировать!</a>"; //http://localhost:53687
 
             SendMail(user, message);
         }
@@ -62,7 +62,7 @@ namespace real_estate_agency.Email
             };
             message.Body = $"Здравствуйте, {user.Name}.<br>" +
                 $"Для смены пароля перейдите по " +
-                $"<a href=\"http://localhost:53687{link}\">ссылке</a>";
+                $"<a href=\"{link}\">ссылке</a>";
 
             SendMail(user, message);
         }

@@ -266,8 +266,9 @@
     <Content Include="Views\Shared\header.cshtml" />
     <Content Include="Views\Home\Add.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
-    <Content Include="Views\Account\EmailSended.cshtml" />
+    <Content Include="Views\Account\Info.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\PasswordResetRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataParser\DataParser.csproj">
