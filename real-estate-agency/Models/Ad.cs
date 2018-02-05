@@ -27,7 +27,9 @@ namespace real_estate_agency.Models
 
         public string Phone { get; set; }
 
-        public string Value { get; set; }
+        public int Value { get; set; }
+
+        public string Currency { get; set; }
 
         public string Details { get; set; }
 

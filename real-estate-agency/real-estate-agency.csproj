@@ -202,6 +202,7 @@
     <Compile Include="Infrastructure\AdsManager.cs" />
     <Compile Include="Infrastructure\AppRoleManager.cs" />
     <Compile Include="Infrastructure\AppUserManager.cs" />
+    <Compile Include="Infrastructure\CurrencySeparator.cs" />
     <Compile Include="Infrastructure\CustomPassValidator.cs" />
     <Compile Include="Infrastructure\CustomUserValidator.cs" />
     <Compile Include="Infrastructure\StringImgPhoneConverter.cs" />

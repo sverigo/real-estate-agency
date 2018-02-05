@@ -62,7 +62,8 @@ namespace real_estate_agency.Infrastructure
                     RoomsCount = Convert.ToInt32(adModel.RoomCount),
                     Images = StringImgPhoneConverter.ListToString(adModel.Images?.ToList()),
                     Phone = StringImgPhoneConverter.ListToString(adModel.Phones?.ToList()),
-                    Value = adModel.Price,
+                    Value = CurrencySepatator.SeparateValue(adModel.Price),
+                    Currency = CurrencySepatator.SeparateCurrency(adModel.Price),
                     Details = adModel.Details,
                     PrevImage = adModel.PreviewImg,
                     AdUrl = adModel.Url
