@@ -14,6 +14,7 @@ namespace real_estate_agency.Models
     public class AppIdentityDBContext: IdentityDbContext<AppUser>
     {
         public virtual DbSet<Ad> Ads { get; set; }
+        public virtual DbSet<MarkedAd> MarkedAds { get; set; }
 
         public AppIdentityDBContext(): base("RealEstateAgencyDB") { }
 
@@ -45,19 +46,27 @@ namespace real_estate_agency.Models
             PerformInitialSetup(context);
             base.Seed(context);
         }
+
         public void PerformInitialSetup(AppIdentityDBContext context)
         {
             AppUserManager userMng = new AppUserManager(new UserStore<AppUser>(context));
             AppRoleManager roleMng = new AppRoleManager(new RoleStore<AppRole>(context));
 
-            string roleName = "Admins";
+            string[] roleNames = new string[] 
+            {
+                "Admins",
+                "Moderators",
+                "PremiumUsers",
+                "Users"
+            };
             string login = "Admin";
             string name = "Administrator";
             string pass = "adminpass1";
             string email = "admin@gmail.com";
 
-            if (!roleMng.RoleExists(roleName))
-                roleMng.Create(new AppRole(roleName));
+            foreach(string role in roleNames)
+                if (!roleMng.RoleExists(role))
+                    roleMng.Create(new AppRole(role));
 
             AppUser user = userMng.FindByName(login);
             if (user == null)
@@ -66,15 +75,16 @@ namespace real_estate_agency.Models
                 {
                     UserName = login,
                     Name = name,
-                    Email = email
+                    Email = email,
+                    EmailConfirmed = true
                 },
                 pass);
 
                 user = userMng.FindByName(login);
             }
 
-            if (!userMng.IsInRole(user.Id, roleName))
-                userMng.AddToRole(user.Id, roleName);
+            if (!userMng.IsInRole(user.Id, "Admins"))
+                userMng.AddToRole(user.Id, "Admins");
         }
     }
 }

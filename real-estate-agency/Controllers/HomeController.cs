@@ -49,11 +49,13 @@ namespace real_estate_agency.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public ActionResult Add()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Add(Ad ad)
         {

@@ -8,6 +8,15 @@ namespace real_estate_agency.Models
 {
     public class AppUser: IdentityUser
     {
+        public AppUser()
+        {
+            MarkedAds = new HashSet<MarkedAd>();
+        }
+
         public string Name { get; set; }
+
+        public virtual ICollection<Ad> PublishedAds { get; set; }
+
+        public HashSet<MarkedAd> MarkedAds { get; set; }
     }
 }

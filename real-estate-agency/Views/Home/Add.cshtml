@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity;
+
+@{
     Layout = "~/Views/Shared/header.cshtml";
 }
 
@@ -7,6 +9,7 @@
         <h2>Add something new</h2>
     </div>
     <form method="post" action="#">
+        <input type="hidden" name="UserAuthorId" value="@User.Identity.GetUserId()" />
         <div class="add-container">
             <table class="add-table">
                 <tr>

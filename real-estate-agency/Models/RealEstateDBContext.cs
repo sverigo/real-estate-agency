@@ -16,6 +16,8 @@ namespace real_estate_agency.Models
     {
         public DbSet<Ad> Ads { get; set; }
 
+        public DbSet<MarkedAd> MarkedAds { get; set; }
+
         public RealEstateDBContext() : base("RealEstateAgencyDB")
         {
             HttpContext.Current.GetOwinContext().GetUserManager<AppUserManager>().Users.FirstOrDefault();
