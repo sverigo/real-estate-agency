@@ -1,4 +1,6 @@
-﻿@{
+﻿@using real_estate_agency.Models;
+@model Ad
+@{
     Layout = "~/Views/Shared/header.cshtml";
 }
 
@@ -9,6 +11,8 @@
         <h2>Edit the Ad</h2>
     </div>
     <form method="post" action="#">
+        <input type="hidden" name="UserAuthorId" value="@Model.UserAuthorId" />
+        <input type="hidden" name="AdUrl" value="@Model.AdUrl" />
         <div class="add-container">
             <table class="add-table">
                 <tr>
@@ -41,6 +45,10 @@
                 <tr>
                     <th>Цена</th>
                     <td><input type="text" name="Value" value="@Model.Value" /></td>
+                </tr>
+                <tr>
+                    <th>Валюта</th>
+                    <td><input type="text" name="Currency" value="@Model.Currency" /></td>
                 </tr>
                 <tr>
                     <th>Описание</th>

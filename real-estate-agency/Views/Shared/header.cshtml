@@ -22,9 +22,19 @@
                 <li>
                     <a class="nav-link" href="/Home/Add">Создать</a>
                 </li>
-                <li>
-                    <a class="nav-link" href="/Account/Login">Вход</a>
-                </li>
+
+                @{
+                    if (User?.Identity.IsAuthenticated ?? false)
+                    {
+                        @:<li><a class="nav-link" href="/Cabinet/Index">Кабинет</a></li>
+                        @:<li><a class="nav-link" href="/Account/Logout">Выйти</a></li>
+                    }
+                    else
+                    {
+                        @:<li><a class="nav-link" href="/Account/Login">Вход</a></li>
+                    }
+                }
+
                 <li>
                     <a class="nav-link" href="/Account/Register">Регистрация</a>
                 </li>

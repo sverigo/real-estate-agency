@@ -73,6 +73,12 @@ namespace real_estate_agency.Controllers
             return View(model);
         }
 
+        public ActionResult Logout()
+        {
+            AuthManager.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpGet]
         public ActionResult Register()
         {

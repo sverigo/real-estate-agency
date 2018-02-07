@@ -1,4 +1,5 @@
-﻿@model PagedList.IPagedList<real_estate_agency.Models.Ad>
+﻿@using Microsoft.AspNet.Identity;
+@model PagedList.IPagedList<real_estate_agency.Models.Ad>
 @using PagedList.Mvc
 
 
@@ -26,9 +27,16 @@
                             src = "../Content/images/nophoto.png";
                         }
                         <div class="box col-md-6">
-                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "edit" })
-                            @Html.ActionLink(" ", "Remove", new { id = item.Id }, new { @class = "remove" })
-
+                            @if ((User?.Identity.GetUserId() ?? "") == item.UserAuthorId)
+                            {
+                                @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "edit" })
+                            }
+                            @if ((User?.Identity.GetUserId() ?? "") == item.UserAuthorId || 
+                                 (User?.IsInRole("Admins") ?? false) || (User?.IsInRole("Moderators") ?? false))
+                            {
+                                @Html.ActionLink(" ", "Remove", new { id = item.Id }, new { @class = "remove" })
+                            }
+                            
                             <p class="title">@item.Title</p>
                             <div class="row">
                                 <div class="img-box">
