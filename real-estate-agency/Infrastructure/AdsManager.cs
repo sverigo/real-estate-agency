@@ -118,5 +118,17 @@ namespace real_estate_agency.Infrastructure
 
             return phoneList;
         }
+
+        /// <summary>
+        /// Get all ads of specified user.
+        /// If nothing is found, returns null.
+        /// </summary>
+        /// <param name="id">AppUser's id.</param>
+        /// <returns></returns>
+        public IEnumerable<Ad> GetAdsByUserAthorId(string id)
+        {
+            IEnumerable<Ad> ads = dataBase.Ads.Where(ad => ad.UserAuthorId == id).ToList();
+            return ads;
+        }
     }
 }
