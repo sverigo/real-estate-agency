@@ -28,10 +28,11 @@ namespace real_estate_agency.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(string returnURL)
         {
             if(User?.Identity.IsAuthenticated ?? false)
                 return RedirectToAction("Index", "Home");
+            ViewBag.returnURL = returnURL;
             return View();
         }
 
@@ -71,6 +72,12 @@ namespace real_estate_agency.Controllers
             }
             ViewBag.returnURL = returnURL;
             return View(model);
+        }
+
+        public ActionResult Logout()
+        {
+            AuthManager.SignOut();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]

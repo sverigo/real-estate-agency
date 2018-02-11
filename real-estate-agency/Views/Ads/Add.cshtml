@@ -10,6 +10,7 @@
     </div>
     <form method="post" action="#">
         <input type="hidden" name="UserAuthorId" value="@User.Identity.GetUserId()" />
+        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
         <div class="add-container">
             <table class="add-table">
                 <tr>

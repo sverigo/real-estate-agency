@@ -1,0 +1,30 @@
+﻿@using real_estate_agency.Models;
+@model AppUser
+@{
+    Layout = "~/Views/Shared/header.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <h1>Личный кабинет</h1>
+        <!--Menu-->
+        <ul>
+            <li>
+                @Ajax.ActionLink("Мои объявления", "MyAds", "Cabinet", new AjaxOptions() { UpdateTargetId = "contentDisplay" })
+            </li>
+            
+        </ul>
+    </div>
+
+    <div id="contentDisplay">
+
+    </div>
+</body>
+</html>

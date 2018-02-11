@@ -47,10 +47,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -194,6 +196,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdsController.cs" />
+    <Compile Include="Controllers\CabinetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Email\EmailSender.cs" />
     <Compile Include="Global.asax.cs">
@@ -262,15 +266,17 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Ads\Details.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\header.cshtml" />
-    <Content Include="Views\Home\Add.cshtml" />
-    <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Ads\Add.cshtml" />
+    <Content Include="Views\Ads\Edit.cshtml" />
     <Content Include="Views\Account\Info.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\PasswordResetRequest.cshtml" />
+    <Content Include="Views\Cabinet\Index.cshtml" />
+    <Content Include="Views\Cabinet\MyAds.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataParser\DataParser.csproj">
