@@ -26,16 +26,6 @@ namespace real_estate_agency.Controllers
             return View(adsList.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-                return Redirect("/Home/Index");
-
-            var currentAd = adsManager.AllAds.Where(ad => ad.Id == id).FirstOrDefault();
-            
-            return View(currentAd);
-        }
-
         public ActionResult Click()
         {
             try
@@ -48,50 +38,7 @@ namespace real_estate_agency.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        [Authorize]
-        public ActionResult Add()
-        {
-            return View();
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult Add(Ad ad)
-        {
-            adsManager.AddNewAd(ad);
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult Edit(int? id)
-        {
-            Ad ad = adsManager.FindById(id);
-            if (ad == null)
-                return Redirect("/Home/Index");
-            else
-                return View(ad);
-        }
-
-        [HttpPost]
-        public ActionResult Edit(Ad ad)
-        {
-            adsManager.Edit(ad);
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult Remove(int id)
-        {
-            try
-            {
-                adsManager.RemoveById(id);
-            }
-            catch(Exception ex)
-            {
-                //handle exception here
-            }
-            return RedirectToAction("Index");
-        }
-
+                
         [HttpGet]
         public JsonResult GetPhoneAjax(int id)
         {

@@ -55,12 +55,12 @@
         <div style="text-align: right;">
             @if ((User?.Identity.GetUserId() ?? "") == Model.UserAuthorId)
             {
-                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "" })
+                @Html.ActionLink("Edit", "Edit", "Ads", new { id = Model.Id, returnUrl = HttpContext.Current.Request.Url.PathAndQuery }, new { @class = "" })
             }
             @if ((User?.Identity.GetUserId() ?? "") == Model.UserAuthorId ||
                                  (User?.IsInRole("Admins") ?? false) || (User?.IsInRole("Moderators") ?? false))
             {
-                @Html.ActionLink("Remove", "Remove", new { id = Model.Id }, new { @class = "" })
+                @Html.ActionLink("Remove", "Remove", "Ads", new { id = Model.Id, returnUrl = ViewBag.ReturnUrl }, new { @class = "" })
             }
             
             

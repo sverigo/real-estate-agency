@@ -21,23 +21,29 @@
         <div class="buttons-block">
             <ul>
                 <li>
-                    <a class="nav-link" href="/Home/Add">Создать</a>
+                    @Html.ActionLink("Создать", "Add", "Ads", new { returnUrl = HttpContext.Current.Request.Url.PathAndQuery }, new { @class = "nav-link" })
                 </li>
 
                 @{
                     if (User?.Identity.IsAuthenticated ?? false)
                     {
-                        @:<li><a class="nav-link" href="/Cabinet/Index">Кабинет</a></li>
-                        @:<li><a class="nav-link" href="/Account/Logout">Выйти</a></li>
+                        @*@:<li><a class="nav-link" href="/Cabinet/Index">Кабинет</a></li>
+                            @:<li><a class="nav-link" href="/Account/Logout">Выйти</a></li>*@
+                        <li>
+                            @Html.ActionLink("Кабинет", "Index", "Cabinet", null, new { @class = "nav-link" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Выйти", "Logout", "Account", null, new { @class = "nav-link" })
+                        </li>
                     }
                     else
                     {
-                        @:<li><a class="nav-link" href="/Account/Login">Вход</a></li>
+                        <li>@Html.ActionLink("Вход", "Login", "Account", null, new { @class = "nav-link" })</li>
                     }
                 }
 
                 <li>
-                    <a class="nav-link" href="/Account/Register">Регистрация</a>
+                    @Html.ActionLink("Регистрация", "Register", "Account", null, new { @class = "nav-link" })
                 </li>
             </ul>
         </div>
@@ -45,4 +51,3 @@
     @RenderBody()
 </body>
 </html>
-
