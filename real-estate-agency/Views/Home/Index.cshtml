@@ -1,7 +1,5 @@
-﻿@using Microsoft.AspNet.Identity;
-@model PagedList.IPagedList<real_estate_agency.Models.Ad>
-@using PagedList.Mvc
-
+﻿@using real_estate_agency.Models.ViewModels;
+@model MainPageViewModel
 
 @{
     Layout = "~/Views/Shared/header.cshtml";
@@ -16,46 +14,43 @@
                 {
                     <input type="submit" value="TBA Parser" class="btn btn-default" />
                 }
-            </div>
-            <div class="block col-md-12">
-                <div class="row">
-                    @foreach (var item in Model)
+                <div class="filters">
+                    @using (Ajax.BeginForm("AdFilter", "Home", null, new AjaxOptions { UpdateTargetId = "results" }))
                     {
-                        var src = item.PrevImage;
-                        if (item.PrevImage == null)
-                        {
-                            src = "../Content/images/nophoto.png";
-                        }
-                        <div class="box col-md-6">
-                            @Html.ActionLink(" ", "Edit", "Ads", new { id = item.Id, returnUrl = HttpContext.Current.Request.Url.PathAndQuery }, new { @class = "edit" })
-                            @Html.ActionLink(" ", "Remove", "Ads", new { id = item.Id, returnUrl = HttpContext.Current.Request.Url.PathAndQuery }, new { @class = "remove" })
-                            <p class="title">@item.Title</p>
-                            <div class="row">
-                                <div class="img-box">
-                                    <img src="@src">
-                                </div>
-                                <div class="text-box">
-                                    <p><strong>Тип:</strong> @item.Type</p>
-                                    <p><strong>Адрес:</strong> @item.Address</p>
-                                    <p><strong>Стоимость:</strong> @item.Value @item.Currency</p>
-                                    <p>@Html.ActionLink("Подробнее", "Details", "Ads", new { id = item.Id, returnUrl = HttpContext.Current.Request.Url.PathAndQuery }, new { @class = "" })</p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
+                        <div class="filter quantity">
+                            <input type="text" name="MinQuantity" placeholder="Цена от" />
+                            <input type="text" name="MaxQuantity" placeholder="Цена до" />
+                            <!--<input checked="checked" type="radio" id="currencyUAH" name="Currency" value="грн" />
+                            <label for="currencyUAH">UAH</label>
+                            <input type="radio" name="Currency" id="currencyUSD" value="$" />
+                            <label for="currencyUSD">USD</label>
+                            <input type="radio" name="Currency" id="currencyEUR" value="€" />
+                            <label for="currencyEUR">EUR</label>-->
                         </div>
+                        <div class="filter rooms">
+                            <input type="text" name="MinRoomsCount" placeholder="Комнат от" />
+                            <input type="text" name="MaxRoomsCount" placeholder="Комнат до" />
+                        </div>
+                        <div class="filter area">
+                            <input readonly type="text" name="MinArea" placeholder="Площадь от" />
+                            <input readonly type="text" name="MaxArea" placeholder="Площадь до" />
+                        </div>
+                        <div class="filter floors">
+                            <input type="text" name="MinFloor" placeholder="Этажность от" />
+                            <input type="text" name="MaxFloor" placeholder="Этажность до" />
+                        </div>
+
+                        <input type="text" name="author" />
+                        <input type="submit" value="Search" />
                     }
                 </div>
             </div>
+            <div class="block col-md-12">
+                <div id="results" class="row">
+                    @{Html.RenderAction("AdFilter");}
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="pagesSwitch">
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
-   {
-       LinkToFirstPageFormat = "<<",
-       LinkToPreviousPageFormat = "Назад",
-       LinkToNextPageFormat = "Вперед",
-       LinkToLastPageFormat = ">>"
-   })
     </div>
 </main>
 @Scripts.Render("~/scripts/jquery-1.10.2.min.js")

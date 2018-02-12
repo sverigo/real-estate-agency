@@ -1,0 +1,48 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using real_estate_agency.Models.ViewModels;
+@model MainPageViewModel
+
+@foreach (var item in Model.PagedListModel)
+{
+    var src = item.PrevImage;
+    if (item.PrevImage == null)
+    {
+        src = "../Content/images/nophoto.png";
+    }
+    <div class="box col-md-6 ">
+        @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "edit" })
+        @Html.ActionLink(" ", "Remove", new { id = item.Id }, new { @class = "remove" })
+        <p class="title">@item.Title</p>
+        <div class="row">
+            <div class="img-box">
+                <img src="@src">
+            </div>
+            <div class="text-box">
+                <p><strong>Тип:</strong> @item.Type</p>
+                <p><strong>Адрес:</strong> @item.Address</p>
+                <p><strong>Стоимость:</strong> @item.Value @item.Currency</p>
+                <p><a href="/Home/Details/@item.Id">Подробнее</a></p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+}
+<div id="pagesSwitch" class="pagesSwitch">
+    @Html.PagedListPager((IPagedList)Model.PagedListModel, page => Url.Action("AdFilter", "Home", new
+  {
+      Currency = Model.Currency ?? "",
+      MaxArea = Model.MaxArea,
+      MinArea = Model.MinArea,
+      MaxQuantity = Model.MaxQuantity,
+      MinQuantity = Model.MinQuantity,
+      MinFloor = Model.MinFloor,
+      MaxFloor = Model.MaxFloor,
+      MaxRoomsCount = Model.MaxRoomsCount,
+      MinRoomsCount = Model.MinRoomsCount,
+      Page = page
+  }),
+        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "results" }))
+</div>
+
+
