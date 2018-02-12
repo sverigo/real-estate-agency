@@ -55,7 +55,7 @@
         <div style="text-align: right;">
             @if ((User?.Identity.GetUserId() ?? "") == Model.UserAuthorId)
             {
-                @Html.ActionLink("Edit", "Edit", "Ads", new { id = Model.Id, returnUrl = HttpContext.Current.Request.Url.PathAndQuery }, new { @class = "" })
+                @Html.ActionLink("Edit", "Edit", "Ads", new { id = Model.Id, fromDetailsUrl = ViewBag.FromDetailsUrl }, new { @class = "" })
             }
             @if ((User?.Identity.GetUserId() ?? "") == Model.UserAuthorId ||
                                  (User?.IsInRole("Admins") ?? false) || (User?.IsInRole("Moderators") ?? false))
