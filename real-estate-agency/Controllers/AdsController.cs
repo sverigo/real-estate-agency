@@ -13,9 +13,9 @@ namespace real_estate_agency.Controllers
     {
         AdsManager adsManager = new AdsManager();
         
-        public ActionResult Add(string returnUrl)
+        public ActionResult Add()
         {
-            ViewBag.ReturnUrl = returnUrl;
+            ViewBag.ReturnUrl = Request.UrlReferrer.ToString();
             return View();
         }
 
@@ -26,23 +26,32 @@ namespace real_estate_agency.Controllers
             return Redirect(returnUrl);
         }
 
-        public ActionResult Edit(int? id, string returnUrl)
+        public ActionResult Edit(int? id, string fromDetailsUrl)
         {
             Ad ad = adsManager.FindById(id);
             if (ad == null)
                 return View("Error", new string[] { "Объявление с указанным id не существует!" });
             else
             {
-                ViewBag.ReturnUrl = returnUrl;
+                if(!string.IsNullOrEmpty(fromDetailsUrl))
+                {
+                    ViewBag.FromDetailsUrl = fromDetailsUrl;
+                    ViewBag.ReturnUrl = null;
+                }
+                else
+                    ViewBag.ReturnUrl = Request.UrlReferrer.ToString();
                 return View(ad);
             }
         }
 
         [HttpPost]
-        public ActionResult Edit(Ad ad, string returnUrl)
+        public ActionResult Edit(Ad ad, string returnUrl, string fromDetailsUrl)
         {
             adsManager.Edit(ad);
-            return Redirect(returnUrl);
+            if (!string.IsNullOrEmpty(fromDetailsUrl))
+                return RedirectToAction("Details", new { id = ad.Id, fromDetailsUrl = fromDetailsUrl });
+            else
+                return Redirect(returnUrl);
         }
 
         public ActionResult Remove(int id, string returnUrl)
@@ -55,17 +64,25 @@ namespace real_estate_agency.Controllers
             {
                 //handle exception here
             }
+            if (string.IsNullOrEmpty(returnUrl))
+                returnUrl = Request.UrlReferrer.ToString();
             return Redirect(returnUrl);
         }
 
         [AllowAnonymous]
-        public ActionResult Details(int? id, string returnUrl)
+        public ActionResult Details(int? id, string fromDetailsUrl)
         {
             var currentAd = adsManager.FindById(id);
             if (currentAd == null)
                 return View("Error", new string[] { "Объявление с указанным id не существует!" });
-            
-            ViewBag.ReturnUrl = returnUrl;
+
+            if (!string.IsNullOrEmpty(fromDetailsUrl))
+                ViewBag.ReturnUrl = fromDetailsUrl;
+            else
+            {
+                ViewBag.FromDetailsUrl = Request.UrlReferrer.ToString();
+                ViewBag.ReturnUrl = Request.UrlReferrer.ToString();
+            }
             return View(currentAd);
         }
     }
