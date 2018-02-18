@@ -1,5 +1,6 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
+@using real_estate_agency.Infrastructure;
 @using real_estate_agency.Models.ViewModels;
 @model MainPageViewModel
 
@@ -11,8 +12,11 @@
         src = "../Content/images/nophoto.png";
     }
     <div class="box col-md-6 ">
-        @Html.ActionLink(" ", "Edit", "Ads", new { id = item.Id }, new { @class = "edit" })
-        @Html.ActionLink(" ", "Remove", "Ads", new { id = item.Id }, new { @class = "remove" })
+        @if (RolesDirectory.UserCanEditDeleteAd(User, item))
+        {
+            @Html.ActionLink(" ", "Edit", "Ads", new { id = item.Id }, new { @class = "edit" })
+            @Html.ActionLink(" ", "Remove", "Ads", new { id = item.Id }, new { @class = "remove" })
+        }
         <p class="title">@item.Title</p>
         <div class="row">
             <div class="img-box">

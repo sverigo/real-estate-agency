@@ -36,9 +36,6 @@ namespace real_estate_agency.Infrastructure
 
         public void RemoveById(int id)
         {
-            if (id <= 0)
-                throw new Exception("Invalid ID");
-
             var adToDelete = FindById(id);
             dataBase.Ads.Remove(adToDelete);
             dataBase.SaveChanges();

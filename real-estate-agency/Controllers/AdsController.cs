@@ -1,4 +1,5 @@
-﻿using real_estate_agency.Infrastructure;
+﻿using Microsoft.AspNet.Identity;
+using real_estate_agency.Infrastructure;
 using real_estate_agency.Models;
 using System;
 using System.Collections.Generic;
@@ -29,8 +30,12 @@ namespace real_estate_agency.Controllers
         public ActionResult Edit(int? id, string fromDetailsUrl)
         {
             Ad ad = adsManager.FindById(id);
+            string userId = User.Identity.GetUserId();
+
             if (ad == null)
                 return View("Error", new string[] { "Объявление с указанным id не существует!" });
+            else if (!RolesDirectory.UserCanEditDeleteAd(User, ad))
+                return View("Error", new string[] { "У вас нет прав редактировать это объявление!" });
             else
             {
                 if(!string.IsNullOrEmpty(fromDetailsUrl))
@@ -56,14 +61,16 @@ namespace real_estate_agency.Controllers
 
         public ActionResult Remove(int id, string returnUrl)
         {
-            try
-            {
+            Ad ad = adsManager.FindById(id);
+            string userId = User.Identity.GetUserId();
+
+            if(ad == null)
+                return View("Error", new string[] { "Объявление с указанным id не существует!" });
+            else if (!RolesDirectory.UserCanEditDeleteAd(User, ad))
+                return View("Error", new string[] { "У вас нет прав редактировать это объявление!" });
+            else
                 adsManager.RemoveById(id);
-            }
-            catch (Exception ex)
-            {
-                //handle exception here
-            }
+            
             if (string.IsNullOrEmpty(returnUrl))
                 returnUrl = Request.UrlReferrer.ToString();
             return Redirect(returnUrl);
