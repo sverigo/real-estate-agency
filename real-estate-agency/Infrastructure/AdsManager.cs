@@ -127,5 +127,24 @@ namespace real_estate_agency.Infrastructure
             IEnumerable<Ad> ads = dataBase.Ads.Where(ad => ad.UserAuthorId == id).ToList();
             return ads;
         }
+
+        public void SetMark(int adId, string userId)
+        {
+            Ad ad = FindById(adId);
+            dataBase.MarkedAds.Add(new MarkedAd
+            {
+                AppUserId = userId,
+                Ad = ad
+            });
+            dataBase.SaveChanges();
+        }
+
+        public void RemoveMark(int adId, string userId)
+        {
+            Ad ad = FindById(adId);
+            var marked = ad.UsersMarked.Where(mk => mk.AppUserId == userId).FirstOrDefault();
+            dataBase.MarkedAds.Remove(marked);
+            dataBase.SaveChanges();
+        }
     }
 }

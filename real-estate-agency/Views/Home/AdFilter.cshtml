@@ -17,6 +17,7 @@
             @Html.ActionLink(" ", "Edit", "Ads", new { id = item.Id }, new { @class = "edit" })
             @Html.ActionLink(" ", "Remove", "Ads", new { id = item.Id }, new { @class = "remove" })
         }
+        <div id="marks-@item.Id">@{Html.RenderAction("Marks", "Ads", new { id = item.Id });}</div>
         <p class="title">@item.Title</p>
         <div class="row">
             <div class="img-box">

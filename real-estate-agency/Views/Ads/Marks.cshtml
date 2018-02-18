@@ -1,0 +1,11 @@
+﻿@using real_estate_agency.Models.ViewModels;
+@model MarksViewModel
+
+@if (!Model.IsMarkedByUser)
+{
+    @Ajax.ActionLink("В закладки", "SetMark", "Ads", new { id = Model.AdId}, new AjaxOptions { UpdateTargetId = "marks-" + Model.AdId })
+}
+else
+{
+    @Ajax.ActionLink("Из закладок", "RemoveMark", "Ads", new { id = Model.AdId }, new AjaxOptions { UpdateTargetId = "marks-" + Model.AdId })
+}

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using real_estate_agency.Infrastructure;
 using real_estate_agency.Models;
+using real_estate_agency.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,6 +92,53 @@ namespace real_estate_agency.Controllers
                 ViewBag.ReturnUrl = Request.UrlReferrer.ToString();
             }
             return View(currentAd);
+        }
+        
+        [ChildActionOnly]
+        [AllowAnonymous]
+        public ActionResult Marks(int id)
+        {
+            if (User.Identity.IsAuthenticated == false)
+                return new EmptyResult();
+            string userId = User.Identity.GetUserId();
+            Ad ad = adsManager.FindById(id);
+            MarksViewModel model = new MarksViewModel
+            {
+                AdId = id,
+                IsMarkedByUser = ad.UsersMarked.Select(user => user.AppUserId).Contains(userId)
+            };
+
+            return PartialView(model);
+        }
+
+        public PartialViewResult SetMark(int id)
+        {
+            string userId = User.Identity.GetUserId();
+            adsManager.SetMark(id, userId);
+            
+            Ad ad = adsManager.FindById(id);
+            MarksViewModel model = new MarksViewModel
+            {
+                AdId = id,
+                IsMarkedByUser = ad.UsersMarked.Select(user => user.AppUserId).Contains(userId)
+            };
+
+            return PartialView("Marks", model);
+        }
+
+        public PartialViewResult RemoveMark(int id)
+        {
+            string userId = User.Identity.GetUserId();
+            adsManager.RemoveMark(id, userId);
+
+            Ad ad = adsManager.FindById(id);
+            MarksViewModel model = new MarksViewModel
+            {
+                AdId = id,
+                IsMarkedByUser = ad.UsersMarked.Select(user => user.AppUserId).Contains(userId)
+            };
+
+            return PartialView("Marks", model);
         }
     }
 }
