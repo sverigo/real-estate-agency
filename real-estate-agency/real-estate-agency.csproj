@@ -283,6 +283,7 @@
     <Content Include="Views\Cabinet\MyAds.cshtml" />
     <Content Include="Views\Home\AdFilter.cshtml" />
     <Content Include="Views\Ads\Marks.cshtml" />
+    <Content Include="Views\Cabinet\MyMarks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataParser\DataParser.csproj">

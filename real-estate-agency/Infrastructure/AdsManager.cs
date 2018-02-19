@@ -128,6 +128,21 @@ namespace real_estate_agency.Infrastructure
             return ads;
         }
 
+        /// <summary>
+        /// Get all ads marked by specified user.
+        /// If nothing is found, returns null.
+        /// </summary>
+        /// <param name="id">AppUser's id.</param>
+        /// <returns></returns>
+        public IEnumerable<Ad> GetMarkedAdsByUserAthorId(string id)
+        {
+            IEnumerable<Ad> ads = dataBase.MarkedAds
+                .Where(mk => mk.AppUserId == id)
+                .Select(x => x.Ad).ToList();
+            
+            return ads;
+        }
+
         public void SetMark(int adId, string userId)
         {
             Ad ad = FindById(adId);

@@ -33,5 +33,11 @@ namespace real_estate_agency.Controllers
             IEnumerable<Ad> ads = adsManager.GetAdsByUserAthorId(User.Identity.GetUserId());
             return PartialView(ads);
         }
+
+        public PartialViewResult MyMarks()
+        {
+            IEnumerable<Ad> markedAds = adsManager.GetMarkedAdsByUserAthorId(User.Identity.GetUserId());
+            return PartialView(markedAds);
+        }
     }
 }
