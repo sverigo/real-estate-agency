@@ -35,7 +35,7 @@ namespace real_estate_agency.Controllers
 
             if (ad == null)
                 return View("Error", new string[] { "Объявление с указанным id не существует!" });
-            else if (!RolesDirectory.UserCanEditDeleteAd(User, ad))
+            else if (!PermissionDirectory.UserCanEditDeleteAd(User, ad))
                 return View("Error", new string[] { "У вас нет прав редактировать это объявление!" });
             else
             {
@@ -67,7 +67,7 @@ namespace real_estate_agency.Controllers
 
             if(ad == null)
                 return View("Error", new string[] { "Объявление с указанным id не существует!" });
-            else if (!RolesDirectory.UserCanEditDeleteAd(User, ad))
+            else if (!PermissionDirectory.UserCanEditDeleteAd(User, ad))
                 return View("Error", new string[] { "У вас нет прав редактировать это объявление!" });
             else
                 adsManager.RemoveById(id);

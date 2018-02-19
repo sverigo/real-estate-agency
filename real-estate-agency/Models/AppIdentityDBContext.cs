@@ -54,10 +54,10 @@ namespace real_estate_agency.Models
 
             string[] roleNames = new string[] 
             {
-                RolesDirectory.ADMINS,
-                RolesDirectory.MODERATORS,
-                RolesDirectory.PREMIUM_USER,
-                RolesDirectory.USERS
+                PermissionDirectory.ADMINS,
+                PermissionDirectory.MODERATORS,
+                PermissionDirectory.PREMIUM_USER,
+                PermissionDirectory.USERS
             };
             string login = "Admin";
             string name = "Administrator";
@@ -83,8 +83,8 @@ namespace real_estate_agency.Models
                 user = userMng.FindByName(login);
             }
 
-            if (!userMng.IsInRole(user.Id, RolesDirectory.ADMINS))
-                userMng.AddToRole(user.Id, RolesDirectory.ADMINS);
+            if (!userMng.IsInRole(user.Id, PermissionDirectory.ADMINS))
+                userMng.AddToRole(user.Id, PermissionDirectory.ADMINS);
         }
     }
 }

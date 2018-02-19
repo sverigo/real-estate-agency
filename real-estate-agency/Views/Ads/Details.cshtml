@@ -50,7 +50,7 @@
                 <h2>@Model.Title</h2>
             </div>
             <div style="text-align: right;">
-                @if (RolesDirectory.UserCanEditDeleteAd(User, Model))
+                @if (PermissionDirectory.UserCanEditDeleteAd(User, Model))
                 {
                     @Html.ActionLink("Edit", "Edit", "Ads", new { id = Model.Id, fromDetailsUrl = ViewBag.FromDetailsUrl }, new { @class = "" })
                     @Html.ActionLink("Remove", "Remove", "Ads", new { id = Model.Id, returnUrl = ViewBag.ReturnUrl }, new { @class = "" })

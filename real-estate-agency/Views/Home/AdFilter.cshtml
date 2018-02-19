@@ -12,12 +12,17 @@
         src = "../Content/images/nophoto.png";
     }
     <div class="box col-md-6 ">
-        @if (RolesDirectory.UserCanEditDeleteAd(User, item))
+        @if (PermissionDirectory.UserCanEditDeleteAd(User, item))
         {
             @Html.ActionLink(" ", "Edit", "Ads", new { id = item.Id }, new { @class = "edit" })
             @Html.ActionLink(" ", "Remove", "Ads", new { id = item.Id }, new { @class = "remove" })
         }
-        <div id="marks-@item.Id">@{Html.RenderAction("Marks", "Ads", new { id = item.Id });}</div>
+        @if (!PermissionDirectory.IsOwnerOfAd(User, item))
+        {
+            <div id="marks-@item.Id">
+                @{Html.RenderAction("Marks", "Ads", new { id = item.Id });}
+            </div>
+        }
         <p class="title">@item.Title</p>
         <div class="row">
             <div class="img-box">
@@ -32,21 +37,21 @@
             <div class="clearfix"></div>
         </div>
     </div>
-}
+                }
 <div id="pagesSwitch" class="pagesSwitch">
     @Html.PagedListPager((IPagedList)Model.PagedListModel, page => Url.Action("AdFilter", "Home", new
-  {
-      Currency = Model.Currency ?? "",
-      MaxArea = Model.MaxArea,
-      MinArea = Model.MinArea,
-      MaxQuantity = Model.MaxQuantity,
-      MinQuantity = Model.MinQuantity,
-      MinFloor = Model.MinFloor,
-      MaxFloor = Model.MaxFloor,
-      MaxRoomsCount = Model.MaxRoomsCount,
-      MinRoomsCount = Model.MinRoomsCount,
-      Page = page
-  }),
+{
+    Currency = Model.Currency ?? "",
+    MaxArea = Model.MaxArea,
+    MinArea = Model.MinArea,
+    MaxQuantity = Model.MaxQuantity,
+    MinQuantity = Model.MinQuantity,
+    MinFloor = Model.MinFloor,
+    MaxFloor = Model.MaxFloor,
+    MaxRoomsCount = Model.MaxRoomsCount,
+    MinRoomsCount = Model.MinRoomsCount,
+    Page = page
+}),
         PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "results" }))
 </div>
 
