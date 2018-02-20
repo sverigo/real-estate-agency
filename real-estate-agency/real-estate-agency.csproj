@@ -222,6 +222,7 @@
     <Compile Include="Models\ViewModels\MarksViewModel.cs" />
     <Compile Include="Models\ViewModels\ResetPasswordViewModel.cs" />
     <Compile Include="Models\ViewModels\UserLoginViewModel.cs" />
+    <Compile Include="Models\ViewModels\ProfileViewModel.cs" />
     <Compile Include="Models\ViewModels\UserRegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -284,6 +285,9 @@
     <Content Include="Views\Home\AdFilter.cshtml" />
     <Content Include="Views\Ads\Marks.cshtml" />
     <Content Include="Views\Cabinet\MyMarks.cshtml" />
+    <Content Include="Views\Cabinet\ProfileSettings.cshtml" />
+    <Content Include="Views\Cabinet\ChangeProfile.cshtml" />
+    <Content Include="Views\Cabinet\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataParser\DataParser.csproj">

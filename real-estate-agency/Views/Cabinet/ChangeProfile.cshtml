@@ -1,0 +1,23 @@
+﻿@using real_estate_agency.Models.ViewModels;
+@model ChangeProfileViewModel
+
+<h2>Настройки профиля</h2>
+@using (Ajax.BeginForm("ChangeProfile", "Cabinet", null,
+                                            new AjaxOptions { UpdateTargetId = "change-profile" }))
+{
+    @Html.ValidationSummary(false)
+    if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+    {
+        <div style="color:green">@ViewBag.SuccessMessage</div>
+    }
+    @Html.HiddenFor(x => x.IdProfile)
+    <div>
+        <label>Логин:</label>
+        @Html.TextBoxFor(x => x.Login)
+    </div>
+    <div>
+        <label>Имя:</label>
+        @Html.TextBoxFor(x => x.Name)
+    </div>
+    <button type="submit">ОК</button>
+}

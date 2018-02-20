@@ -1,0 +1,13 @@
+﻿@model string
+
+<div>
+    <div id="change-profile">
+        @{Html.RenderAction("ChangeProfile", "Cabinet", new { userId = Model });}
+    </div>
+
+    <hr />
+
+    <div id="change-password">
+        @{Html.RenderAction("ChangePassword", "Cabinet", new { userId = Model });}
+    </div>
+</div>

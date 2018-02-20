@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.Owin;
 using real_estate_agency.Infrastructure;
 using real_estate_agency.Models;
+using real_estate_agency.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,91 @@ namespace real_estate_agency.Controllers
         {
             IEnumerable<Ad> markedAds = adsManager.GetMarkedAdsByUserAthorId(User.Identity.GetUserId());
             return PartialView(markedAds);
+        }
+
+        public PartialViewResult ProfileSettings(string userId)
+        {
+            return PartialView("ProfileSettings", userId);
+        }
+
+        public PartialViewResult ChangeProfile(string userId)
+        {
+            AppUser user = UserManager.FindById(userId);
+            ChangeProfileViewModel model = new ChangeProfileViewModel
+            {
+                IdProfile = user.Id,
+                Name = user.Name,
+                Login = user.UserName
+            };
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ChangeProfile(ChangeProfileViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser user = await UserManager.FindByIdAsync(model.IdProfile);
+                user.Name = model.Name;
+                user.UserName = model.Login;
+                IdentityResult updateResult = await UserManager.UpdateAsync(user);
+                if (updateResult.Succeeded)
+                {
+                    ViewBag.SuccessMessage = "Изменения успешно сохранены!";
+                    return PartialView("ChangeProfile", model);
+                }
+                else
+                    updateResult.Errors.ToList().ForEach(err => ModelState.AddModelError("", err));
+            }
+
+            return PartialView("ChangeProfile", model);
+        }
+
+        public PartialViewResult ChangePassword(string userId)
+        {
+            AppUser user = UserManager.FindById(userId);
+            ChangePasswordViewModel model = new ChangePasswordViewModel
+            {
+                IdPassword = user.Id
+            };
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.NewPassword != model.ConfirmNewPassword)
+                    ModelState.AddModelError("", "Новые пароли не совпадают, подтвердите еще раз!");
+                else
+                {
+                    AppUser existingUser = await UserManager.FindByIdAsync(model.IdPassword);
+                    AppUser user = await UserManager.FindAsync(existingUser.UserName, model.Password);
+                    if (user == null)
+                        ModelState.AddModelError("", "Неверный текущий пароль!");
+                    else
+                    {
+                        IdentityResult result = await UserManager.PasswordValidator.ValidateAsync(model.NewPassword);
+                        if (result.Succeeded)
+                        {
+                            user.PasswordHash = UserManager.PasswordHasher.HashPassword(model.NewPassword);
+                            IdentityResult updateResult = await UserManager.UpdateAsync(user);
+
+                            if (updateResult.Succeeded)
+                            {
+                                ViewBag.SuccessMessage = "Изменения успешно сохранены!";
+                                return PartialView("ChangePassword", model);
+                            }
+                            else
+                                result.Errors.ToList().ForEach(err => ModelState.AddModelError("", err));
+                        }
+                        else
+                            result.Errors.ToList().ForEach(err => ModelState.AddModelError("", err));
+                    }
+                }
+            }
+            return PartialView("ChangePassword", model);
         }
     }
 }
