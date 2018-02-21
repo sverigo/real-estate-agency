@@ -7,8 +7,7 @@ using real_estate_agency.Infrastructure;
 
 namespace real_estate_agency.Controllers
 {
-    [Authorize(Roles = PermissionDirectory.ADMINS)]
-    [Authorize(Roles = PermissionDirectory.MODERATORS)]
+    [Authorize(Roles = PermissionDirectory.ADMINS+","+PermissionDirectory.MODERATORS)]
     public class ModeratorController : Controller
     {
         // GET: Moderator
@@ -16,7 +15,7 @@ namespace real_estate_agency.Controllers
         {
             return View();
         }
-
+        
         [HttpGet]
         public ActionResult RemoveAd(int adId)
         {
