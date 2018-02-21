@@ -196,9 +196,11 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdsController.cs" />
     <Compile Include="Controllers\CabinetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ModeratorController.cs" />
     <Compile Include="Email\EmailSender.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -288,6 +290,7 @@
     <Content Include="Views\Cabinet\ProfileSettings.cshtml" />
     <Content Include="Views\Cabinet\ChangeProfile.cshtml" />
     <Content Include="Views\Cabinet\ChangePassword.cshtml" />
+    <Content Include="Views\Admin\AdminPanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataParser\DataParser.csproj">
@@ -313,6 +316,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Moderator\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
