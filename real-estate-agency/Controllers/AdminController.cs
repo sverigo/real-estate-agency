@@ -15,7 +15,8 @@ namespace real_estate_agency.Controllers
     [Authorize(Roles = PermissionDirectory.ADMINS)]
     public class AdminController : Controller
     {
-
+        AdsManager adManager = new AdsManager();
+        
         private AppRoleManager RoleManager
         {
             get { return HttpContext.GetOwinContext().GetUserManager<AppRoleManager>(); }
@@ -78,8 +79,13 @@ namespace real_estate_agency.Controllers
             if (moder == null)
                 return View("Error", new string[] { "Модератора с таким id не существует" });
 
-            //WE HAVE TO DELETE HIS RELATED DATA!!!!!!!
+            //remove moder's marks
+            List<Ad> ads = adManager.GetMarkedAdsByUserAthorId(moder.Id).ToList();
+            ads.ForEach(ad => adManager.RemoveMark(ad.Id, moder.Id));
 
+            //remove moder's ads
+            ads = adManager.GetAdsByUserAthorId(moder.Id).ToList();
+            ads.ForEach(ad => adManager.RemoveById(ad.Id));
 
             IdentityResult result = await UserManager.DeleteAsync(moder);
             if (result.Succeeded)
