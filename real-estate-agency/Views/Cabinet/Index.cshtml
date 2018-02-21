@@ -1,4 +1,6 @@
 ﻿@using real_estate_agency.Models;
+@using real_estate_agency.Infrastructure;
+
 @model AppUser
 @{
     Layout = "~/Views/Shared/header.cshtml";
@@ -28,6 +30,10 @@
                 @Ajax.ActionLink("Профиль", "ProfileSettings", "Cabinet", new { userId = Model.Id},
                new AjaxOptions() { UpdateTargetId = "contentDisplay" })
             </li>
+            @if(PermissionDirectory.IsAdmin(User))
+            {
+                @Html.ActionLink("Административная панель", "AdminPanel", "Admin");
+            }
         </ul>
     </div>
 
