@@ -5,6 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using real_estate_agency.Infrastructure;
 using Microsoft.AspNet.Identity.Owin;
+using real_estate_agency.Models.ViewModels;
+using System.Threading.Tasks;
+using real_estate_agency.Models;
+using Microsoft.AspNet.Identity;
 
 namespace real_estate_agency.Controllers
 {
@@ -25,9 +29,63 @@ namespace real_estate_agency.Controllers
         // GET: Admin
         public ActionResult AdminPanel()
         {
+            AppRole moderRole = RoleManager.FindByName(PermissionDirectory.MODERATORS);
+            List<string> modersIds = moderRole.Users.Select(u => u.UserId).ToList();
+            List<AppUser> moders = UserManager.Users.Where(u => modersIds.Contains(u.Id)).ToList();
+            return View(moders);
+        }
+
+        [HttpGet]
+        public ActionResult CreateModerator()
+        {
             return View();
         }
 
+        [HttpPost]
+        public async Task<ActionResult> CreateModerator(UserRegisterViewModel userInfo)
+        {
+            if (ModelState.IsValid)
+            {
+                if (userInfo.ConfirmPassword != userInfo.Password)
+                    ModelState.AddModelError("", "Введенные пароли не одинаковы!");
+                else
+                {
+                    AppUser user = new AppUser
+                    {
+                        UserName = userInfo.Login,
+                        Name = userInfo.Name,
+                        Email = userInfo.Email,
+                        EmailConfirmed = true
+                    };
 
+                    IdentityResult creationResult = await UserManager.CreateAsync(user, userInfo.Password);
+                    IdentityResult roleResult = await UserManager.AddToRoleAsync(user.Id, PermissionDirectory.MODERATORS);
+                    if (creationResult.Succeeded && roleResult.Succeeded)
+                        return RedirectToAction("AdminPanel");
+                    else
+                    {
+                        creationResult.Errors.ToList().ForEach(err => ModelState.AddModelError("", err));
+                        roleResult.Errors.ToList().ForEach(err => ModelState.AddModelError("", err));
+                    }
+                }
+            }
+            return View(userInfo);
+        }
+
+        public async Task<ActionResult> DeleteModerator(string id)
+        {
+            AppUser moder = await UserManager.FindByIdAsync(id);
+            if (moder == null)
+                return View("Error", new string[] { "Модератора с таким id не существует" });
+
+            //WE HAVE TO DELETE HIS RELATED DATA!!!!!!!
+
+
+            IdentityResult result = await UserManager.DeleteAsync(moder);
+            if (result.Succeeded)
+                return RedirectToAction("AdminPanel");
+            else
+                return View("Error", result.Errors);
+        }
     }
 }

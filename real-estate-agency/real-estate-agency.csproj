@@ -292,6 +292,7 @@
     <Content Include="Views\Cabinet\ChangePassword.cshtml" />
     <Content Include="Views\Admin\AdminPanel.cshtml" />
     <Content Include="Views\Moderator\RemoveAd.cshtml" />
+    <Content Include="Views\Admin\CreateModerator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataParser\DataParser.csproj">

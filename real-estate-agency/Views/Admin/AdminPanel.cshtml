@@ -1,4 +1,5 @@
-﻿
+﻿@using real_estate_agency.Models;
+@model IEnumerable<AppUser>
 @{
     Layout = "~/Views/Shared/header.cshtml";
 }
@@ -9,10 +10,32 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>AdminPanel</title>
+    <style>
+        table { border-collapse: collapse; }
+        table, th, td { border: 1px solid black; padding: 10px;}
+    </style>
 </head>
 <body>
     <div> 
         <h1>Административная панель</h1>
+        @Html.ActionLink("Добавить модератора", "CreateModerator")
+        <h3>Модераторы</h3>
+        <table>
+            <tr>
+                <th>Имя</th>
+                <th>Логин</th>
+                <th>Email</th>
+            </tr>
+            @foreach(AppUser moder in Model)
+            {
+                <tr>
+                    <td>@moder.Name</td>
+                    <td>@moder.UserName</td>
+                    <td>@moder.Email</td>
+                    <td>@Html.ActionLink("Удалить", "DeleteModerator", new { id = moder.Id })</td>
+                </tr>
+            }
+        </table>
     </div>
 </body>
 </html>
