@@ -103,11 +103,12 @@ namespace real_estate_agency.Controllers
                     };
 
                     IdentityResult result = await UserManager.CreateAsync(user, userInfo.Password);
-                    if (result.Succeeded)
+                    IdentityResult roleRes = await UserManager.AddToRoleAsync(user.Id, PermissionDirectory.USERS);
+                    if (result.Succeeded && roleRes.Succeeded)
                     {
                         //send email
                         string token = UserManager.GenerateEmailConfirmationToken(user.Id);
-                        string link = Url.Action("ConfirmEmail", "Account", new { id = user.Id, token = token }, 
+                        string link = Url.Action("ConfirmEmail", "Account", new { id = user.Id, token = token },
                             Request.Url.Scheme);
                         EmailSender.SendConfirmEmail(user, link);
                         string info = $"На вашу почту {user.Email} было отправлено письмо с ссылкой для активации " +
@@ -115,7 +116,10 @@ namespace real_estate_agency.Controllers
                         return View("Info", null, info);
                     }
                     else
+                    {
                         result.Errors.ToList().ForEach(err => ModelState.AddModelError("", err));
+                        roleRes.Errors.ToList().ForEach(err => ModelState.AddModelError("", err));
+                    }
                 }
             }
             return View(userInfo);
