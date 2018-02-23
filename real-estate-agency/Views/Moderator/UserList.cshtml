@@ -1,0 +1,20 @@
+﻿@using real_estate_agency.Models;
+@model IEnumerable<AppUser>
+
+<table>
+    <tr>
+        <th>Логин</th>
+        <th>Имя</th>
+        <th>Email</th>
+        <th>Премиум</th>
+    </tr>
+    @foreach (AppUser user in Model)
+    {
+        <tr>
+            <td>@user.UserName</td>
+            <td>@user.Name</td>
+            <td>@user.Email</td>
+            <td>-</td>
+        </tr>
+    }
+</table>

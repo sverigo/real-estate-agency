@@ -213,6 +213,7 @@
     <Compile Include="Infrastructure\CustomUserValidator.cs" />
     <Compile Include="Infrastructure\FilterOptions.cs" />
     <Compile Include="Infrastructure\PermissionDirectory.cs" />
+    <Compile Include="Infrastructure\SearchUserFilter.cs" />
     <Compile Include="Infrastructure\StringImgPhoneConverter.cs" />
     <Compile Include="Models\Ad.cs" />
     <Compile Include="Models\AppIdentityDBContext.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="Models\ViewModels\MainPageViewModel.cs" />
     <Compile Include="Models\ViewModels\MarksViewModel.cs" />
     <Compile Include="Models\ViewModels\ResetPasswordViewModel.cs" />
+    <Compile Include="Models\ViewModels\SearchUserViewModel.cs" />
     <Compile Include="Models\ViewModels\UserLoginViewModel.cs" />
     <Compile Include="Models\ViewModels\ProfileViewModel.cs" />
     <Compile Include="Models\ViewModels\UserRegisterViewModel.cs" />
@@ -293,6 +295,9 @@
     <Content Include="Views\Admin\AdminPanel.cshtml" />
     <Content Include="Views\Moderator\RemoveAd.cshtml" />
     <Content Include="Views\Admin\CreateModerator.cshtml" />
+    <Content Include="Views\Moderator\ModeratorPanel.cshtml" />
+    <Content Include="Views\Moderator\UserList.cshtml" />
+    <Content Include="Views\Moderator\SearchUserPanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataParser\DataParser.csproj">

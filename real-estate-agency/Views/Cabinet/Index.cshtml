@@ -34,6 +34,10 @@
             {
                 @Html.ActionLink("Административная панель", "AdminPanel", "Admin");
             }
+            else if (PermissionDirectory.IsModerator(User))
+            {
+                @Html.ActionLink("Страница модератора", "ModeratorPanel", "Moderator");
+            }
         </ul>
     </div>
 
