@@ -69,10 +69,10 @@ namespace real_estate_agency.Controllers
                 return View("Error", new string[] { "Объявление с указанным id не существует!" });
             else if (!PermissionDirectory.UserCanDeleteAd(User, ad))
                 return View("Error", new string[] { "У вас нет прав редактировать это объявление!" });
+            else if (PermissionDirectory.IsOwnerOfAd(userId, ad))
+                adsManager.RemoveById(id);
             else if (PermissionDirectory.IsAdmin(User) || PermissionDirectory.IsModerator(User))
                 return RedirectToAction("RemoveAd", "Moderator", new { adId = ad.Id});
-            else
-                adsManager.RemoveById(id);
             
             if (string.IsNullOrEmpty(returnUrl))
                 returnUrl = Request.UrlReferrer.ToString();
