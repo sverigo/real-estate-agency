@@ -65,6 +65,9 @@ namespace real_estate_agency.Controllers
             Ad ad = adsManager.FindById(id);
             string userId = User.Identity.GetUserId();
 
+            if (string.IsNullOrEmpty(returnUrl))
+                returnUrl = Request.UrlReferrer.ToString();
+
             if (ad == null)
                 return View("Error", new string[] { "Объявление с указанным id не существует!" });
             else if (!PermissionDirectory.UserCanDeleteAd(User, ad))
@@ -72,10 +75,13 @@ namespace real_estate_agency.Controllers
             else if (PermissionDirectory.IsOwnerOfAd(userId, ad))
                 adsManager.RemoveById(id);
             else if (PermissionDirectory.IsAdmin(User) || PermissionDirectory.IsModerator(User))
-                return RedirectToAction("RemoveAd", "Moderator", new { adId = ad.Id});
-            
-            if (string.IsNullOrEmpty(returnUrl))
-                returnUrl = Request.UrlReferrer.ToString();
+            {
+                if (string.IsNullOrEmpty(ad.UserAuthorId))
+                    adsManager.RemoveById(id);
+                else
+                    return RedirectToAction("RemoveAd", "Moderator", new { adId = ad.Id, returnUrl = returnUrl });
+            }
+
             return Redirect(returnUrl);
         }
 

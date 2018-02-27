@@ -27,6 +27,10 @@
                new AjaxOptions() { UpdateTargetId = "contentDisplay" })
             </li>
             <li>
+                @Ajax.ActionLink("Оповещения", "MyNotifications", "Cabinet", new { userId = Model.Id },
+               new AjaxOptions() { UpdateTargetId = "contentDisplay" })
+            </li>
+            <li>
                 @Ajax.ActionLink("Профиль", "ProfileSettings", "Cabinet", new { userId = Model.Id},
                new AjaxOptions() { UpdateTargetId = "contentDisplay" })
             </li>

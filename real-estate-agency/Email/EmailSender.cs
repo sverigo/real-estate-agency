@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Security.Policy;
 using System.Web.Mvc;
 using real_estate_agency.Models;
+using System.Web.Configuration;
 
 namespace real_estate_agency.Email
 {
@@ -18,8 +19,8 @@ namespace real_estate_agency.Email
 
         static EmailSender()
         {
-            seviceEmail = "filenkoandrij@gmail.com";
-            password = "aa12345aa";
+            seviceEmail = WebConfigurationManager.AppSettings["Mail"];
+            password = WebConfigurationManager.AppSettings["Pass"];
         }
 
         private static void SendMail(AppUser user, MailMessage message)

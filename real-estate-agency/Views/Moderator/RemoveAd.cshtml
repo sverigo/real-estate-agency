@@ -1,4 +1,5 @@
-﻿
+﻿@using real_estate_agency.Models.ViewModels;
+@model RemoveAdViewModel
 @{
     Layout = "~/Views/Shared/header.cshtml";
 }
@@ -13,7 +14,16 @@
 <body>
     <div> 
         <h1>Удаление объявления пользователя</h1>
+        @using (Html.BeginForm("RemoveAd", "Moderator"))
+        {
+            @Html.HiddenFor(m => m.AdId)
+            @Html.HiddenFor(m => m.ReturnURL)
 
+            <label>Причина</label>
+            @Html.TextAreaFor(m => m.Message)
+            
+            <button type="submit"> Удалить </button>
+        }
     </div>
 </body>
 </html>

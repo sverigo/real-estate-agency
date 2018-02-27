@@ -212,6 +212,7 @@
     <Compile Include="Infrastructure\CustomPassValidator.cs" />
     <Compile Include="Infrastructure\CustomUserValidator.cs" />
     <Compile Include="Infrastructure\FilterOptions.cs" />
+    <Compile Include="Infrastructure\Notifier.cs" />
     <Compile Include="Infrastructure\PermissionDirectory.cs" />
     <Compile Include="Infrastructure\SearchUserFilter.cs" />
     <Compile Include="Infrastructure\StringImgPhoneConverter.cs" />
@@ -220,9 +221,11 @@
     <Compile Include="Models\AppRole.cs" />
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\MarkedAds.cs" />
+    <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\RealEstateDBContext.cs" />
     <Compile Include="Models\ViewModels\MainPageViewModel.cs" />
     <Compile Include="Models\ViewModels\MarksViewModel.cs" />
+    <Compile Include="Models\ViewModels\RemoveAdViewModel.cs" />
     <Compile Include="Models\ViewModels\ResetPasswordViewModel.cs" />
     <Compile Include="Models\ViewModels\SearchUserViewModel.cs" />
     <Compile Include="Models\ViewModels\UserLoginViewModel.cs" />
@@ -298,6 +301,7 @@
     <Content Include="Views\Moderator\ModeratorPanel.cshtml" />
     <Content Include="Views\Moderator\UserList.cshtml" />
     <Content Include="Views\Moderator\SearchUserPanel.cshtml" />
+    <Content Include="Views\Cabinet\MyNotifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataParser\DataParser.csproj">

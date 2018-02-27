@@ -41,6 +41,14 @@ namespace real_estate_agency.Controllers
             return PartialView(markedAds);
         }
 
+        public PartialViewResult MyNotifications()
+        {
+            AppUser user = UserManager.FindById(User.Identity.GetUserId());
+            IEnumerable<Notification> notifications = user.Notifications.ToList();
+            return PartialView(notifications);
+        }
+
+        //delete userID here, there's no sence
         public PartialViewResult ProfileSettings(string userId)
         {
             return PartialView("ProfileSettings", userId);

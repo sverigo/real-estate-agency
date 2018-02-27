@@ -15,6 +15,8 @@ namespace real_estate_agency.Controllers
     [Authorize(Roles = PermissionDirectory.ADMINS+","+PermissionDirectory.MODERATORS)]
     public class ModeratorController : Controller
     {
+        AdsManager adsManager = new AdsManager();
+
         private AppRoleManager RoleManager
         {
             get { return HttpContext.GetOwinContext().GetUserManager<AppRoleManager>(); }
@@ -32,9 +34,36 @@ namespace real_estate_agency.Controllers
         }
         
         [HttpGet]
-        public ActionResult RemoveAd(int adId)
+        public ActionResult RemoveAd(int adId, string returnUrl)
         {
-            return View();
+            RemoveAdViewModel model = new RemoveAdViewModel
+            {
+                ReturnURL = returnUrl,
+                AdId = adId
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> RemoveAd(RemoveAdViewModel model)
+        {
+            Ad deletedAd = adsManager.FindById(model.AdId);
+            AppUser user = await UserManager.FindByIdAsync(deletedAd.UserAuthorId);
+            AppUser sender = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+
+            string text = $"Ваше объявление {deletedAd.Title} было удалено. " + 
+                $"Причина: {model.Message}";
+
+            Notifier notifier = new Notifier(UserManager);
+            IdentityResult result = notifier.NotifyUser(user, text, sender);
+
+            if (result.Succeeded)
+            {
+                adsManager.RemoveById(deletedAd.Id);
+                return Redirect(model.ReturnURL);
+            }
+            else
+                return View("Error", result.Errors);
         }
         
         [HttpGet]

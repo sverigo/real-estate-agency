@@ -1,0 +1,25 @@
+﻿@using real_estate_agency.Models;
+@model IEnumerable<Notification>
+<div>
+    <h2>Оповещения</h2>
+    @if ((Model?.Count() ?? 0) == 0)
+    {
+        <h2>У вас нет оповещений</h2>
+    }
+    else
+    {
+        foreach(Notification notification in Model)
+        {
+            <div>
+                <div>@notification.Date</div>
+                <div>@notification.Message</div>
+                @if (notification.Sender != null)
+                {
+                    <div>От: @notification.Sender.Name | @notification.Sender.UserName</div>
+                }
+            </div>
+            <hr />
+        }
+    }
+</div>
+

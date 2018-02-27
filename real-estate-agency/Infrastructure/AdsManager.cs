@@ -43,7 +43,7 @@ namespace real_estate_agency.Infrastructure
 
         public void LoadAds()
         {
-            var result = DataCollector.CollectFromOLX(1);
+            var result = DataCollector.CollectFromOLX(10);
 
             var preparedEntities = result.Select(adModel =>
             {
