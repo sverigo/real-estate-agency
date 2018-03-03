@@ -42,34 +42,55 @@ namespace real_estate_agency.Controllers
         {
             if (ModelState.IsValid)
             {
-                AppUser user = await UserManager.FindByEmailAsync(model.LoginOrEmail) ??
+                AppUser tryingUser = await UserManager.FindByEmailAsync(model.LoginOrEmail) ??
                     await UserManager.FindByNameAsync(model.LoginOrEmail);
 
-                if (user != null)
+                if (tryingUser == null)
+                    ModelState.AddModelError("", "Неверное имя или пароль!");
+                else
                 {
-                    if (!user.EmailConfirmed)
+                    if (!tryingUser.EmailConfirmed)
                     {
                         ModelState.AddModelError("", "Активируйте свою учетную запись. Проверьте почту!");
                         ViewBag.returnURL = returnURL;
                         return View(model);
                     }
-                    user = await UserManager.FindAsync(user.UserName, model.Password);
-                }
-                if (user == null)
-                    ModelState.AddModelError("", "Неверное имя или пароль!");
-                else
-                {
-                    ClaimsIdentity ident = await UserManager.CreateIdentityAsync(user,
-                        DefaultAuthenticationTypes.ApplicationCookie);
 
-                    AuthManager.SignOut();
-                    AuthManager.SignIn(new AuthenticationProperties { IsPersistent = true }, ident);
+                    if (UserManager.IsLockedOut(tryingUser.Id))
+                    {
+                        ModelState.AddModelError("", "Ваша учетная запись заблокирована до " + tryingUser.LockoutEndDateUtc?.ToLocalTime());
+                        ViewBag.returnURL = returnURL;
+                        return View(model);
+                    }
 
-                    if (string.IsNullOrEmpty(returnURL))
-                        returnURL = Url.Action("Index", "Home");
-                    return Redirect(returnURL);
+                    AppUser user = await UserManager.FindAsync(tryingUser.UserName, model.Password);
+                    if (user == null)
+                    {
+                        UserManager.AccessFailed(tryingUser.Id);
+
+                        if (UserManager.IsLockedOut(tryingUser.Id))
+                            ModelState.AddModelError("", "Ваша учетная запись заблокирована до " + tryingUser.LockoutEndDateUtc?.ToLocalTime());
+                        else
+                        {
+                            int attempts = UserManager.MaxFailedAccessAttemptsBeforeLockout - tryingUser.AccessFailedCount;
+                            ModelState.AddModelError("", "Неверный пароль! Осталось попыток: " + attempts);
+                        }
+                    }
+                    else
+                    {
+                        ClaimsIdentity ident = await UserManager.CreateIdentityAsync(user,
+                            DefaultAuthenticationTypes.ApplicationCookie);
+
+                        AuthManager.SignOut();
+                        AuthManager.SignIn(new AuthenticationProperties { IsPersistent = true }, ident);
+
+                        if (string.IsNullOrEmpty(returnURL))
+                            returnURL = Url.Action("Index", "Home");
+                        return Redirect(returnURL);
+                    }
                 }
             }
+
             ViewBag.returnURL = returnURL;
             return View(model);
         }

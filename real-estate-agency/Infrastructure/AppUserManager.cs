@@ -22,6 +22,9 @@ namespace real_estate_agency.Infrastructure
             AppIdentityDBContext db = context.Get<AppIdentityDBContext>();
             AppUserManager manager = new AppUserManager(new UserStore<AppUser>(db));
 
+            manager.UserLockoutEnabledByDefault = true;
+            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromHours(1);
+            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
             manager.PasswordValidator = new CustomPassValidator();
             manager.UserValidator = new CustomUserValidator(manager)
             {
