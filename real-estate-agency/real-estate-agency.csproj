@@ -223,6 +223,7 @@
     <Compile Include="Models\MarkedAds.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\RealEstateDBContext.cs" />
+    <Compile Include="Models\ViewModels\BlockUserViewModel.cs" />
     <Compile Include="Models\ViewModels\MainPageViewModel.cs" />
     <Compile Include="Models\ViewModels\MarksViewModel.cs" />
     <Compile Include="Models\ViewModels\RemoveAdViewModel.cs" />
@@ -302,6 +303,7 @@
     <Content Include="Views\Moderator\UserList.cshtml" />
     <Content Include="Views\Moderator\SearchUserPanel.cshtml" />
     <Content Include="Views\Cabinet\MyNotifications.cshtml" />
+    <Content Include="Views\Moderator\BlockUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataParser\DataParser.csproj">

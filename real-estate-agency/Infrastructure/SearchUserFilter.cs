@@ -31,33 +31,42 @@ namespace real_estate_agency.Infrastructure
             List<string> idsUsers = userRole.Users.Select(u => u.UserId).ToList();
             List<AppUser> result = userManager.Users.Where(u => idsUsers.Contains(u.Id))
                 .ToList();
-            
-            if(!string.IsNullOrEmpty(userName))
+
+            if (!string.IsNullOrEmpty(userName))
             {
                 result = result.Where(u => u.UserName.ToLower().Contains(userName)).ToList();
             }
 
-            if(!string.IsNullOrEmpty(name))
+            if (!string.IsNullOrEmpty(name))
             {
                 result = result.Where(u => u.Name.ToLower().Contains(name)).ToList();
             }
 
-            if(!string.IsNullOrEmpty(email))
+            if (!string.IsNullOrEmpty(email))
             {
                 result = result.Where(u => u.Email.ToLower().Contains(email)).ToList();
             }
 
-            return result;
+
             //not implemented
             //if (isPremium != null)
             //{
-                
+
             //}
 
-            //if(isBlocked != null)
-            //{
-                
-            //}
+            if (isBlocked != null)
+            {
+                if (isBlocked ?? false)
+                    result = result.Where(u => u.LockoutEndDateUtc >= DateTime.UtcNow).ToList();
+                else
+                    result = result.Where(u =>
+                    {
+                        return u.LockoutEndDateUtc < DateTime.UtcNow ||
+                        u.LockoutEndDateUtc == null;
+                    }).ToList();
+            }
+
+            return result;
         }
     }
 }

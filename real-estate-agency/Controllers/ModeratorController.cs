@@ -12,7 +12,7 @@ using real_estate_agency.Models.ViewModels;
 
 namespace real_estate_agency.Controllers
 {
-    [Authorize(Roles = PermissionDirectory.ADMINS+","+PermissionDirectory.MODERATORS)]
+    [Authorize(Roles = PermissionDirectory.ADMINS + "," + PermissionDirectory.MODERATORS)]
     public class ModeratorController : Controller
     {
         AdsManager adsManager = new AdsManager();
@@ -32,7 +32,7 @@ namespace real_estate_agency.Controllers
         {
             return View();
         }
-        
+
         [HttpGet]
         public ActionResult RemoveAd(int adId, string returnUrl)
         {
@@ -51,7 +51,7 @@ namespace real_estate_agency.Controllers
             AppUser user = await UserManager.FindByIdAsync(deletedAd.UserAuthorId);
             AppUser sender = await UserManager.FindByIdAsync(User.Identity.GetUserId());
 
-            string text = $"Ваше объявление {deletedAd.Title} было удалено. " + 
+            string text = $"Ваше объявление {deletedAd.Title} было удалено. " +
                 $"Причина: {model.Message}";
 
             Notifier notifier = new Notifier(UserManager);
@@ -65,7 +65,7 @@ namespace real_estate_agency.Controllers
             else
                 return View("Error", result.Errors);
         }
-        
+
         [HttpGet]
         public PartialViewResult SearchUserPanel()
         {
@@ -74,13 +74,79 @@ namespace real_estate_agency.Controllers
             model.ResultUsers = filter.SearchUsers(model);
             return PartialView(model);
         }
-        
+
         [HttpPost]
         public PartialViewResult SearchUser(SearchUserViewModel model)
         {
             SearchUserFilter filter = new SearchUserFilter(UserManager, RoleManager);
             model.ResultUsers = filter.SearchUsers(model);
             return PartialView("SearchUserPanel", model);
+        }
+
+        [HttpGet]
+        public ActionResult BlockUser(string id)
+        {
+            BlockUserViewModel model = new BlockUserViewModel
+            {
+                UserId = id
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> BlockUser(BlockUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser user = UserManager.FindById(model.UserId);
+                if (user == null)
+                    return View("Error", new string[] { "Такого пользователя не существует" });
+
+                TimeSpan duration = TimeSpan.FromDays(0);
+                switch (model.Duration)
+                {
+                    case BlockDuration.Day:
+                        duration = TimeSpan.FromDays(1);
+                        break;
+                    case BlockDuration.Week:
+                        duration = TimeSpan.FromDays(7);
+                        break;
+                    case BlockDuration.Month:
+                        duration = TimeSpan.FromDays(30);
+                        break;
+                    case BlockDuration.Forever:
+                        duration = TimeSpan.FromDays(365 * 100);
+                        break;
+                }
+                user.LockoutEndDateUtc = DateTime.UtcNow + duration;
+
+                IdentityResult result = await UserManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    AppUser sender = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    Email.EmailSender.SendUserBlockedMail(user, model.Duration, model.Message, sender);
+                    //return Redirect();
+                }
+                else
+                    return View("Error", result.Errors);
+            }
+
+            return View(model);
+        }
+
+        public async Task<ActionResult> DeblockUser(string id)
+        {
+            AppUser user = await UserManager.FindByIdAsync(id);
+            if (user == null)
+                return View("Error", new string[] { "Такого пользователя не существует" });
+
+            user.LockoutEndDateUtc = null;
+            IdentityResult result = await UserManager.UpdateAsync(user);
+            if (result.Succeeded)
+                return Redirect(Request.UrlReferrer.ToString());
+            else
+                return View("Error", result.Errors);
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Security.Policy;
 using System.Web.Mvc;
 using real_estate_agency.Models;
+using real_estate_agency.Models.ViewModels;
 using System.Web.Configuration;
 
 namespace real_estate_agency.Email
@@ -64,6 +65,23 @@ namespace real_estate_agency.Email
             message.Body = $"Здравствуйте, {user.Name}.<br>" +
                 $"Для смены пароля перейдите по " +
                 $"<a href=\"{link}\">ссылке</a>";
+
+            SendMail(user, message);
+        }
+
+        public static void SendUserBlockedMail(AppUser user, BlockDuration duration, string cause, AppUser sender = null)
+        {
+            MailMessage message = new MailMessage(
+                    new MailAddress(seviceEmail, "Real Estate Agency"), new MailAddress(user.Email))
+            {
+                IsBodyHtml = true,
+                Subject = "Блокировка учетной записи"
+            };
+            string durationText = duration == BlockDuration.Forever ? "навсегда" : "до " + user.LockoutEndDateUtc?.ToLocalTime();
+            message.Body = $"Здравствуйте, {user.Name}.<br>" +
+                $"Ваша учетная запись была заблокирована {durationText}.<br>" +
+                $"Причина: {cause}.<br>";
+            message.Body += sender != null ? $"Блокировку произвел: {sender.UserName} | {sender.Name}" : "";
 
             SendMail(user, message);
         }

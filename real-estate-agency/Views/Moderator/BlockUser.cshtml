@@ -1,0 +1,23 @@
+﻿@using real_estate_agency.Models.ViewModels;
+@model BlockUserViewModel
+
+@{
+    Layout = "~/Views/Shared/header.cshtml";
+}
+
+<h2>Блокировка пользователя</h2>
+@using (Html.BeginForm("BlockUser", "Moderator", null, FormMethod.Post))
+{
+    @Html.ValidationSummary(false)
+
+    @Html.HiddenFor(m => m.UserId)
+    
+    <label>Причина</label>
+    @Html.TextAreaFor(m => m.Message)
+    
+    <label>Длительность блокировки</label>
+    @Html.EnumDropDownListFor(m => m.Duration)
+    
+    <button type="submit">OK</button>
+}
+
