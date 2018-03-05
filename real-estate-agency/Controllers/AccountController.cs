@@ -69,7 +69,12 @@ namespace real_estate_agency.Controllers
                         UserManager.AccessFailed(tryingUser.Id);
 
                         if (UserManager.IsLockedOut(tryingUser.Id))
+                        {
+                            string message = "Превышено количество попыток входа. " + 
+                                "Возможно, кто-то пытается взломать Вашу учетную запись";
+                            EmailSender.SendUserBlockedMail(tryingUser, BlockDuration.Hour, message);
                             ModelState.AddModelError("", "Ваша учетная запись заблокирована до " + tryingUser.LockoutEndDateUtc?.ToLocalTime());
+                        }
                         else
                         {
                             int attempts = UserManager.MaxFailedAccessAttemptsBeforeLockout - tryingUser.AccessFailedCount;
@@ -83,7 +88,7 @@ namespace real_estate_agency.Controllers
 
                         AuthManager.SignOut();
                         AuthManager.SignIn(new AuthenticationProperties { IsPersistent = true }, ident);
-
+                        UserManager.ResetAccessFailedCount(user.Id);
                         if (string.IsNullOrEmpty(returnURL))
                             returnURL = Url.Action("Index", "Home");
                         return Redirect(returnURL);
