@@ -90,12 +90,12 @@ namespace real_estate_agency.Controllers
             {
                 UserId = id
             };
-
+            ViewBag.ReturnUrl = Request.UrlReferrer.ToString();
             return View(model);
         }
 
         [HttpPost]
-        public async Task<ActionResult> BlockUser(BlockUserViewModel model)
+        public async Task<ActionResult> BlockUser(BlockUserViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -106,6 +106,9 @@ namespace real_estate_agency.Controllers
                 TimeSpan duration = TimeSpan.FromDays(0);
                 switch (model.Duration)
                 {
+                    case BlockDuration.Hour:
+                        duration = TimeSpan.FromHours(1);
+                        break;
                     case BlockDuration.Day:
                         duration = TimeSpan.FromDays(1);
                         break;
@@ -126,7 +129,7 @@ namespace real_estate_agency.Controllers
                 {
                     AppUser sender = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                     Email.EmailSender.SendUserBlockedMail(user, model.Duration, model.Message, sender);
-                    //return Redirect();
+                    return Redirect(returnUrl);
                 }
                 else
                     return View("Error", result.Errors);

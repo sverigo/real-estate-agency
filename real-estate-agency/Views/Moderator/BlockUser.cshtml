@@ -11,6 +11,7 @@
     @Html.ValidationSummary(false)
 
     @Html.HiddenFor(m => m.UserId)
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
     
     <label>Причина</label>
     @Html.TextAreaFor(m => m.Message)
