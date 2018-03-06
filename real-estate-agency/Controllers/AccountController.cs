@@ -42,34 +42,60 @@ namespace real_estate_agency.Controllers
         {
             if (ModelState.IsValid)
             {
-                AppUser user = await UserManager.FindByEmailAsync(model.LoginOrEmail) ??
+                AppUser tryingUser = await UserManager.FindByEmailAsync(model.LoginOrEmail) ??
                     await UserManager.FindByNameAsync(model.LoginOrEmail);
 
-                if (user != null)
+                if (tryingUser == null)
+                    ModelState.AddModelError("", "Неверное имя или пароль!");
+                else
                 {
-                    if (!user.EmailConfirmed)
+                    if (!tryingUser.EmailConfirmed)
                     {
                         ModelState.AddModelError("", "Активируйте свою учетную запись. Проверьте почту!");
                         ViewBag.returnURL = returnURL;
                         return View(model);
                     }
-                    user = await UserManager.FindAsync(user.UserName, model.Password);
-                }
-                if (user == null)
-                    ModelState.AddModelError("", "Неверное имя или пароль!");
-                else
-                {
-                    ClaimsIdentity ident = await UserManager.CreateIdentityAsync(user,
-                        DefaultAuthenticationTypes.ApplicationCookie);
 
-                    AuthManager.SignOut();
-                    AuthManager.SignIn(new AuthenticationProperties { IsPersistent = true }, ident);
+                    if (UserManager.IsLockedOut(tryingUser.Id))
+                    {
+                        ModelState.AddModelError("", "Ваша учетная запись заблокирована до " + tryingUser.LockoutEndDateUtc?.ToLocalTime());
+                        ViewBag.returnURL = returnURL;
+                        return View(model);
+                    }
 
-                    if (string.IsNullOrEmpty(returnURL))
-                        returnURL = Url.Action("Index", "Home");
-                    return Redirect(returnURL);
+                    AppUser user = await UserManager.FindAsync(tryingUser.UserName, model.Password);
+                    if (user == null)
+                    {
+                        UserManager.AccessFailed(tryingUser.Id);
+
+                        if (UserManager.IsLockedOut(tryingUser.Id))
+                        {
+                            string message = "Превышено количество попыток входа. " + 
+                                "Возможно, кто-то пытается взломать Вашу учетную запись";
+                            EmailSender.SendUserBlockedMail(tryingUser, BlockDuration.Hour, message);
+                            ModelState.AddModelError("", "Ваша учетная запись заблокирована до " + tryingUser.LockoutEndDateUtc?.ToLocalTime());
+                        }
+                        else
+                        {
+                            int attempts = UserManager.MaxFailedAccessAttemptsBeforeLockout - tryingUser.AccessFailedCount;
+                            ModelState.AddModelError("", "Неверный пароль! Осталось попыток: " + attempts);
+                        }
+                    }
+                    else
+                    {
+                        ClaimsIdentity ident = await UserManager.CreateIdentityAsync(user,
+                            DefaultAuthenticationTypes.ApplicationCookie);
+
+                        AuthManager.SignOut();
+                        AuthManager.SignIn(new AuthenticationProperties { IsPersistent = true }, ident);
+                        UserManager.ResetAccessFailedCount(user.Id);
+                        if (string.IsNullOrEmpty(returnURL))
+                            returnURL = Url.Action("Index", "Home");
+                        return Redirect(returnURL);
+                    }
                 }
             }
+
             ViewBag.returnURL = returnURL;
             return View(model);
         }
@@ -103,11 +129,12 @@ namespace real_estate_agency.Controllers
                     };
 
                     IdentityResult result = await UserManager.CreateAsync(user, userInfo.Password);
-                    if (result.Succeeded)
+                    IdentityResult roleRes = await UserManager.AddToRoleAsync(user.Id, PermissionDirectory.USERS);
+                    if (result.Succeeded && roleRes.Succeeded)
                     {
                         //send email
                         string token = UserManager.GenerateEmailConfirmationToken(user.Id);
-                        string link = Url.Action("ConfirmEmail", "Account", new { id = user.Id, token = token }, 
+                        string link = Url.Action("ConfirmEmail", "Account", new { id = user.Id, token = token },
                             Request.Url.Scheme);
                         EmailSender.SendConfirmEmail(user, link);
                         string info = $"На вашу почту {user.Email} было отправлено письмо с ссылкой для активации " +
@@ -115,7 +142,10 @@ namespace real_estate_agency.Controllers
                         return View("Info", null, info);
                     }
                     else
+                    {
                         result.Errors.ToList().ForEach(err => ModelState.AddModelError("", err));
+                        roleRes.Errors.ToList().ForEach(err => ModelState.AddModelError("", err));
+                    }
                 }
             }
             return View(userInfo);

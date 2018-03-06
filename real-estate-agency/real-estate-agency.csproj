@@ -196,9 +196,11 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdsController.cs" />
     <Compile Include="Controllers\CabinetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ModeratorController.cs" />
     <Compile Include="Email\EmailSender.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -210,17 +212,23 @@
     <Compile Include="Infrastructure\CustomPassValidator.cs" />
     <Compile Include="Infrastructure\CustomUserValidator.cs" />
     <Compile Include="Infrastructure\FilterOptions.cs" />
+    <Compile Include="Infrastructure\Notifier.cs" />
     <Compile Include="Infrastructure\PermissionDirectory.cs" />
+    <Compile Include="Infrastructure\SearchUserFilter.cs" />
     <Compile Include="Infrastructure\StringImgPhoneConverter.cs" />
     <Compile Include="Models\Ad.cs" />
     <Compile Include="Models\AppIdentityDBContext.cs" />
     <Compile Include="Models\AppRole.cs" />
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\MarkedAds.cs" />
+    <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\RealEstateDBContext.cs" />
+    <Compile Include="Models\ViewModels\BlockUserViewModel.cs" />
     <Compile Include="Models\ViewModels\MainPageViewModel.cs" />
     <Compile Include="Models\ViewModels\MarksViewModel.cs" />
+    <Compile Include="Models\ViewModels\RemoveAdViewModel.cs" />
     <Compile Include="Models\ViewModels\ResetPasswordViewModel.cs" />
+    <Compile Include="Models\ViewModels\SearchUserViewModel.cs" />
     <Compile Include="Models\ViewModels\UserLoginViewModel.cs" />
     <Compile Include="Models\ViewModels\ProfileViewModel.cs" />
     <Compile Include="Models\ViewModels\UserRegisterViewModel.cs" />
@@ -288,6 +296,14 @@
     <Content Include="Views\Cabinet\ProfileSettings.cshtml" />
     <Content Include="Views\Cabinet\ChangeProfile.cshtml" />
     <Content Include="Views\Cabinet\ChangePassword.cshtml" />
+    <Content Include="Views\Admin\AdminPanel.cshtml" />
+    <Content Include="Views\Moderator\RemoveAd.cshtml" />
+    <Content Include="Views\Admin\CreateModerator.cshtml" />
+    <Content Include="Views\Moderator\ModeratorPanel.cshtml" />
+    <Content Include="Views\Moderator\UserList.cshtml" />
+    <Content Include="Views\Moderator\SearchUserPanel.cshtml" />
+    <Content Include="Views\Cabinet\MyNotifications.cshtml" />
+    <Content Include="Views\Moderator\BlockUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataParser\DataParser.csproj">

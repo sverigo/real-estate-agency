@@ -1,0 +1,33 @@
+﻿@using real_estate_agency.Models.ViewModels;
+@model SearchUserViewModel
+
+@using (Ajax.BeginForm("SearchUser", "Moderator", null, new AjaxOptions { UpdateTargetId = "search-user-panel" }))
+{
+    @Html.ValidationSummary(false)
+
+    <label>Логин</label>
+    @Html.TextBoxFor(x => x.Login)
+
+    <label>Имя</label>
+    @Html.TextBoxFor(x => x.Name)
+
+    <label>Email</label>
+    @Html.TextBoxFor(x => x.Email)
+
+    <div>
+        <div>
+            <label>Премиум</label>
+            <input type="checkbox" value="true" name="IsPremium" @((Model.IsPremium ?? false) ? "checked=\"checked\"" : "") />
+        </div>
+
+        <div>
+            <label>Заблокирован</label>
+            <input type="checkbox" value="true" name="IsBlocked" @((Model.IsBlocked ?? false) ? "checked=\"checked\"" : "") />
+        </div>
+
+    </div>
+    
+    <button type="submit"> Поиск </button>
+    }
+
+@Html.Partial("UserList", Model.ResultUsers)

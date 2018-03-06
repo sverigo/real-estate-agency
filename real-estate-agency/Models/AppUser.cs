@@ -18,5 +18,7 @@ namespace real_estate_agency.Models
         public virtual ICollection<Ad> PublishedAds { get; set; }
 
         public HashSet<MarkedAd> MarkedAds { get; set; }
+
+        public virtual ICollection<Notification> Notifications { get; set; }
     }
 }

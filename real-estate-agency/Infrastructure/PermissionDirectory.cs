@@ -15,7 +15,7 @@ namespace real_estate_agency.Infrastructure
         public const string PREMIUM_USER = "PremiumUsers";
         public const string USERS = "Users";
 
-        public static bool UserCanEditDeleteAd(IPrincipal user, Ad ad)
+        public static bool UserCanDeleteAd(IPrincipal user, Ad ad)
         {
             return (ad.UserAuthorId ?? "") == user.Identity.GetUserId() ||
                 user.IsInRole(ADMINS) ||
@@ -29,7 +29,19 @@ namespace real_estate_agency.Infrastructure
 
         public static bool IsOwnerOfAd(IPrincipal user, Ad ad)
         {
+            if (string.IsNullOrEmpty(ad.UserAuthorId))
+                return false;
             return ad.UserAuthorId == user.Identity.GetUserId();
+        }
+
+        public static bool IsAdmin(IPrincipal user)
+        {
+            return user.IsInRole(ADMINS);
+        }
+
+        public static bool IsModerator(IPrincipal user)
+        {
+            return user.IsInRole(MODERATORS);
         }
     }
 }

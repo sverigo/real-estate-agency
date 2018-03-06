@@ -3,7 +3,6 @@
 @using real_estate_agency.Infrastructure;
 @using real_estate_agency.Models.ViewModels;
 @model MainPageViewModel
-
 @foreach (var item in Model.PagedListModel)
 {
     var src = item.PrevImage;
@@ -12,9 +11,8 @@
         src = "../Content/images/nophoto.png";
     }
     <div class="box col-md-6 ">
-        @if (PermissionDirectory.UserCanEditDeleteAd(User, item))
+        @if (PermissionDirectory.UserCanDeleteAd(User, item))
         {
-            @Html.ActionLink(" ", "Edit", "Ads", new { id = item.Id }, new { @class = "edit" })
             @Html.ActionLink(" ", "Remove", "Ads", new { id = item.Id }, new { @class = "remove" })
         }
         @if (!PermissionDirectory.IsOwnerOfAd(User, item))
@@ -22,6 +20,10 @@
             <div id="marks-@item.Id">
                 @{Html.RenderAction("Marks", "Ads", new { id = item.Id });}
             </div>
+        }
+        else
+        {
+            @Html.ActionLink(" ", "Edit", "Ads", new { id = item.Id }, new { @class = "edit" })
         }
         <p class="title">@item.Title</p>
         <div class="row">
@@ -37,7 +39,7 @@
             <div class="clearfix"></div>
         </div>
     </div>
-                }
+                    }
 <div id="pagesSwitch" class="pagesSwitch">
     @Html.PagedListPager((IPagedList)Model.PagedListModel, page => Url.Action("AdFilter", "Home", new
 {
@@ -54,5 +56,4 @@
 }),
         PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "results" }))
 </div>
-
 

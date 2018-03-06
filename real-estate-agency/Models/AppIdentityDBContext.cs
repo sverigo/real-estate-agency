@@ -15,6 +15,7 @@ namespace real_estate_agency.Models
     {
         public virtual DbSet<Ad> Ads { get; set; }
         public virtual DbSet<MarkedAd> MarkedAds { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
 
         public AppIdentityDBContext(): base("RealEstateAgencyDB") { }
 
@@ -59,6 +60,8 @@ namespace real_estate_agency.Models
                 PermissionDirectory.PREMIUM_USER,
                 PermissionDirectory.USERS
             };
+
+            //get this shit out of here in the web.config
             string login = "Admin";
             string name = "Administrator";
             string pass = "adminpass1";
@@ -76,7 +79,8 @@ namespace real_estate_agency.Models
                     UserName = login,
                     Name = name,
                     Email = email,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    LockoutEnabled = false
                 },
                 pass);
 
