@@ -26,6 +26,8 @@ namespace real_estate_agency.Controllers
         public async Task<ActionResult> Index()
         {
             AppUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            int newNotificationsCount = user.Notifications.Where(n => !n.Seen).Count();
+            ViewBag.NotifCount = newNotificationsCount > 0 ? " +" + newNotificationsCount : "" ;
             return View(user);
         }
 
@@ -41,17 +43,22 @@ namespace real_estate_agency.Controllers
             return PartialView(markedAds);
         }
 
-        public PartialViewResult MyNotifications()
+        public ActionResult MyNotifications()
         {
             AppUser user = UserManager.FindById(User.Identity.GetUserId());
             IEnumerable<Notification> notifications = user.Notifications.ToList();
-            return PartialView(notifications);
-        }
 
-        //delete userID here, there's no sence
-        public PartialViewResult ProfileSettings(string userId)
+            Notifier notifier = new Notifier(UserManager);
+            IdentityResult result = notifier.SetNotificationsSeen(user);
+            if (result == null || result.Succeeded)
+                return PartialView(notifications.Reverse());
+            else
+                return View("Error", result.Errors);
+        }
+        
+        public PartialViewResult ProfileSettings()
         {
-            return PartialView("ProfileSettings", userId);
+            return PartialView("ProfileSettings", User.Identity.GetUserId());
         }
 
         public PartialViewResult ChangeProfile(string userId)

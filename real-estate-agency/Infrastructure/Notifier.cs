@@ -29,5 +29,15 @@ namespace real_estate_agency.Infrastructure
             user.Notifications.Add(notification);
             return userManager.Update(user);
         }
+
+        public IdentityResult SetNotificationsSeen(AppUser user)
+        {
+            List<Notification> unseenNotifications = user.Notifications.Where(n => !n.Seen).ToList();
+            if (unseenNotifications.Count == 0)
+                return null;
+
+            unseenNotifications.ForEach(n => n.Seen = true);
+            return userManager.Update(user);
+        }
     }
 }

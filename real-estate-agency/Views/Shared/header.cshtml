@@ -27,10 +27,11 @@
                 @{
                     if (User?.Identity.IsAuthenticated ?? false)
                     {
-                        @*@:<li><a class="nav-link" href="/Cabinet/Index">Кабинет</a></li>
-                            @:<li><a class="nav-link" href="/Account/Logout">Выйти</a></li>*@
                         <li>
-                            @Html.ActionLink("Кабинет", "Index", "Cabinet", null, new { @class = "nav-link" })
+                            @{ 
+                                string cabinet = "Кабинет" + ViewBag.NotifCount;
+                            }
+                            @Html.ActionLink(cabinet, "Index", "Cabinet", null, new { @class = "nav-link", id = "cabinet-link"})
                         </li>
                         <li>
                             @Html.ActionLink("Выйти", "Logout", "Account", null, new { @class = "nav-link" })

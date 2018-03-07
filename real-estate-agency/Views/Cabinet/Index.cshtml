@@ -12,6 +12,12 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <script type="text/javascript">
+        function notificationLinkClick() {
+            document.getElementById("notif-link").innerHTML = "Оповещения";
+            document.getElementById("cabinet-link").innerHTML = "Кабинет";
+        }
+    </script>
 </head>
 <body>
     <div>
@@ -27,11 +33,15 @@
                new AjaxOptions() { UpdateTargetId = "contentDisplay" })
             </li>
             <li>
-                @Ajax.ActionLink("Оповещения", "MyNotifications", "Cabinet", new { userId = Model.Id },
-               new AjaxOptions() { UpdateTargetId = "contentDisplay" })
+                @{ 
+                    string notif = "Оповещения " + ViewBag.NotifCount;
+                }
+                @Ajax.ActionLink(notif, "MyNotifications", "Cabinet", null,
+               new AjaxOptions() { UpdateTargetId = "contentDisplay" }, 
+               new { onclick = "notificationLinkClick()", id = "notif-link" })
             </li>
             <li>
-                @Ajax.ActionLink("Профиль", "ProfileSettings", "Cabinet", new { userId = Model.Id},
+                @Ajax.ActionLink("Профиль", "ProfileSettings", "Cabinet",
                new AjaxOptions() { UpdateTargetId = "contentDisplay" })
             </li>
             @if(PermissionDirectory.IsAdmin(User))

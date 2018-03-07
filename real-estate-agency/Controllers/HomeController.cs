@@ -10,6 +10,9 @@ using PagedList;
 using System.Data.Entity;
 using real_estate_agency.Infrastructure;
 using real_estate_agency.Models.ViewModels;
+using System.Web;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace real_estate_agency.Controllers
 {
@@ -17,8 +20,21 @@ namespace real_estate_agency.Controllers
     {
         AdsManager adsManager = new AdsManager();
 
+        private AppUserManager UserManager
+        {
+            get { return HttpContext.GetOwinContext().GetUserManager<AppUserManager>(); }
+        }
+
         public ActionResult Index()
         {
+            AppUser user = UserManager.FindById(User?.Identity.GetUserId() ?? "");
+            if (user != null)
+            {
+                int notifCount = user.Notifications.Where(n => !n.Seen).Count();
+                ViewBag.NotifCount = notifCount > 0 ? " +" + notifCount : "";
+            }
+            else
+                ViewBag.NotifCount = "";
             return View();
         }
 
