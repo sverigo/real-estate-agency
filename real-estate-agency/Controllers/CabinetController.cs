@@ -46,12 +46,13 @@ namespace real_estate_agency.Controllers
         public ActionResult MyNotifications()
         {
             AppUser user = UserManager.FindById(User.Identity.GetUserId());
-            IEnumerable<Notification> notifications = user.Notifications.ToList();
-
             Notifier notifier = new Notifier(UserManager);
             IdentityResult result = notifier.SetNotificationsSeen(user);
             if (result == null || result.Succeeded)
+            {
+                IEnumerable<Notification> notifications = user.Notifications.ToList();
                 return PartialView(notifications.Reverse());
+            }
             else
                 return View("Error", result.Errors);
         }
