@@ -8,6 +8,7 @@ using real_estate_agency.Models;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using real_estate_agency.Infrastructure;
 using Microsoft.AspNet.Identity;
+using System.Web.Configuration;
 
 namespace real_estate_agency.Models
 {
@@ -60,12 +61,11 @@ namespace real_estate_agency.Models
                 PermissionDirectory.PREMIUM_USER,
                 PermissionDirectory.USERS
             };
-
-            //get this shit out of here in the web.config
-            string login = "Admin";
-            string name = "Administrator";
-            string pass = "adminpass1";
-            string email = "admin@gmail.com";
+            
+            string login = WebConfigurationManager.AppSettings["AdminLogin"];
+            string name = WebConfigurationManager.AppSettings["AdminName"];
+            string pass = WebConfigurationManager.AppSettings["AdminPass"];
+            string email = WebConfigurationManager.AppSettings["AdminMail"];
 
             foreach(string role in roleNames)
                 if (!roleMng.RoleExists(role))
