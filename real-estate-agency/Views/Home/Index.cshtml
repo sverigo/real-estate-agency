@@ -30,16 +30,16 @@
                            }, new { @class = "sort-dropdown" })
                     </div>
                     <div class="filter quantity">
-                        @Html.EditorFor(model => model.MaxQuantity, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Цена до" } })
                         @Html.EditorFor(model => model.MinQuantity, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Цена от" } })
+                        @Html.EditorFor(model => model.MaxQuantity, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Цена до" } })
                     </div>
                     <div class="filter rooms">
-                        @Html.EditorFor(model => model.MaxRoomsCount, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Комнат до" } })
                         @Html.EditorFor(model => model.MinRoomsCount, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Комнат от" } })
+                        @Html.EditorFor(model => model.MaxRoomsCount, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Комнат до" } })
                     </div>
                     <div class="filter floors">
-                        @Html.EditorFor(model => model.MaxFloor, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Этажность до" } })
                         @Html.EditorFor(model => model.MinFloor, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Этажность от" } })
+                        @Html.EditorFor(model => model.MaxFloor, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Этажность до" } })
                     </div>
                     <div class="filter search">
                         <input class="filter-search" type="submit" value="Search" />
