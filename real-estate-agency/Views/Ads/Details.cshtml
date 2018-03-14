@@ -51,17 +51,14 @@
                 <h2>@Model.Title</h2>
             </div>
             <div style="text-align: right;">
-                @if ((User?.Identity.GetUserId() ?? "") == Model.UserAuthorId)
-                {
-                    @Html.ActionLink("Edit", "Edit", "Ads", new { id = Model.Id, fromDetailsUrl = ViewBag.FromDetailsUrl }, new { @class = "" })
-                }
-                @if ((User?.Identity.GetUserId() ?? "") == Model.UserAuthorId ||
-                                     (User?.IsInRole("Admins") ?? false) || (User?.IsInRole("Moderators") ?? false))
+                @if (PermissionDirectory.UserCanDeleteAd(User, Model))
                 {
                     @Html.ActionLink("Remove", "Remove", "Ads", new { id = Model.Id, returnUrl = ViewBag.ReturnUrl }, new { @class = "" })
                 }
-
-
+                @if (PermissionDirectory.IsOwnerOfAd(User, Model))
+                {
+                    @Html.ActionLink("Edit", "Edit", "Ads", new { id = Model.Id, fromDetailsUrl = ViewBag.FromDetailsUrl }, new { @class = "" })
+                }
             </div>
             <div class="row">
                 <div class="prev-image">
