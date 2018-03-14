@@ -41,11 +41,6 @@
                 <p class="origin">It is origin</p>
             }
         </div>
-        var src = Model.PrevImage;
-        if (Model.PrevImage == null)
-        {
-            src = "../../Content/images/nophoto.png";
-        }
         <div class="information">
             <div class="detail-title">
                 <h2>@Model.Title</h2>
@@ -62,7 +57,7 @@
             </div>
             <div class="row">
                 <div class="prev-image">
-                    <img src="@src" />
+                    <img src="@Url.Content(Model.PrevImage)" />
                 </div>
                 <div class="general-info">
                     <p><strong>Тип: </strong>@Model.Type </p>

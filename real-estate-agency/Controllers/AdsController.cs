@@ -3,6 +3,7 @@ using real_estate_agency.Infrastructure;
 using real_estate_agency.Models;
 using real_estate_agency.Models.ViewModels;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -24,7 +25,27 @@ namespace real_estate_agency.Controllers
         [HttpPost]
         public ActionResult Add(Ad ad, string returnUrl)
         {
+            var phones = HttpContext.Request.Form["Phone"];
+            ad.Phone = String.Join("|", phones.Split(','));
+            ad.PrevImage = "~/Content/images/nophoto.png";
+            
+            foreach (string file in Request.Files)
+            {
+                var upload = Request.Files[file];
+                /*add check for extensions for images*/
+                if (upload != null && Path.GetExtension(upload.FileName) == ".jpg")
+                {
+
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(upload.FileName);
+                    ad.PrevImage = "~/Content/images/" + fileName;
+                    upload.SaveAs(Server.MapPath(ad.PrevImage));
+                }
+            }
             adsManager.AddNewAd(ad);
+            if (String.IsNullOrEmpty(returnUrl))
+            {
+                return Redirect("/Home/Index/");
+            }
             return Redirect(returnUrl);
         }
 
@@ -53,11 +74,31 @@ namespace real_estate_agency.Controllers
         [HttpPost]
         public ActionResult Edit(Ad ad, string returnUrl, string fromDetailsUrl)
         {
+            var phones = HttpContext.Request.Form["Phone"];
+            ad.Phone = String.Join("|", phones.Split(','));
+            foreach (string file in Request.Files)
+            {
+                var upload = Request.Files[file];
+                /*add check for extensions for images*/
+                if (upload != null && Path.GetExtension(upload.FileName) == ".jpg")
+                {
+
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(upload.FileName);
+                    ad.PrevImage = "~/Content/images/" + fileName;
+                    upload.SaveAs(Server.MapPath(ad.PrevImage));
+                }
+            }
             adsManager.Edit(ad);
             if (!string.IsNullOrEmpty(fromDetailsUrl))
                 return RedirectToAction("Details", new { id = ad.Id, fromDetailsUrl = fromDetailsUrl });
-            else
+            else if (String.IsNullOrEmpty(returnUrl))
+            {
+                return Redirect("/Home/Index/");
+            }
+            else {
                 return Redirect(returnUrl);
+            }
+            
         }
 
         public ActionResult Remove(int id, string returnUrl)
