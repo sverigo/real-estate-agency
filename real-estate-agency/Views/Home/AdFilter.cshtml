@@ -2,7 +2,9 @@
 @using PagedList.Mvc;
 @using real_estate_agency.Infrastructure;
 @using real_estate_agency.Models.ViewModels;
+
 @model MainPageViewModel
+
 @foreach (var item in Model.PagedListModel)
 {
     var src = item.PrevImage;
@@ -10,7 +12,7 @@
     {
         src = "../Content/images/nophoto.png";
     }
-    <div class="box col-md-6 ">
+    <div class="box col-md-4 col-sm-6 col-xs-12">
         @if (PermissionDirectory.UserCanDeleteAd(User, item))
         {
             @Html.ActionLink(" ", "Remove", "Ads", new { id = item.Id }, new { @class = "remove" })
@@ -26,34 +28,47 @@
             @Html.ActionLink(" ", "Edit", "Ads", new { id = item.Id }, new { @class = "edit" })
         }
         <p class="title">@item.Title</p>
-        <div class="row">
-            <div class="img-box">
-                <img src="@src">
+        <div class="img-box">
+            <img src="@src">
+            <div class="quantity-box">
+                <strong>@item.Value @item.Currency</strong>
             </div>
-            <div class="text-box">
-                <p><strong>Тип:</strong> @item.Type</p>
-                <p><strong>Адрес:</strong> @item.Address</p>
-                <p><strong>Стоимость:</strong> @item.Value @item.Currency</p>
-                <p>@Html.ActionLink("Подробнее", "Details", "Ads", new { id = item.Id }, new { @class = "" })</p>
-            </div>
-            <div class="clearfix"></div>
         </div>
+        <div class="info-box">
+            <center><p><strong>@item.Type</strong></p></center>
+            <p><strong>Адрес:</strong> @item.Address</p>
+            <p><strong>Количество комнат:</strong> @item.RoomsCount</p>
+            @if (item.Floors != 0 && @item.FloorsCount != 0)
+            {
+                <p><strong>Этаж: </strong>   @item.Floors из @item.FloorsCount </p>
+            }
+            else if (@item.FloorsCount == 0 && @item.Floors != 0)
+            {
+                <p><strong>Этаж: </strong> @item.Floors</p>
+            }
+            @if (@item.Area != null)
+            {
+                <p><strong>Площадь: </strong>@item.Area </p>
+            }
+            <p>@Html.ActionLink("Подробнее", "Details", "Ads", new { id = item.Id }, new { @class = "" })</p>
+        </div>
+        <div class="clearfix"></div>
     </div>
-                    }
-<div id="pagesSwitch" class="pagesSwitch">
+}
+<br />
+<div id="pagesSwitch" class="pagesSwitch col-md-12 col-sm-12 col-lg-12 col-xs-12">
     @Html.PagedListPager((IPagedList)Model.PagedListModel, page => Url.Action("AdFilter", "Home", new
-{
-    Currency = Model.Currency ?? "",
-    MaxArea = Model.MaxArea,
-    MinArea = Model.MinArea,
-    MaxQuantity = Model.MaxQuantity,
-    MinQuantity = Model.MinQuantity,
-    MinFloor = Model.MinFloor,
-    MaxFloor = Model.MaxFloor,
-    MaxRoomsCount = Model.MaxRoomsCount,
-    MinRoomsCount = Model.MinRoomsCount,
-    Page = page
-}),
-        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "results" }))
+    {
+        Currency = Model.Currency ?? "",
+        MaxArea = Model.MaxArea,
+        MinArea = Model.MinArea,
+        MaxQuantity = Model.MaxQuantity,
+        MinQuantity = Model.MinQuantity,
+        MinFloor = Model.MinFloor,
+        MaxFloor = Model.MaxFloor,
+        MaxRoomsCount = Model.MaxRoomsCount,
+        MinRoomsCount = Model.MinRoomsCount,
+        Page = page
+    }),
+                            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "results" }))
 </div>
-

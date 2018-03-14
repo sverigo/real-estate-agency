@@ -17,6 +17,8 @@ namespace real_estate_agency.Infrastructure
         public int MaxArea { get; set; }
         public int MinFloor { get; set; }
         public int MaxFloor { get; set; }
+        public string SortType { get; set; }
+        public string FlatRentType { get; set; }
 
         public IEnumerable<Ad> getRoomsFilter(IEnumerable<Ad> ads)
         {
@@ -60,6 +62,24 @@ namespace real_estate_agency.Infrastructure
                 return (from i in ads where i.Floors <= MaxFloor select i);
             else
                 return (from i in ads where i.Floors >= MinFloor && i.Floors <= MaxFloor select i);
+        }
+
+        public IEnumerable<Ad> getSortedAds(IEnumerable<Ad> ads)
+        {
+            if (SortType == "valueDesc")
+                return ads.OrderByDescending(i => i.Value);
+            else if (SortType == "valueAsc")
+                return ads.OrderBy(i => i.Value);
+            else
+                return ads;
+        }
+
+        public IEnumerable<Ad> getFlatRentAds(IEnumerable<Ad> ads)
+        {
+            if (FlatRentType != null && FlatRentType != "All")
+                return (from i in ads where i.Type == FlatRentType select i);
+            else
+                return ads;
         }
     }
 }

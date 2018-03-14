@@ -21,5 +21,7 @@ namespace real_estate_agency.Models.ViewModels
         public int? MaxArea { get; set; }
         public int? MinFloor { get; set; }
         public int? MaxFloor { get; set; }
+        public string SortType { get; set; }
+        public string FlatRentType { get; set; }
     }
 }
