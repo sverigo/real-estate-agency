@@ -113,9 +113,9 @@ namespace real_estate_agency.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Register(UserRegisterViewModel userInfo)
+        public ActionResult Register(UserRegisterViewModel userInfo)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 if (userInfo.ConfirmPassword != userInfo.Password)
                     ModelState.AddModelError("", "Введенные пароли не одинаковы!");
@@ -128,8 +128,8 @@ namespace real_estate_agency.Controllers
                         Email = userInfo.Email,
                     };
 
-                    IdentityResult result = await UserManager.CreateAsync(user, userInfo.Password);
-                    IdentityResult roleRes = await UserManager.AddToRoleAsync(user.Id, PermissionDirectory.USERS);
+                    IdentityResult result = UserManager.Create(user, userInfo.Password);
+                    IdentityResult roleRes = UserManager.AddToRole(user.Id, PermissionDirectory.USERS);
                     if (result.Succeeded && roleRes.Succeeded)
                     {
                         //send email
