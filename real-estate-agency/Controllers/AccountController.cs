@@ -129,8 +129,10 @@ namespace real_estate_agency.Controllers
                     };
 
                     IdentityResult result = UserManager.Create(user, userInfo.Password);
-                    IdentityResult roleRes = UserManager.AddToRole(user.Id, PermissionDirectory.USERS);
-                    if (result.Succeeded && roleRes.Succeeded)
+                    IdentityResult roleRes = null;
+                    if (result.Succeeded)
+                        roleRes = UserManager.AddToRole(user.Id, PermissionDirectory.USERS);
+                    if (result.Succeeded && (roleRes?.Succeeded ?? false)) 
                     {
                         //send email
                         string token = UserManager.GenerateEmailConfirmationToken(user.Id);
@@ -144,7 +146,7 @@ namespace real_estate_agency.Controllers
                     else
                     {
                         result.Errors.ToList().ForEach(err => ModelState.AddModelError("", err));
-                        roleRes.Errors.ToList().ForEach(err => ModelState.AddModelError("", err));
+                        roleRes?.Errors?.ToList()?.ForEach(err => ModelState.AddModelError("", err));
                     }
                 }
             }
