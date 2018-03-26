@@ -139,7 +139,7 @@ namespace real_estate_agency.Controllers
                         string link = Url.Action("ConfirmEmail", "Account", new { id = user.Id, token = token },
                             Request.Url.Scheme);
                         EmailSender.SendConfirmEmail(user, link);
-                        string info = $"На вашу почту {user.Email} было отправлено письмо с ссылкой для активации " +
+                        string info = $"На вашу почту {user.Email} было отправлено письмо со ссылкой для активации " +
                             $"учетной записи!";
                         return View("Info", null, info);
                     }
