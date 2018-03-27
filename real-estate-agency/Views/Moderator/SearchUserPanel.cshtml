@@ -4,30 +4,31 @@
 @using (Ajax.BeginForm("SearchUser", "Moderator", null, new AjaxOptions { UpdateTargetId = "search-user-panel" }))
 {
     @Html.ValidationSummary(false)
-
-    <label>Логин</label>
-    @Html.TextBoxFor(x => x.Login)
-
-    <label>Имя</label>
-    @Html.TextBoxFor(x => x.Name)
-
-    <label>Email</label>
-    @Html.TextBoxFor(x => x.Email)
-
-    <div>
-        <div>
-            <label>Премиум</label>
-            <input type="checkbox" value="true" name="IsPremium" @((Model.IsPremium ?? false) ? "checked=\"checked\"" : "") />
+    <fieldset class="col-md-4 mx-auto">
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.Login, new { @class = "form-control input-lg", placeholder = "Введите логин" })
         </div>
-
-        <div>
-            <label>Заблокирован</label>
-            <input type="checkbox" value="true" name="IsBlocked" @((Model.IsBlocked ?? false) ? "checked=\"checked\"" : "") />
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-lg", placeholder = "Введите имя" })
         </div>
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control input-lg", placeholder = "Введите email" })
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="true" name="IsPremium" id="IsPremium"
+                   @((Model.IsPremium ?? false) ? "checked=\"checked\"" : "") />
+            <label class="form-check-label" for="IsPremium">Премиум</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="true" name="IsBlocked" id="IsBlocked" 
+                   @((Model.IsBlocked ?? false) ? "checked=\"checked\"" : "") />
+            <label class="form-check-label" for="IsBlocked">Заблокирован</label>
+        </div>
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Поиск" />
+    </fieldset>
+}
+<br /><br />
+<div class="searchResults">
+    @Html.Partial("UserList", Model.ResultUsers)
+</div>
 
-    </div>
-    
-    <button type="submit"> Поиск </button>
-    }
-
-@Html.Partial("UserList", Model.ResultUsers)
