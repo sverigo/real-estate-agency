@@ -41,7 +41,7 @@ namespace real_estate_agency.Controllers
         public PartialViewResult AdFilter(MainPageViewModel model)
         {
             var allAds = adsManager.AllAds.Reverse();
-            int pageSize = 10;
+            int pageSize = 15;
 
             if (model == null)
                 model = new MainPageViewModel();
@@ -52,6 +52,8 @@ namespace real_estate_agency.Controllers
             var options = new FilterOptions
             {
                 Currency = model.Currency,
+                SortType = model.SortType,
+                FlatRentType = model.FlatRentType,
                 MaxArea = model.MaxArea ?? 0,
                 MinArea = model.MinArea ?? 0,
                 MaxFloor = model.MaxFloor ?? 0,
@@ -65,6 +67,9 @@ namespace real_estate_agency.Controllers
             allAds = options.getQuantityFilter(allAds);
             allAds = options.getRoomsFilter(allAds);
             allAds = options.getFloorFilter(allAds);
+            allAds = options.getSortedAds(allAds);
+            allAds = options.getFlatRentAds(allAds);
+
             model.PagedListModel = allAds.ToPagedList(model.Page, pageSize);
             return PartialView(model);
         }
