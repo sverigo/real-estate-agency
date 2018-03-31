@@ -8,18 +8,21 @@ using System.Web;
 
 namespace real_estate_agency.Infrastructure
 {
-    public class PermissionDirectory
+    public static class UserStatusDirectory
     {
-        public const string ADMINS = "Admins";
-        public const string MODERATORS = "Moderators";
-        public const string PREMIUM_USER = "PremiumUsers";
-        public const string USERS = "Users";
+        public struct Roles
+        {
+            public const string ADMINS = "Admins";
+            public const string MODERATORS = "Moderators";
+            public const string PREMIUM_USER = "PremiumUsers";
+            public const string USERS = "Users";
+        }
 
         public static bool UserCanDeleteAd(IPrincipal user, Ad ad)
         {
             return (ad.UserAuthorId ?? "") == user.Identity.GetUserId() ||
-                user.IsInRole(ADMINS) ||
-                user.IsInRole(MODERATORS);
+                user.IsInRole(Roles.ADMINS) ||
+                user.IsInRole(Roles.MODERATORS);
         }
 
         public static bool IsOwnerOfAd(string userId, Ad ad)
@@ -36,12 +39,12 @@ namespace real_estate_agency.Infrastructure
 
         public static bool IsAdmin(IPrincipal user)
         {
-            return user.IsInRole(ADMINS);
+            return user.IsInRole(Roles.ADMINS);
         }
 
         public static bool IsModerator(IPrincipal user)
         {
-            return user.IsInRole(MODERATORS);
+            return user.IsInRole(Roles.MODERATORS);
         }
     }
 }

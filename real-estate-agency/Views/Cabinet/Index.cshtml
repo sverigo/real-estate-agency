@@ -44,11 +44,11 @@
                 @Ajax.ActionLink("Профиль", "ProfileSettings", "Cabinet",
                new AjaxOptions() { UpdateTargetId = "contentDisplay" })
             </li>
-            @if(PermissionDirectory.IsAdmin(User))
+            @if(UserStatusDirectory.IsAdmin(User))
             {
                 @Html.ActionLink("Административная панель", "AdminPanel", "Admin");
             }
-            else if (PermissionDirectory.IsModerator(User))
+            else if (UserStatusDirectory.IsModerator(User))
             {
                 @Html.ActionLink("Страница модератора", "ModeratorPanel", "Moderator");
             }

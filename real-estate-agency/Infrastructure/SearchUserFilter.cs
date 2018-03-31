@@ -27,7 +27,7 @@ namespace real_estate_agency.Infrastructure
             bool? isPremium = conditions.IsPremium;
             bool? isBlocked = conditions.IsBlocked;
 
-            AppRole userRole = roleManager.FindByName(PermissionDirectory.USERS);
+            AppRole userRole = roleManager.FindByName(UserStatusDirectory.Roles.USERS);
             List<string> idsUsers = userRole.Users.Select(u => u.UserId).ToList();
             List<AppUser> result = userManager.Users.Where(u => idsUsers.Contains(u.Id))
                 .ToList();

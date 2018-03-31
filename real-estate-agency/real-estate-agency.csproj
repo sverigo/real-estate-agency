@@ -215,7 +215,7 @@
     <Compile Include="Infrastructure\CustomUserValidator.cs" />
     <Compile Include="Infrastructure\FilterOptions.cs" />
     <Compile Include="Infrastructure\Notifier.cs" />
-    <Compile Include="Infrastructure\PermissionDirectory.cs" />
+    <Compile Include="Infrastructure\UserStatusDirectory.cs" />
     <Compile Include="Infrastructure\SearchUserFilter.cs" />
     <Compile Include="Infrastructure\StringImgPhoneConverter.cs" />
     <Compile Include="Models\Ad.cs" />
@@ -224,6 +224,8 @@
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\MarkedAds.cs" />
     <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\Prices.cs" />
     <Compile Include="Models\RealEstateDBContext.cs" />
     <Compile Include="Models\ViewModels\BlockUserViewModel.cs" />
     <Compile Include="Models\ViewModels\MainPageViewModel.cs" />

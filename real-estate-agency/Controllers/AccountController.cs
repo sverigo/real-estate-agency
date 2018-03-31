@@ -131,7 +131,7 @@ namespace real_estate_agency.Controllers
                     IdentityResult result = UserManager.Create(user, userInfo.Password);
                     IdentityResult roleRes = null;
                     if (result.Succeeded)
-                        roleRes = UserManager.AddToRole(user.Id, PermissionDirectory.USERS);
+                        roleRes = UserManager.AddToRole(user.Id, UserStatusDirectory.Roles.USERS);
                     if (result.Succeeded && (roleRes?.Succeeded ?? false)) 
                     {
                         //send email

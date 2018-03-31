@@ -35,7 +35,7 @@ namespace real_estate_agency.Controllers
 
             if (ad == null)
                 return View("Error", new string[] { "Объявление с указанным id не существует!" });
-            else if (!PermissionDirectory.IsOwnerOfAd(User, ad))
+            else if (!UserStatusDirectory.IsOwnerOfAd(User, ad))
                 return View("Error", new string[] { "У вас нет прав редактировать это объявление!" });
             else
             {
@@ -70,11 +70,11 @@ namespace real_estate_agency.Controllers
 
             if (ad == null)
                 return View("Error", new string[] { "Объявление с указанным id не существует!" });
-            else if (!PermissionDirectory.UserCanDeleteAd(User, ad))
+            else if (!UserStatusDirectory.UserCanDeleteAd(User, ad))
                 return View("Error", new string[] { "У вас нет прав редактировать это объявление!" });
-            else if (PermissionDirectory.IsOwnerOfAd(userId, ad))
+            else if (UserStatusDirectory.IsOwnerOfAd(userId, ad))
                 adsManager.RemoveById(id);
-            else if (PermissionDirectory.IsAdmin(User) || PermissionDirectory.IsModerator(User))
+            else if (UserStatusDirectory.IsAdmin(User) || UserStatusDirectory.IsModerator(User))
             {
                 if (string.IsNullOrEmpty(ad.UserAuthorId))
                     adsManager.RemoveById(id);

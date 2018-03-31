@@ -19,11 +19,11 @@
                         src = "../Content/images/nophoto.png";
                     }
                     <div class="box col-md-6">
-                        @if (PermissionDirectory.UserCanDeleteAd(User, item))
+                        @if (UserStatusDirectory.UserCanDeleteAd(User, item))
                         {
                             @Html.ActionLink(" ", "Remove", "Ads", new { id = item.Id }, new { @class = "remove" })
                         }
-                        @if (!PermissionDirectory.IsOwnerOfAd(User, item))
+                        @if (!UserStatusDirectory.IsOwnerOfAd(User, item))
                         {
                             <div id="marks-@item.Id">
                                 @{Html.RenderAction("Marks", "Ads", new { id = item.Id });}
