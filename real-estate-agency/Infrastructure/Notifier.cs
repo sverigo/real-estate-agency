@@ -5,18 +5,22 @@ using System.Web;
 using real_estate_agency.Models;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace real_estate_agency.Infrastructure
 {
     public class Notifier
     {
-        AppUserManager userManager;
-        RealEstateDBContext data;
+        AppIdentityDBContext data;
 
-        public Notifier(AppUserManager userManager)
+        private AppUserManager UserManager
         {
-            this.userManager = userManager;
-            data = new RealEstateDBContext();
+            get { return HttpContext.Current.GetOwinContext().GetUserManager<AppUserManager>(); }
+        }
+
+        public Notifier()
+        {
+            data = new AppIdentityDBContext();
         }
 
         public IdentityResult NotifyUser(AppUser user, string message, AppUser sender = null)
@@ -30,7 +34,7 @@ namespace real_estate_agency.Infrastructure
             };
 
             user.Notifications.Add(notification);
-            return userManager.Update(user);
+            return UserManager.Update(user);
         }
 
         public IdentityResult SetNotificationsSeen(AppUser user)
@@ -49,7 +53,7 @@ namespace real_estate_agency.Infrastructure
                 return null;
 
             unseenNotifications.ForEach(n => n.Seen = true);
-            return userManager.Update(user);
+            return UserManager.Update(user);
         }
     }
 }
