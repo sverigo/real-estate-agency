@@ -98,7 +98,7 @@
             <div class="image-set">
                 @foreach (var img in StringImgPhoneConverter.StringToList(Model.Images))
                 {
-                    <img src='@img' />
+                    <img src='@Url.Content(img)' />
                 }
             </div>
             <div class="map-block">
