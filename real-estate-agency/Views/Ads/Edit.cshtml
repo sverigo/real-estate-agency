@@ -95,8 +95,13 @@
                                 foreach (var phoneItem in StringImgPhoneConverter.StringToList(Model.Phone))
                                 {
                                     string name = "Phones" + j.ToString();
-                                    <input type="tel" name="@name" value="@phoneItem" />
+                                    string button_name = "delete" + j.ToString();
                                     j++;
+                                    <div class="but">
+                                        <input type="button" value="Х" id="@button_name"
+                                               onclick="$('#@name').remove(); $('#@button_name').remove();" />
+                                        <input type="tel" name="@name" id="@name" value="@phoneItem" />
+                                    </div>
                                 }
                             }
                         </div>
@@ -111,13 +116,20 @@
                                 int i = 0;
                                 foreach (var img in StringImgPhoneConverter.StringToList(Model.Images))
                                 {
-                                    {string name = "Photos" + i.ToString();
-                                    <img class="prev-image" name="@name " src="@Url.Content(img)" />
-                                    i++;}
+                                    string name = "Photos" + i.ToString();
+                                    string remove_check = "remove_check-" + i.ToString();
+                                    <img class="prev-image" name="@name" id="@name" src="@Url.Content(img)" />
+                                    
+                                    @Html.CheckBox(remove_check, true, new { @id="removeit"})
+                                    i++;
                                 }
                                 if (Model.Images.IsEmpty())
                                 {
-                                    <input type="file" accept="image/*" name="Images0" id="Images0" />
+                                    <div class="but">
+                                        <input type="button" name="remove0" id="remove0" value="X"
+                                               onclick="$('#Images0').remove(); $('#remove0').remove(); " 
+                                               /><input type="file" accept="image/*" name="Images0" id="Images0" />
+                                    </div>
                                 }
                             }
                         </div>

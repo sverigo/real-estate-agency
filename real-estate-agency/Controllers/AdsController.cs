@@ -15,6 +15,7 @@ namespace real_estate_agency.Controllers
     public class AdsController : Controller
     {
         AdsManager adsManager = new AdsManager();
+        AdsManager forImages = new AdsManager();
 
         public ActionResult Add()
         {
@@ -101,6 +102,7 @@ namespace real_estate_agency.Controllers
         [HttpPost]
         public ActionResult Edit(Ad ad, string returnUrl, string fromDetailsUrl)
         {
+            //Телефоны
             List<string> phonesList = new List<string>();
             foreach (string field in Request.Form)
             {
@@ -111,8 +113,7 @@ namespace real_estate_agency.Controllers
             }
             ad.Phone = String.Join("|", phonesList);
 
-            ad.Images = "";
-
+            // Обновить картинку на превью
             var upload = Request.Files["uPrevImage"];
             if (upload != null && upload.ContentType.Contains("image/"))
             {
@@ -120,8 +121,38 @@ namespace real_estate_agency.Controllers
                 ad.PrevImage = "~/Content/images/" + fileName;
                 upload.SaveAs(Server.MapPath(ad.PrevImage));
             }
-            
+
+            ad.Images = "";
             List<string> imagesList = new List<string>();
+
+            //Обработка существующих картинок (если выключен чекбокс - удалить)
+            string existingImagesSet = forImages.FindById(ad.Id).Images;
+            if (!String.IsNullOrEmpty(existingImagesSet))
+            {
+                string[] existingImages = existingImagesSet.Split('|');
+                foreach (string field in Request.Form)
+                {
+                    //выбрать все чекбоксы
+                    if (field.Contains("remove_check"))
+                    {
+                        var q = Request.Form[field];
+                        int number = Int32.Parse(field.Split('-')[1]);
+                        // выбрать выключенные чекбоксы
+                        if (q == "false")
+                        {
+                            //удалить с сервера
+                            System.IO.File.Delete(Server.MapPath(existingImages[number]));
+                        }
+                        else
+                        {
+                            //оставить в списке
+                            imagesList.Add(existingImages[number]);
+                        }
+                    }
+                }
+            }
+            
+            //Получаем новые картинки из полей загрузки файлов
             foreach (string field in Request.Files)
             {
                 if (field.Contains("Images"))
