@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using real_estate_agency.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace real_estate_agency.Infrastructure
 {
-    public static class UserStatusDirectory
+    public class UserStatusDirectory
     {
         public struct Roles
         {
@@ -16,6 +17,54 @@ namespace real_estate_agency.Infrastructure
             public const string MODERATORS = "Moderators";
             public const string PREMIUM_USER = "PremiumUsers";
             public const string USERS = "Users";
+        }
+
+        private AppRoleManager RoleManager
+        {
+            get { return HttpContext.Current.GetOwinContext().GetUserManager<AppRoleManager>(); }
+        }
+
+        private AppUserManager UserManager
+        {
+            get { return HttpContext.Current.GetOwinContext().GetUserManager<AppUserManager>(); }
+        }
+
+        public UserStatus GetUserStatus(string userId)
+        {
+            AppUser user = UserManager.FindById(userId);
+            return GetUserStatus(user);
+        }
+
+        public UserStatus GetUserStatus(IPrincipal user)
+        {
+            return GetUserStatus(user.Identity.GetUserId());
+        }
+
+        public UserStatus GetUserStatus(AppUser user)
+        {
+            if (user != null)
+            {
+                UserStatus status = new UserStatus();
+
+                //blocked
+                if (UserManager.IsLockedOut(user.Id))
+                {
+                    status.lockoutTime = user.LockoutEndDateUtc;
+                    status.isBlocked = true;
+                }
+
+                //check premium
+
+                if (UserManager.IsInRole(user.Id, Roles.PREMIUM_USER))
+                    status.isPremium = true;
+
+                //check notifications
+                status.notificationsCount = user.Notifications.Where(n => !n.Seen).Count();
+
+                return status;
+            }
+            else
+                throw new Exception("Невозможно получить статус пользователя!");
         }
 
         public static bool UserCanDeleteAd(IPrincipal user, Ad ad)

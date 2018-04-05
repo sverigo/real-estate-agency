@@ -58,7 +58,7 @@ namespace real_estate_agency.Controllers
 
                     if (UserManager.IsLockedOut(tryingUser.Id))
                     {
-                        ModelState.AddModelError("", "Ваша учетная запись заблокирована до " + tryingUser.LockoutEndDateUtc?.ToLocalTime());
+                        ModelState.AddModelError("", "Ваша учетная запись заблокирована до " + tryingUser.LockoutEndDateUtc);
                         ViewBag.returnURL = returnURL;
                         return View(model);
                     }
@@ -73,7 +73,7 @@ namespace real_estate_agency.Controllers
                             string message = "Превышено количество попыток входа. " + 
                                 "Возможно, кто-то пытается взломать Вашу учетную запись";
                             EmailSender.SendUserBlockedMail(tryingUser, BlockDuration.Hour, message);
-                            ModelState.AddModelError("", "Ваша учетная запись заблокирована до " + tryingUser.LockoutEndDateUtc?.ToLocalTime());
+                            ModelState.AddModelError("", "Ваша учетная запись заблокирована до " + tryingUser.LockoutEndDateUtc);
                         }
                         else
                         {
@@ -100,10 +100,13 @@ namespace real_estate_agency.Controllers
             return View(model);
         }
 
-        public ActionResult Logout()
+        public ActionResult Logout(DateTime? lockoutTime)
         {
             AuthManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            if (lockoutTime == null)
+                return RedirectToAction("Index", "Home");
+            else
+                return View("Info", null, $"Учетная запись заблокирована до {lockoutTime}");
         }
 
         [HttpGet]
@@ -162,7 +165,9 @@ namespace real_estate_agency.Controllers
             var result = await UserManager.ConfirmEmailAsync(id, token);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                string info = $"Ваша учетная запис была успешно активирована! " +
+                    $"Теперь вы можете совершить вход в систему!";
+                return View("Info", null, info);
             }
 
             return View("Error", result.Errors);

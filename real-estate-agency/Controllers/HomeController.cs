@@ -13,28 +13,37 @@ using real_estate_agency.Models.ViewModels;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
+using System.Security.Principal;
 
 namespace real_estate_agency.Controllers
 {
     public class HomeController : Controller
     {
         AdsManager adsManager = new AdsManager();
-
+        
         private AppUserManager UserManager
         {
             get { return HttpContext.GetOwinContext().GetUserManager<AppUserManager>(); }
         }
-
+                
         public ActionResult Index()
         {
-            AppUser user = UserManager.FindById(User?.Identity.GetUserId() ?? "");
-            if (user != null)
+            if(User?.Identity.IsAuthenticated ?? false)
             {
-                int notifCount = user.Notifications.Where(n => !n.Seen).Count();
-                ViewBag.NotifCount = notifCount > 0 ? " +" + notifCount : "";
+                try
+                {
+                    UserStatusDirectory userStatDirect = new UserStatusDirectory();
+                    UserStatus status = userStatDirect.GetUserStatus(User);
+                    if (status.isBlocked)
+                        return RedirectToAction("Logout", "Account", new { lockoutTime = status.lockoutTime });
+                    if (!string.IsNullOrEmpty(status.NotificationsCountSign))
+                        ViewBag.NotifCount = status.NotificationsCountSign;
+                }
+                catch (Exception ex)
+                {
+                    return View("Error", new string[] { ex.Message });
+                }
             }
-            else
-                ViewBag.NotifCount = "";
             return View();
         }
 

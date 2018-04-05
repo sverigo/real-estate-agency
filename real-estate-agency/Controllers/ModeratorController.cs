@@ -54,7 +54,7 @@ namespace real_estate_agency.Controllers
             string text = $"Ваше объявление {deletedAd.Title} было удалено. " +
                 $"Причина: {model.Message}";
 
-            Notifier notifier = new Notifier(UserManager);
+            Notifier notifier = new Notifier();
             IdentityResult result = notifier.NotifyUser(user, text, sender);
 
             if (result.Succeeded)

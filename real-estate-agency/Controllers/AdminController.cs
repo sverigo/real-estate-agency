@@ -56,7 +56,8 @@ namespace real_estate_agency.Controllers
                         UserName = userInfo.Login,
                         Name = userInfo.Name,
                         Email = userInfo.Email,
-                        EmailConfirmed = true
+                        EmailConfirmed = true,
+                        LockoutEnabled = false
                     };
 
                     IdentityResult creationResult = await UserManager.CreateAsync(user, userInfo.Password);

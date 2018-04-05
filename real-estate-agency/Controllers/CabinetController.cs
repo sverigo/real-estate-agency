@@ -23,12 +23,25 @@ namespace real_estate_agency.Controllers
         AdsManager adsManager = new AdsManager();
 
         // GET: Cabinet
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            AppUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            int newNotificationsCount = user.Notifications.Where(n => !n.Seen).Count();
-            ViewBag.NotifCount = newNotificationsCount > 0 ? " +" + newNotificationsCount : "" ;
-            return View(user);
+            if (User?.Identity.IsAuthenticated ?? false)
+            {
+                try
+                {
+                    UserStatusDirectory userStatDirect = new UserStatusDirectory();
+                    UserStatus status = userStatDirect.GetUserStatus(User);
+                    if (status.isBlocked)
+                        return RedirectToAction("Logout", "Account", new { lockoutTime = status.lockoutTime });
+                    if (!string.IsNullOrEmpty(status.NotificationsCountSign))
+                        ViewBag.NotifCount = status.NotificationsCountSign;
+                }
+                catch (Exception ex)
+                {
+                    return View("Error", new string[] { ex.Message });
+                }
+            }
+            return View();
         }
 
         public PartialViewResult MyAds()
@@ -46,7 +59,7 @@ namespace real_estate_agency.Controllers
         public ActionResult MyNotifications()
         {
             AppUser user = UserManager.FindById(User.Identity.GetUserId());
-            Notifier notifier = new Notifier(UserManager);
+            Notifier notifier = new Notifier();
             IdentityResult result = notifier.SetNotificationsSeen(user);
             if (result == null || result.Succeeded)
             {
