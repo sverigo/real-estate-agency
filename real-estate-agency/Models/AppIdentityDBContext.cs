@@ -17,8 +17,10 @@ namespace real_estate_agency.Models
         public virtual DbSet<Ad> Ads { get; set; }
         public virtual DbSet<MarkedAd> MarkedAds { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<Price> Prices { get; set; }
 
-        public AppIdentityDBContext(): base("RealEstateAgencyDB") { }
+        public AppIdentityDBContext():base("RealEstateAgencyDB") { }
 
         static AppIdentityDBContext()
         {

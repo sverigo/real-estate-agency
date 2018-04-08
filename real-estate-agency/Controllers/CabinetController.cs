@@ -22,6 +22,8 @@ namespace real_estate_agency.Controllers
 
         AdsManager adsManager = new AdsManager();
 
+        PaymentManager paymentManager = new PaymentManager();
+
         // GET: Cabinet
         public ActionResult Index()
         {
@@ -69,7 +71,44 @@ namespace real_estate_agency.Controllers
             else
                 return View("Error", result.Errors);
         }
+
+        public ActionResult MyPayments()
+        {
+            AppUser user = UserManager.FindById(User.Identity.GetUserId());
+            return PartialView("MyPayments", user.Payments.ToList());
+        }
         
+        public ActionResult BuyPremium()
+        {
+            return View("BuyPremium", paymentManager.Prices);
+        }
+
+        [HttpPost]
+        public ActionResult BuyPremium(int days, decimal amount)
+        {
+            AppUser user = UserManager.FindById(User.Identity.GetUserId());
+            string callBackUrl = Url.Action("ConfirmPayment", "Cabinet", null, Request.Url.Scheme);
+            string resultUrl = Url.Action("Index", "Cabinet", null, Request.Url.Scheme);
+            PaymentData paymentData;
+            try
+            {
+                paymentData = paymentManager.CreatePayment(user, days, amount,
+                    callBackUrl, resultUrl);
+                return View("ConfirmPayment", paymentData);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", ex.Message.Split('|'));
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ConfirmPayment(string data, string signature)
+        {
+            paymentManager.ConfirmPayment(data, signature);
+            return new EmptyResult();
+        }
+
         public PartialViewResult ProfileSettings()
         {
             return PartialView("ProfileSettings", User.Identity.GetUserId());

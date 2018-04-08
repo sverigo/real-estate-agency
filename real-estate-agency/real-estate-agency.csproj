@@ -227,7 +227,7 @@
     <Compile Include="Models\MarkedAds.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Payment.cs" />
-    <Compile Include="Models\Prices.cs" />
+    <Compile Include="Models\Price.cs" />
     <Compile Include="Models\ViewModels\BlockUserViewModel.cs" />
     <Compile Include="Models\ViewModels\MainPageViewModel.cs" />
     <Compile Include="Models\ViewModels\MarksViewModel.cs" />
@@ -354,6 +354,9 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Cabinet\MyPayments.cshtml" />
+    <Content Include="Views\Cabinet\BuyPremium.cshtml" />
+    <Content Include="Views\Cabinet\ConfirmPayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataParser\DataParser.csproj">

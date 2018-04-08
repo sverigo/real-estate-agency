@@ -48,11 +48,14 @@ namespace real_estate_agency.Models
 
         public string AdUrl { get; set; }
 
+        //Don't touch following properties
         public bool IsPremium { get; set; }
-
+        
         public string UserAuthorId { get; set; }
+
         public virtual AppUser UserAuthor { get; set; }
 
         public virtual HashSet<MarkedAd> UsersMarked {get; set; }
+        //- - -
     }
 }
