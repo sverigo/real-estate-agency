@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataParser.Models;
 using DataParser.Constants.OLX;
 
@@ -10,7 +7,7 @@ namespace DataParser.DataConverters
 {
     internal class OLXDataConverter : AbstractDataConverter
     {
-        protected override void ConvertVariativeFields(ref AdvertismentModel model, Dictionary<string, string> variativeFields)
+        protected override Dictionary<string, string> ConvertVariativeFields(ref AdvertismentModel model, Dictionary<string, string> variativeFields)
         {
             var dictionary = new Dictionary<string, string>(variativeFields);
 
@@ -20,22 +17,16 @@ namespace DataParser.DataConverters
                 dictionary.Remove(OLXDictionaryConstants.AuthorKey);
             }
 
-            if (dictionary.ContainsKey(OLXDictionaryConstants.AdTypeKey))
+            if (dictionary.ContainsKey(OLXDictionaryConstants.ObjectType))
             {
-                model.AdType = dictionary[OLXDictionaryConstants.AdTypeKey];
-                dictionary.Remove(OLXDictionaryConstants.AdTypeKey);
+                model.ObjectType = dictionary[OLXDictionaryConstants.ObjectType];
+                dictionary.Remove(OLXDictionaryConstants.ObjectType);
             }
 
             if (dictionary.ContainsKey(OLXDictionaryConstants.RoomCountKey))
             {
                 model.RoomCount = dictionary[OLXDictionaryConstants.RoomCountKey];
                 dictionary.Remove(OLXDictionaryConstants.RoomCountKey);
-            }
-
-            if (dictionary.ContainsKey(OLXDictionaryConstants.LiveAreaKey))
-            {
-                model.LiveArea = dictionary[OLXDictionaryConstants.LiveAreaKey];
-                dictionary.Remove(OLXDictionaryConstants.LiveAreaKey);
             }
 
             if (dictionary.ContainsKey(OLXDictionaryConstants.AreaKey))
@@ -56,20 +47,13 @@ namespace DataParser.DataConverters
                 dictionary.Remove(OLXDictionaryConstants.FloorCountKey);
             }
 
-            if (dictionary.ContainsKey(OLXDictionaryConstants.TypeKey))
+            if (dictionary.ContainsKey(OLXDictionaryConstants.CategoryKey))
             {
-                model.Type = dictionary[OLXDictionaryConstants.TypeKey];
-                dictionary.Remove(OLXDictionaryConstants.TypeKey);
+                model.Category = dictionary[OLXDictionaryConstants.CategoryKey];
+                dictionary.Remove(OLXDictionaryConstants.CategoryKey);
             }
 
-            if (dictionary.ContainsKey(OLXDictionaryConstants.BeginDataKey))
-            {
-                model.BeginData = dictionary[OLXDictionaryConstants.BeginDataKey];
-                dictionary.Remove(OLXDictionaryConstants.BeginDataKey);
-            }
-
-            if (dictionary.Count != 0)
-                throw new InvalidOperationException("There is unknown key");
+            return dictionary;
         }
     }
 }
