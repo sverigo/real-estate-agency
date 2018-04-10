@@ -89,7 +89,7 @@ namespace real_estate_agency.Infrastructure
             }
             else
             {
-                JObject json = JObject.Parse(data);
+                JObject json = JObject.Parse(Base64Decode(data));
                 int orderId = (int)json["order_id"];
                 Payment payment = dataBase.Payments.Where(p => p.Id == orderId).FirstOrDefault();
                 payment.ConfirmedDate = DateTime.UtcNow;
