@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 
 namespace real_estate_agency.Controllers
@@ -87,8 +88,17 @@ namespace real_estate_agency.Controllers
         public ActionResult BuyPremium(int days, decimal amount)
         {
             AppUser user = UserManager.FindById(User.Identity.GetUserId());
-            string callBackUrl = Url.Action("ConfirmPayment", "Cabinet", null, Request.Url.Scheme);
-            string resultUrl = Url.Action("Index", "Cabinet", null, Request.Url.Scheme);
+            string callBackUrl, resultUrl;
+            if (Convert.ToBoolean(WebConfigurationManager.AppSettings["OnServer"]))
+            {
+                callBackUrl = HttpContext.Request.Url.Host + Url.Action("ConfirmPayment", "Cabinet");
+                resultUrl = HttpContext.Request.Url.Host + Url.Action("Index", "Cabinet");
+            }
+            else
+            {
+                callBackUrl = Url.Action("ConfirmPayment", "Cabinet", null, Request.Url.Scheme);
+                resultUrl = Url.Action("Index", "Cabinet", null, Request.Url.Scheme);
+            }
             PaymentData paymentData;
             try
             {

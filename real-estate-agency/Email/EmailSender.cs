@@ -49,7 +49,7 @@ namespace real_estate_agency.Email
             };
             message.Body = $"Здравствуйте, {user.Name}<br>" +
                 $"Для завершения регистрации активируйте Вашу учетную запись.<br>" +
-                $"<a href=\"{link}\">Активировать!</a>"; //http://localhost:53687
+                $"<a href=\"{link}\">Активировать!</a>";
 
             SendMail(user, message);
         }
