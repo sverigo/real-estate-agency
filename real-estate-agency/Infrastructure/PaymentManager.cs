@@ -70,7 +70,7 @@ namespace real_estate_agency.Infrastructure
             json["description"] = "Покупка премиум подписки.";
             json["order_id"] = payment.Id;
             json["sandbox"] = 1;
-            json["server_url"] = "http://realestateagency-1.apphb.com/ConfirmPayment";
+            json["server_url"] = "http://realestateagency-1.apphb.com/Cabinet/ConfirmPayment";
             json["result_url"] = resultUrl;
             
             PaymentData paymentData = new PaymentData();
