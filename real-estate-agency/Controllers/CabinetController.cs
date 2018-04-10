@@ -113,6 +113,7 @@ namespace real_estate_agency.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult ConfirmPayment(string data, string signature)
         {
             paymentManager.ConfirmPayment(data, signature);
