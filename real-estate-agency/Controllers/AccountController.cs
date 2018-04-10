@@ -142,7 +142,8 @@ namespace real_estate_agency.Controllers
                         string token = UserManager.GenerateEmailConfirmationToken(user.Id);
                         string link;
                         if (Convert.ToBoolean(WebConfigurationManager.AppSettings["OnServer"]))
-                            link = "http://" + HttpContext.Request.Url.Host + Url.Action("ConfirmEmail", "Account");
+                            link = "http://" + HttpContext.Request.Url.Host + Url.Action("ConfirmEmail", "Account",
+                                new { id = user.Id, token = token });
                         else
                             link = Url.Action("ConfirmEmail", "Account", new { id = user.Id, token = token },
                             Request.Url.Scheme);
@@ -201,7 +202,8 @@ namespace real_estate_agency.Controllers
                 string token = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 string link;
                 if (Convert.ToBoolean(WebConfigurationManager.AppSettings["OnServer"]))
-                    link = "http://" + HttpContext.Request.Url.Host + Url.Action("ResetPassword", "Account");
+                    link = "http://" + HttpContext.Request.Url.Host + Url.Action("ResetPassword", "Account", 
+                        new { id = user.Id, token = token });
                 else
                     link = Url.Action("ResetPassword", "Account", new { id = user.Id, token = token },
                         Request.Url.Scheme);
