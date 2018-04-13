@@ -1,21 +1,26 @@
 ﻿@using real_estate_agency.Models;
 @model IEnumerable<Notification>
-<div>
-    <h2>Оповещения</h2>
+
+<h4 class="text-center mb-5">Оповещения</h4>
+
+<div class="col-md-6 mx-auto">
     @if ((Model?.Count() ?? 0) == 0)
     {
-        <h2>У вас нет оповещений</h2>
+        <p style="text-align: center;">Оповещений нет!</p>
     }
     else
     {
-        foreach(Notification notification in Model)
+        foreach (Notification notification in Model)
         {
             <div>
-                <div>@notification.Date</div>
-                <div>@notification.Message</div>
+                <div class="notification-date">@notification.Date</div>
+                <div class="notification-message">@notification.Message</div>
                 @if (notification.Sender != null)
                 {
-                    <div>От: @notification.Sender.Name | @notification.Sender.UserName</div>
+                    <div class="notification-sender">
+                        От: <span class="notification-sender-name">@notification.Sender.Name</span> |
+                        <span class="notification-sender-username">@notification.Sender.UserName</span>
+                    </div>
                 }
             </div>
             <hr />

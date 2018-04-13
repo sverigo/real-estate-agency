@@ -51,6 +51,7 @@ namespace real_estate_agency.Infrastructure
                 {
                     Title = adModel.Title,
                     Type = adModel.ObjectType,
+                    Category = adModel.Category,
                     Address = adModel.Address,
                     Area = adModel.Area,
                     Author = adModel.AuthorName,

@@ -16,6 +16,8 @@ namespace real_estate_agency.Models
 
         public string Title { get; set; }
 
+        public string Category { get; set; }
+
         public string Type { get; set; }
 
         public string Address { get; set; }

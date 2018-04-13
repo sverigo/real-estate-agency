@@ -30,7 +30,7 @@ namespace real_estate_agency
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",
-                      "~/Content/styles.css"));
+                      "~/Content/style.css"));
         }
     }
 }
