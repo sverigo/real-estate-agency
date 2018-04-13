@@ -20,43 +20,60 @@
     </script>
 </head>
 <body>
-    <div>
-        <h1>Личный кабинет</h1>
-        <!--Menu-->
-        <ul>
-            <li>
-                @Ajax.ActionLink("Мои объявления", "MyAds", "Cabinet", 
-               new AjaxOptions() { UpdateTargetId = "contentDisplay" })
-            </li>
-            <li>
-                @Ajax.ActionLink("Мои закладки", "MyMarks", "Cabinet", 
-               new AjaxOptions() { UpdateTargetId = "contentDisplay" })
-            </li>
-            <li>
-                @{ 
-                    string notif = "Оповещения " + ViewBag.NotifCount;
-                }
-                @Ajax.ActionLink(notif, "MyNotifications", "Cabinet", null,
-               new AjaxOptions() { UpdateTargetId = "contentDisplay" }, 
-               new { onclick = "notificationLinkClick()", id = "notif-link" })
-            </li>
-            <li>
-                @Ajax.ActionLink("Профиль", "ProfileSettings", "Cabinet",
-               new AjaxOptions() { UpdateTargetId = "contentDisplay" })
-            </li>
-            @if(PermissionDirectory.IsAdmin(User))
-            {
-                @Html.ActionLink("Административная панель", "AdminPanel", "Admin");
-            }
-            else if (PermissionDirectory.IsModerator(User))
-            {
-                @Html.ActionLink("Страница модератора", "ModeratorPanel", "Moderator");
-            }
-        </ul>
-    </div>
+    <div class="container-fluid py-3">
+        <div class="row">
+            <div class="col-md-12 mx-auto">
+                <div class="card card-body">
+                    <h3 class="text-center mb-4">Личный кабинет</h3>
+                    <div class="nav-container cabinet col-xl-12 mx-auto">
+                        <div class="row">
+                            <div class="cabinet-item col">
+                                @Ajax.ActionLink("Мои объявления", "MyAds", "Cabinet", new AjaxOptions() { UpdateTargetId = "contentDisplay" })
+                            </div>
+                            <div class="cabinet-item col">
+                                @Ajax.ActionLink("Мои закладки", "MyMarks", "Cabinet", new AjaxOptions() { UpdateTargetId = "contentDisplay" })
+                            </div>
+                            <div class="cabinet-item col">
+                                @{
+                                    string notif = "Оповещения " + ViewBag.NotifCount;
+                                }
+                                @Ajax.ActionLink(notif, "MyNotifications", "Cabinet", null, new AjaxOptions() { UpdateTargetId = "contentDisplay" },
+                               new { onclick = "notificationLinkClick()", id = "notif-link" })
+                            </div>
+                            <div class="cabinet-item col">
+                                @Ajax.ActionLink("Профиль", "ProfileSettings", "Cabinet", new AjaxOptions() { UpdateTargetId = "contentDisplay" })
+                            </div>
+                            @if (PermissionDirectory.IsAdmin(User))
+                            {
+                                <div class="cabinet-item col">
+                                    @Html.ActionLink("Административная панель", "AdminPanel", "Admin")
+                                </div>
 
-    <div id="contentDisplay">
+                            }
+                            else if (PermissionDirectory.IsModerator(User))
+                            {
+                                <div class="container-item col">
+                                    @Html.ActionLink("Страница модератора", "ModeratorPanel", "Moderator");
+                                </div>
 
+                            }
+                        </div>
+                    </div>
+                    <div id="contentDisplay">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
+    <script>
+        $(function () {
+            $(".cabinet-item a").click(function () {
+                $(".cabinet-item a").removeClass("active");
+                $(this).toggleClass("active");
+            })
+        });
+    </script>
 </body>
 </html>

@@ -4,43 +4,41 @@
     Layout = "~/Views/Shared/header.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>AdminPanel</title>
-    <style>
-        table { border-collapse: collapse; }
-        table, th, td { border: 1px solid black; padding: 10px;}
-    </style>
-</head>
-<body>
-    <div> 
-        <h1>Административная панель</h1>
-        @Html.ActionLink("Добавить модератора", "CreateModerator")
-        <h3>Модераторы</h3>
-        <table>
-            <tr>
-                <th>Имя</th>
-                <th>Логин</th>
-                <th>Email</th>
-            </tr>
-            @foreach(AppUser moder in Model)
-            {
-                <tr>
-                    <td>@moder.Name</td>
-                    <td>@moder.UserName</td>
-                    <td>@moder.Email</td>
-                    <td>@Html.ActionLink("Удалить", "DeleteModerator", new { id = moder.Id })</td>
-                </tr>
-            }
-        </table>
-
-        <h3>Пользователи</h3>
-        <div id="search-user-panel">
-            @{ Html.RenderAction("SearchUserPanel", "Moderator");}
+<div class="container-fluid py-3">
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <div class="card card-body">
+                <h3 class="text-center mb-4">Панель администратора</h3>
+                <fieldset>
+                    <h4 class="text-center mb-5">Модераторы</h4>
+                    <table class="table table-responsive-sm">
+                        <thead>
+                            <tr>
+                                <th>Имя</th>
+                                <th>Логин</th>
+                                <th>Email</th>
+                                <th>@Html.ActionLink("Добавить модератора", "CreateModerator")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (AppUser moder in Model)
+                            {
+                                <tr>
+                                    <td>@moder.Name</td>
+                                    <td>@moder.UserName</td>
+                                    <td>@moder.Email</td>
+                                    <td>@Html.ActionLink("Удалить", "DeleteModerator", new { id = moder.Id })</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <br /><br /><br />
+                    <h4 class="text-center mb-5">Пользователи</h4>
+                    <div id="search-user-panel">
+                        @{ Html.RenderAction("SearchUserPanel", "Moderator"); }
+                    </div>
+                </fieldset>
+            </div>
         </div>
     </div>
-</body>
-</html>
+</div>

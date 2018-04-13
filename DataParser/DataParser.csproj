@@ -66,6 +66,8 @@
     <Compile Include="DataParser.cs" />
     <Compile Include="Extensions\HtmlExtension.cs" />
     <Compile Include="Extensions\LinqExtension.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="Helpers\SerializableDictionary.cs" />
     <Compile Include="Models\AdvertismentModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -75,5 +77,6 @@
   <ItemGroup>
     <Content Include="Content\PagedList.css" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

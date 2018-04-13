@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DataParser.DataCollectors.PhoneCollectors;
+using DataParser.Helpers;
 
 namespace DataParser.Models
 {
@@ -30,35 +31,47 @@ namespace DataParser.Models
             }
         }
 
-        public string Title { get; set; }
-        public string Price { get; set; }
-        public string Details { get; set; }
-        public string AuthorName { get; set; }
-        public string Address { get; set; }
-        public string PreviewImg { get; set; }
-        public IEnumerable<string> Images { get; set; }
-        public IEnumerable<string> Phones { get; set; }
+        public string Title { get; internal set; }
+        public string Price { get; internal set; }
+        public string Details { get; internal set; }
+        public string AuthorName { get; internal set; }
+        public string Address { get; internal set; }
+        public string PreviewImg { get; internal set; }
+        public IEnumerable<string> Images { get; internal set; }
+        public IEnumerable<string> Phones { get; internal set; }
+        public SerializableDictionary<string, string> OtherData{ get; internal set;}
 
-        public string Author { get; set; }
-        public string AdType { get; set; }
-        public string RoomCount { get; set; }
-        public string LiveArea { get; set; }
-        public string Area { get; set; }
-        public string Floor { get; set; }
-        public string FloorCount { get; set; }
-        public string Type { get; set; }
-        public string BeginData { get; set; }
+        public string Author { get; internal set; }
+        public string ObjectType { get; internal set; }
+        public string RoomCount { get; internal set; }
+        public string Area { get; internal set; }
+        public string Floor { get; internal set; }
+        public string FloorCount { get; internal set; }
+        public string Category { get; internal set; }
 
         internal Resource Resource {get; set;}
+        internal bool HasPhone { get; set; }
 
         public IEnumerable<string> CollectPhones()
         {
             if (Phones != null && Phones.Count() > 0) return Phones;
 
+            if (!HasPhone)
+                return null;
+
             switch(Resource)
             {
                 case Resource.OLX:
-                    this.Phones = OLXPhoneCollector.Instanse.CollectPhone(this.url);
+                    var collectedPhones = OLXPhoneCollector.Instanse.CollectPhone(this.url);
+
+                    if(collectedPhones == null || collectedPhones.Count() == 0)
+                    {
+                        DataCollectors.PhoneCollectors.WebBrowserController.Instance.Dispose();
+                        collectedPhones = OLXPhoneCollector.Instanse.CollectPhone(this.url);
+                    }
+
+                    this.Phones = collectedPhones;
+
                     return this.Phones;
                 default:
                     break;
@@ -66,5 +79,6 @@ namespace DataParser.Models
 
             throw new InvalidOperationException("Invalid resource");
         }
+
     }
 }

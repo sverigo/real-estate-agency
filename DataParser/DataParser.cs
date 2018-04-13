@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using DataParser.DataCollectors;
 using DataParser.Models;
@@ -10,6 +8,16 @@ namespace DataParser
 {
     public static class DataCollector
     {
+        public static Task<IEnumerable<AdvertismentModel>> CollectFromOLXAsync(int count)
+        {
+            return Task.Run(() => CollectFromOLXAsync(count));
+        }
+
+        public static Task<IEnumerable<AdvertismentModel>> CollectFromOLXAsync()
+        {
+            return Task.Run(() => CollectFromOLXAsync());
+        }
+
         /// <summary>
         /// Parses ads from OLX by count
         /// </summary>

@@ -113,9 +113,9 @@ namespace real_estate_agency.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Register(UserRegisterViewModel userInfo)
+        public ActionResult Register(UserRegisterViewModel userInfo)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 if (userInfo.ConfirmPassword != userInfo.Password)
                     ModelState.AddModelError("", "Введенные пароли не одинаковы!");
@@ -128,23 +128,25 @@ namespace real_estate_agency.Controllers
                         Email = userInfo.Email,
                     };
 
-                    IdentityResult result = await UserManager.CreateAsync(user, userInfo.Password);
-                    IdentityResult roleRes = await UserManager.AddToRoleAsync(user.Id, PermissionDirectory.USERS);
-                    if (result.Succeeded && roleRes.Succeeded)
+                    IdentityResult result = UserManager.Create(user, userInfo.Password);
+                    IdentityResult roleRes = null;
+                    if (result.Succeeded)
+                        roleRes = UserManager.AddToRole(user.Id, PermissionDirectory.USERS);
+                    if (result.Succeeded && (roleRes?.Succeeded ?? false)) 
                     {
                         //send email
                         string token = UserManager.GenerateEmailConfirmationToken(user.Id);
                         string link = Url.Action("ConfirmEmail", "Account", new { id = user.Id, token = token },
                             Request.Url.Scheme);
                         EmailSender.SendConfirmEmail(user, link);
-                        string info = $"На вашу почту {user.Email} было отправлено письмо с ссылкой для активации " +
+                        string info = $"На вашу почту {user.Email} было отправлено письмо со ссылкой для активации " +
                             $"учетной записи!";
                         return View("Info", null, info);
                     }
                     else
                     {
                         result.Errors.ToList().ForEach(err => ModelState.AddModelError("", err));
-                        roleRes.Errors.ToList().ForEach(err => ModelState.AddModelError("", err));
+                        roleRes?.Errors?.ToList()?.ForEach(err => ModelState.AddModelError("", err));
                     }
                 }
             }

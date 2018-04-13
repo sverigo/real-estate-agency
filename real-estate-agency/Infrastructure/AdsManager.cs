@@ -50,7 +50,8 @@ namespace real_estate_agency.Infrastructure
                 Ad newAd = new Ad()
                 {
                     Title = adModel.Title,
-                    Type = adModel.AdType,
+                    Type = adModel.ObjectType,
+                    Category = adModel.Category,
                     Address = adModel.Address,
                     Area = adModel.Area,
                     Author = adModel.AuthorName,

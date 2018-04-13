@@ -18,6 +18,7 @@ namespace DataParser.Constants.Common
         internal const string AddressKey = "address";
         internal const string PriceKey = "price";
         internal const string DetailsKey = "details";
+        internal const string HasPhoneKey = "hasPhone";
     }
 
     internal class RegexConstants

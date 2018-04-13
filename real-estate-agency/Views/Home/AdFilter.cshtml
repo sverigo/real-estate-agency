@@ -37,6 +37,7 @@
         </div>
         <div class="info-box">
             <center><p><strong>@item.Type</strong></p></center>
+            <p><strong>Категория:</strong> @item.Category</p>
             <p><strong>Адрес:</strong> @item.Address</p>
             <p><strong>Количество комнат:</strong> @item.RoomsCount</p>
             @if (item.Floors != 0 && @item.FloorsCount != 0)
@@ -70,6 +71,5 @@
         MaxRoomsCount = Model.MaxRoomsCount,
         MinRoomsCount = Model.MinRoomsCount,
         Page = page
-    }),
-                            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "results" }))
+    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "results" }))
 </div>
