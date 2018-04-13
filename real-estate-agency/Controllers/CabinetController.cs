@@ -26,6 +26,10 @@ namespace real_estate_agency.Controllers
         public async Task<ActionResult> Index()
         {
             AppUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             int newNotificationsCount = user.Notifications.Where(n => !n.Seen).Count();
             ViewBag.NotifCount = newNotificationsCount > 0 ? " +" + newNotificationsCount : "" ;
             return View(user);

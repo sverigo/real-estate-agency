@@ -7,15 +7,16 @@
 
 @foreach (var item in Model.PagedListModel)
 {
-    var src = item.PrevImage;
-    if (item.PrevImage == null)
-    {
-        src = "../Content/images/nophoto.png";
-    }
     <div class="box col-md-4 col-sm-6 col-xs-12">
         @if (PermissionDirectory.UserCanDeleteAd(User, item))
         {
-            @Html.ActionLink(" ", "Remove", "Ads", new { id = item.Id }, new { @class = "remove" })
+            @Html.ActionLink(" ", "Remove", "Ads",
+        new { id = item.Id },
+        new
+        {
+            @class = "remove",
+            onclick = "return confirm('Действительно удалить?');"
+        })
         }
         @if (!PermissionDirectory.IsOwnerOfAd(User, item))
         {
@@ -29,7 +30,7 @@
         }
         <p class="title">@item.Title</p>
         <div class="img-box">
-            <img src="@src">
+            <img src="@Url.Content(item.PrevImage)">
             <div class="quantity-box">
                 <strong>@item.Value @item.Currency</strong>
             </div>

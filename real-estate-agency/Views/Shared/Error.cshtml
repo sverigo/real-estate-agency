@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<string>
-
 @{
     Layout = "~/Views/Shared/header.cshtml";
 }
@@ -7,6 +6,7 @@
 <div style="text-align: center;" class="alert alert-danger">
     <h3>Ошибка!</h3>
     <p>При обработке запроса произошла ошибка</p>
+
     <ul>
         @if (Model != null)
         {
@@ -16,4 +16,5 @@
             }
         }
     </ul>
+
 </div>

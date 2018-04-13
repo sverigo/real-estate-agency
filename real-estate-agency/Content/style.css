@@ -405,3 +405,9 @@ footer {
 .notification-sender-username {
     font-weight: normal;
 }
+
+/*отображение в одну линию поля и кнопки удаления поля для доп. картинок/телефонов*/
+.but input {
+            width: auto;
+            display: inline;
+        }
