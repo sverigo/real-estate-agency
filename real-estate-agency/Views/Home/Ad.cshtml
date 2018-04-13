@@ -5,18 +5,20 @@
 
 @model MainPageViewModel
 
+@Styles.Render("~/Content/fancybox")
+
 @foreach (var item in Model.PagedListModel)
 {
     <div class="box col-md-4 col-sm-6 col-xs-12">
         @if (PermissionDirectory.UserCanDeleteAd(User, item))
         {
             @Html.ActionLink(" ", "Remove", "Ads",
-        new { id = item.Id },
-        new
-        {
-            @class = "remove",
-            onclick = "return confirm('Действительно удалить?');"
-        })
+                  new { id = item.Id },
+                  new
+                  {
+                      @class = "remove",
+                      onclick = "return confirm('Действительно удалить?');"
+                  })
         }
         @if (!PermissionDirectory.IsOwnerOfAd(User, item))
         {
@@ -30,7 +32,7 @@
         }
         <p class="title">@item.Title</p>
         <div class="img-box">
-            <img src="@Url.Content(item.PrevImage)">
+            <a class="single-item" href="@Url.Content(item.PrevImage)"><img src='@Url.Content(item.PrevImage)' /></a>
             <div class="quantity-box">
                 <strong>@item.Value @item.Currency</strong>
             </div>
@@ -59,7 +61,7 @@
 }
 <br />
 <div id="pagesSwitch" class="pagesSwitch col-md-12 col-sm-12 col-lg-12 col-xs-12">
-    @Html.PagedListPager((IPagedList)Model.PagedListModel, page => Url.Action("AdFilter", "Home", new
+    @Html.PagedListPager((IPagedList)Model.PagedListModel, page => Url.Action("Ad", "Home", new
     {
         Currency = Model.Currency ?? "",
         MaxArea = Model.MaxArea,
@@ -73,3 +75,6 @@
         Page = page
     }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "results" }))
 </div>
+
+@Scripts.Render("~/bundles/fancybox")
+@Scripts.Render("~/bundles/fancybox-gallery-single")

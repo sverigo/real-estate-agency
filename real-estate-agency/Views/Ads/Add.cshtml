@@ -1,10 +1,12 @@
 ﻿@using Microsoft.AspNet.Identity;
 @using real_estate_agency.Models;
+@using System.Web.Optimization;
+
 @model Ad
+
 @{
     Layout = "~/Views/Shared/header.cshtml";
 }
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
 <main>
     <div class="add-title">
@@ -99,3 +101,5 @@
         </div>
     }
 </main>
+
+@Scripts.Render("~/bundles/additional-fields")

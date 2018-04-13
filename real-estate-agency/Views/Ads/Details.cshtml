@@ -1,10 +1,14 @@
 ﻿@using real_estate_agency.Models;
-@using Microsoft.AspNet.Identity;
 @model Ad
+@using System.Web.Optimization
+@using real_estate_agency.Infrastructure
+
 @{
     Layout = "~/Views/Shared/header.cshtml";
 }
-@using real_estate_agency.Infrastructure;
+
+@Styles.Render("~/Content/fancybox")
+
 <script>
     var viewModel = { phones: ko.observableArray() }
 
@@ -57,7 +61,7 @@
             </div>
             <div class="row">
                 <div class="prev-image">
-                    <img src="@Url.Content(Model.PrevImage)" />
+                    <a class="single-item" href="@Url.Content(Model.PrevImage)"><img src='@Url.Content(Model.PrevImage)' /></a>
                 </div>
                 <div class="general-info">
                     <p><strong>Тип: </strong>@Model.Type </p>
@@ -98,7 +102,7 @@
             <div class="image-set">
                 @foreach (var img in StringImgPhoneConverter.StringToList(Model.Images))
                 {
-                    <img src='@Url.Content(img)' />
+                    <a class="group-item" rel="group" href="@Url.Content(img)"><img src='@Url.Content(img)' /></a>
                 }
             </div>
             <div class="map-block">
@@ -109,5 +113,9 @@
         </div>
     }
 </main>
+
+@Scripts.Render("~/bundles/fancybox")
+@Scripts.Render("~/bundles/fancybox-gallery-single")
+@Scripts.Render("~/bundles/fancybox-gallery-group")
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs0eQvxU2jsqf71-Smlevn-NsX8W_V74g&callback=initMap"></script>
 <script src="~/Scripts/mapInitialize.js"></script>

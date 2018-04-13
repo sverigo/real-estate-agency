@@ -4,7 +4,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using real_estate_agency.Models;
 using System;
-using System.Security.Principal;
 
 namespace real_estate_agency.Infrastructure
 {

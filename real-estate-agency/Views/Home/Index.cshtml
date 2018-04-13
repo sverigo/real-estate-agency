@@ -4,7 +4,8 @@
 @{
     Layout = "~/Views/Shared/header.cshtml";
 }
-<link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
+
+@Styles.Render("~/Content/pagedlist")
 
 <main>
     <div class="container-fluid">
@@ -14,20 +15,20 @@
                 {
                     <input type="submit" value="TBA Parser" class="btn btn-default" />
                 }
-                @using (Ajax.BeginForm("AdFilter", "Home", null, new AjaxOptions { UpdateTargetId = "results" }, new { @class = "filters" }))
+                @using (Ajax.BeginForm("Ad", "Home", null, new AjaxOptions { UpdateTargetId = "results" }, new { @class = "filters" }))
                 {
                     <div class="filter sort">
                         @Html.DropDownList("FlatRentType", new List<SelectListItem> {
-                                    new SelectListItem() {Text="Все типы", Value="All"},
-                                    new SelectListItem() {Text="Долгосрочная аренда квартир", Value="Долгосрочная аренда квартир"},
-                                    new SelectListItem() {Text="Квартиры посуточно", Value="Квартиры посуточно"},
-                                    new SelectListItem() {Text="Квартиры с почасовой оплатой", Value="Квартиры с почасовой оплатой"}
-                           }, new { @class = "sort-dropdown" })
+                                                            new SelectListItem() {Text="Все типы", Value="All"},
+                                                            new SelectListItem() {Text="Долгосрочная аренда квартир", Value="Долгосрочная аренда квартир"},
+                                                            new SelectListItem() {Text="Квартиры посуточно", Value="Квартиры посуточно"},
+                                                            new SelectListItem() {Text="Квартиры с почасовой оплатой", Value="Квартиры с почасовой оплатой"}
+                                                   }, new { @class = "sort-dropdown" })
                         @Html.DropDownList("SortType", new List<SelectListItem> {
-                                    new SelectListItem() {Text="Не сортировать", Value="valueNone"},
-                                    new SelectListItem() {Text="По возрастанию цены", Value="valueAsc"},
-                                    new SelectListItem() {Text="По убыванию цены", Value="valueDesc"}
-                           }, new { @class = "sort-dropdown" })
+                                                            new SelectListItem() {Text="Не сортировать", Value="valueNone"},
+                                                            new SelectListItem() {Text="По возрастанию цены", Value="valueAsc"},
+                                                            new SelectListItem() {Text="По убыванию цены", Value="valueDesc"}
+                                                   }, new { @class = "sort-dropdown" })
                     </div>
                     <div class="filter quantity">
                         @Html.EditorFor(model => model.MinQuantity, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Цена от" } })
@@ -50,10 +51,8 @@
         </div>
         <div class="block col-md-12">
             <div id="results" class="row">
-                @{Html.RenderAction("AdFilter");}
+                @{Html.RenderAction("Ad");}
             </div>
         </div>
     </div>
-    </div>
 </main>
-@Scripts.Render("~/scripts/jquery-1.10.2.min.js")
