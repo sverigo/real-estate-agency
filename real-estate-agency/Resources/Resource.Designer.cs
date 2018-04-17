@@ -79,6 +79,15 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Язык.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Войти.
         /// </summary>
         public static string Login {

@@ -45,11 +45,14 @@
                         <li class="nav-item">@Html.ActionLink(Resource.Register, "Register", "Account", null, new { @class = "nav-link" })</li>
                     }
                 }
-                <li class="nav-item">
-                    @Html.ActionLink("ru", "Change", "Language", new { LanguageAbbreviation = "ru" }, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item">
-                    @Html.ActionLink("ua", "Change", "Language", new { LanguageAbbreviation = "uk" }, new { @class = "nav-link" })
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        @Resource.Language
+                    </a>
+                    <div class="dropdown-menu lang-switcher">
+                        @Html.ActionLink("Русский", "Change", "Language", new { LanguageAbbreviation = "ru" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Українська", "Change", "Language", new { LanguageAbbreviation = "uk" }, new { @class = "dropdown-item" })
+                    </div>
                 </li>
             </ul>
         </div>

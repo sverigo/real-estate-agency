@@ -8,7 +8,7 @@ using System.Web.Routing;
 
 namespace real_estate_agency
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {

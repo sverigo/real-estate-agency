@@ -123,6 +123,9 @@
   <data name="Cabinet" xml:space="preserve">
     <value>Кабинет</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Войти</value>
   </data>
