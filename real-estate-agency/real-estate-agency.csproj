@@ -261,9 +261,6 @@
     <Content Include="Content\fancybox\fancybox_overlay.png" />
     <Content Include="Content\fancybox\fancybox_sprite%402x.png" />
     <Content Include="Content\fancybox\fancybox_sprite.png" />
-    <Content Include="Content\images\ex-1.jpg" />
-    <Content Include="Content\images\ex-2.jpg" />
-    <Content Include="Content\images\ex-3.jpg" />
     <Content Include="Content\images\nophoto.png" />
     <Content Include="Content\jquery.fancybox-buttons.css" />
     <Content Include="Content\jquery.fancybox-thumbs.css" />
