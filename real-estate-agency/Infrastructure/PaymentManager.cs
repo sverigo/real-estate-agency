@@ -69,8 +69,8 @@ namespace real_estate_agency.Infrastructure
             json["currency"] = "UAH";
             json["description"] = "Покупка премиум подписки.";
             json["order_id"] = payment.Id;
-            json["sandbox"] = 1;
-            json["server_url"] = "http://realestateagency-1.apphb.com/Cabinet/ConfirmPayment";
+            //json["sandbox"] = 1;
+            json["server_url"] = callBackUrl;
             json["result_url"] = resultUrl;
             
             PaymentData paymentData = new PaymentData();
@@ -84,11 +84,7 @@ namespace real_estate_agency.Infrastructure
         public void ConfirmPayment(string data, string signature)
         {
             if (signature != GetBase64EncodedSHA1Hash(privateKey + data + privateKey))
-            {
-
-            }
-            else
-            {
+            { 
                 JObject json = JObject.Parse(Base64Decode(data));
                 int orderId = (int)json["order_id"];
                 Payment payment = dataBase.Payments.Where(p => p.Id == orderId).FirstOrDefault();

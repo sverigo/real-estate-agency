@@ -91,7 +91,7 @@ namespace real_estate_agency.Controllers
             string callBackUrl, resultUrl;
             if (Convert.ToBoolean(WebConfigurationManager.AppSettings["OnServer"]))
             {
-                callBackUrl = HttpContext.Request.Url.Host + Url.Action("ConfirmPayment", "Cabinet");
+                callBackUrl = "http://" + HttpContext.Request.Url.Host + Url.Action("ConfirmPayment", "Cabinet");
                 resultUrl = HttpContext.Request.Url.Host + Url.Action("Index", "Cabinet");
             }
             else
