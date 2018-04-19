@@ -93,6 +93,8 @@ namespace real_estate_agency.Controllers
                         ViewBag.NotifCount = status.NotificationsCountSign;
                     if (status.isPremium)
                         ViewBag.IsPremium = true;
+                    else
+                        ViewBag.IsPremium = false;
                 }
                 catch (Exception ex)
                 {
