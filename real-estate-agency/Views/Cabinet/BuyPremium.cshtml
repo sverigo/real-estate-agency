@@ -7,18 +7,25 @@
 }
 
 <h2>Покупка премиум подписки</h2>
-@foreach (Price price in Model)
+@if (!ViewBag.IsPremium)
 {
-    <div>
-        <div>Премиум подписка на @price.Days дней!</div>
-        <div>@price.Amount грн</div>
-        @using (Html.BeginForm("BuyPremium", "Cabinet", FormMethod.Post))
-        {
-            <input type="hidden" name="amount" value="@price.Amount" />
-            <input type="hidden" name="days" value="@price.Days" />
-            <button type="submit">Купить</button>
-        }
-    </div>
+    foreach (Price price in Model)
+    {
+        <div>
+            <div>Премиум подписка на @price.Days дней!</div>
+            <div>@price.Amount грн</div>
+            @using (Html.BeginForm("BuyPremium", "Cabinet", FormMethod.Post))
+            {
+                <input type="hidden" name="amount" value="@price.Amount" />
+                <input type="hidden" name="days" value="@price.Days" />
+                <button type="submit">Купить</button>
+            }
+        </div>
+    }
+}
+else
+{
+    <h3>У вас уже есть активная премиум подписка!</h3>
 }
 
 

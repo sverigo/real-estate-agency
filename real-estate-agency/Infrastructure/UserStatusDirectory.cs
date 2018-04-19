@@ -54,7 +54,19 @@ namespace real_estate_agency.Infrastructure
                 }
 
                 //check premium
-
+                Payment payment = user.Payments.SingleOrDefault(p => 
+                {
+                    DateTime endDate = DateTime.MinValue;
+                    if (p.ConfirmedDate != null)
+                        endDate = (DateTime)p.ConfirmedDate + TimeSpan.FromDays(p.Days);
+                    return endDate > DateTime.UtcNow;
+                });
+                if (payment == null)
+                {
+                    //add notification
+                    //
+                    UserManager.RemoveFromRole(user.Id, Roles.PREMIUM_USER);
+                }
                 if (UserManager.IsInRole(user.Id, Roles.PREMIUM_USER))
                     status.isPremium = true;
 

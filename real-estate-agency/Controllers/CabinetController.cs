@@ -81,6 +81,24 @@ namespace real_estate_agency.Controllers
         
         public ActionResult BuyPremium()
         {
+            if (User?.Identity.IsAuthenticated ?? false)
+            {
+                try
+                {
+                    UserStatusDirectory userStatDirect = new UserStatusDirectory();
+                    UserStatus status = userStatDirect.GetUserStatus(User);
+                    if (status.isBlocked)
+                        return RedirectToAction("Logout", "Account", new { lockoutTime = status.lockoutTime });
+                    if (!string.IsNullOrEmpty(status.NotificationsCountSign))
+                        ViewBag.NotifCount = status.NotificationsCountSign;
+                    if (status.isPremium)
+                        ViewBag.IsPremium = true;
+                }
+                catch (Exception ex)
+                {
+                    return View("Error", new string[] { ex.Message });
+                }
+            }
             return View("BuyPremium", paymentManager.Prices);
         }
 

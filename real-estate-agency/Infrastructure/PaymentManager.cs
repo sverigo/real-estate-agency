@@ -69,7 +69,7 @@ namespace real_estate_agency.Infrastructure
             json["currency"] = "UAH";
             json["description"] = "Покупка премиум подписки.";
             json["order_id"] = payment.Id;
-            //json["sandbox"] = 1;
+            json["sandbox"] = 1;
             json["server_url"] = callBackUrl;
             json["result_url"] = resultUrl;
             
@@ -84,13 +84,18 @@ namespace real_estate_agency.Infrastructure
         public void ConfirmPayment(string data, string signature)
         {
             if (signature == GetBase64EncodedSHA1Hash(privateKey + data + privateKey))
-            { 
+            {
                 JObject json = JObject.Parse(Base64Decode(data));
-                int orderId = (int)json["order_id"];
-                Payment payment = dataBase.Payments.Where(p => p.Id == orderId).FirstOrDefault();
-                payment.ConfirmedDate = DateTime.UtcNow;
-                payment.Status = (string)json["status"];
-                dataBase.SaveChanges();
+                if ((string)json["status"] == "sandbox")
+                {
+                    int orderId = (int)json["order_id"];
+                    Payment payment = dataBase.Payments.Where(p => p.Id == orderId).FirstOrDefault();
+                    string userId = payment.User.Id;
+                    payment.ConfirmedDate = DateTime.UtcNow;
+                    dataBase.SaveChanges();
+
+                    UserManager.AddToRole(userId, UserStatusDirectory.Roles.PREMIUM_USER);
+                }
             }
         }
 

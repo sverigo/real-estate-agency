@@ -15,8 +15,6 @@ namespace real_estate_agency.Models
 
         public decimal Amount { get; set; }
 
-        public string Status { get; set; }
-
         public DateTime? ConfirmedDate { get; set; }
         
         public virtual AppUser User { get; set; }
