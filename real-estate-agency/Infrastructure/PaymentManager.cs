@@ -83,7 +83,7 @@ namespace real_estate_agency.Infrastructure
 
         public void ConfirmPayment(string data, string signature)
         {
-            if (signature != GetBase64EncodedSHA1Hash(privateKey + data + privateKey))
+            if (signature == GetBase64EncodedSHA1Hash(privateKey + data + privateKey))
             { 
                 JObject json = JObject.Parse(Base64Decode(data));
                 int orderId = (int)json["order_id"];
