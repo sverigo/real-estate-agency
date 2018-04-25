@@ -1,4 +1,5 @@
 ﻿@using real_estate_agency.Models;
+@using real_estate_agency.Resources;
 @model IEnumerable<AppUser>
 @{
     Layout = "~/Views/Shared/header.cshtml";
@@ -8,16 +9,16 @@
     <div class="row">
         <div class="col-md-12 mx-auto">
             <div class="card card-body">
-                <h3 class="text-center mb-4">Панель администратора</h3>
+                <h3 class="text-center mb-4">@Resource.AdminPanel</h3>
                 <fieldset>
-                    <h4 class="text-center mb-5">Модераторы</h4>
+                    <h4 class="text-center mb-5">@Resource.Moderators</h4>
                     <table class="table table-responsive-sm">
                         <thead>
                             <tr>
-                                <th>Имя</th>
-                                <th>Логин</th>
+                                <th>@Resource.Name</th>
+                                <th>@Resource.Login</th>
                                 <th>Email</th>
-                                <th>@Html.ActionLink("Добавить модератора", "CreateModerator")</th>
+                                <th>@Html.ActionLink(Resource.AddModerator, "CreateModerator")</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -27,13 +28,13 @@
                                     <td>@moder.Name</td>
                                     <td>@moder.UserName</td>
                                     <td>@moder.Email</td>
-                                    <td>@Html.ActionLink("Удалить", "DeleteModerator", new { id = moder.Id })</td>
+                                    <td>@Html.ActionLink(@Resource.Delete, "DeleteModerator", new { id = moder.Id })</td>
                                 </tr>
                             }
                         </tbody>
                     </table>
                     <br /><br /><br />
-                    <h4 class="text-center mb-5">Пользователи</h4>
+                    <h4 class="text-center mb-5">@Resource.Users</h4>
                     <div id="search-user-panel">
                         @{ Html.RenderAction("SearchUserPanel", "Moderator"); }
                     </div>

@@ -1,11 +1,12 @@
-﻿@model IEnumerable<string>
+﻿@using real_estate_agency.Resources;
+@model IEnumerable<string>
 @{
     Layout = "~/Views/Shared/header.cshtml";
 }
 
 <div style="text-align: center;" class="alert alert-danger">
-    <h3>Ошибка!</h3>
-    <p>При обработке запроса произошла ошибка</p>
+    <h3>@Resource.ErrorPageTitle</h3>
+    <p>@Resource.ErrorPageMessage</p>
 
     <ul>
         @if (Model != null)

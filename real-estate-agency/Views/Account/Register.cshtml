@@ -1,4 +1,5 @@
 ﻿@model real_estate_agency.Models.ViewModels.UserRegisterViewModel
+@using real_estate_agency.Resources;
 @{
     Layout = "~/Views/Shared/header.cshtml";
 }
@@ -7,27 +8,27 @@
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div class="card card-body">
-                <h3 class="text-center mb-4">Регистрация</h3>
+                <h3 class="text-center mb-4">@Resource.Registration</h3>
                 @Html.ValidationSummary(false)
                 <fieldset>
                     @using (Html.BeginForm("Register", "Account", FormMethod.Post))
                     {
                         <div class="form-group">
-                            @Html.TextBoxFor(x => x.Login, new { @class = "form-control input-lg", placeholder = "Введите логин" })
+                            @Html.TextBoxFor(x => x.Login, new { @class = "form-control input-lg", placeholder = Resource.InputLogin })
                         </div>
                         <div class="form-group">
-                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-lg", placeholder = "Введите имя" })
+                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-lg", placeholder = Resource.InputName })
                         </div>
                         <div class="form-group">
-                            @Html.TextBoxFor(x => x.Email, new { @class = "form-control input-lg", placeholder = "Введите email" })
+                            @Html.TextBoxFor(x => x.Email, new { @class = "form-control input-lg", placeholder = Resource.InputEmail })
                         </div>
                         <div class="form-group">
-                            @Html.PasswordFor(x => x.Password, new { @class = "form-control input-lg", placeholder = "Введите пароль" })
+                            @Html.PasswordFor(x => x.Password, new { @class = "form-control input-lg", placeholder = Resource.InputPassword })
                         </div>
                         <div class="form-group">
-                            @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "form-control input-lg", placeholder = "Подтвердите пароль" })
+                            @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "form-control input-lg", placeholder = Resource.ConfirmPassword })
                         </div>
-                        <input class="btn btn-lg btn-primary btn-block" value="Зарегистрироваться" type="submit">
+                        <input class="btn btn-lg btn-primary btn-block" value=@Resource.Register type="submit">
                     }
                 </fieldset>
             </div>

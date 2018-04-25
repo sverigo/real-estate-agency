@@ -1,4 +1,5 @@
 ﻿@using real_estate_agency.Models.ViewModels;
+@using real_estate_agency.Resources;
 @model UserLoginViewModel
 
 @{
@@ -9,7 +10,7 @@
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div class="card card-body">
-                <h3 class="text-center mb-4">Вход</h3>
+                <h3 class="text-center mb-4">@Resource.Login</h3>
                 @Html.ValidationSummary(false)
                 <fieldset>
                     @using (Html.BeginForm("Login", "Account", FormMethod.Post))
@@ -17,14 +18,14 @@
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="returnURL" value="@ViewBag.returnURL" />
                         <div class="form-group">
-                            @Html.TextBoxFor(x => x.LoginOrEmail, new { @class = "form-control input-lg", placeholder = "Введите логин или email" })
+                            @Html.TextBoxFor(x => x.LoginOrEmail, new { @class = "form-control input-lg", placeholder = Resource.InputLoginOrEmail })
                         </div>
                         <div class="form-group">
-                            @Html.PasswordFor(x => x.Password, new { @class = "form-control input-lg", placeholder = "Введите пароль" })
+                            @Html.PasswordFor(x => x.Password, new { @class = "form-control input-lg", placeholder = Resource.InputPassword })
                         </div>
-                        <input class="btn btn-lg btn-primary btn-block" value="Войти" type="submit">
+                        <input class="btn btn-lg btn-primary btn-block" value=@Resource.Login type="submit">
                     }
-                    @Html.ActionLink("Восстановление пароля", "PasswordResetRequest", "Account", new { @class = "reset-password-string" })
+                    @Html.ActionLink(Resource.PasswordRecovery, "PasswordResetRequest", "Account", new { @class = "reset-password-string" })
                 </fieldset>
             </div>
         </div>

@@ -1,5 +1,6 @@
 ﻿@using real_estate_agency.Models;
 @using real_estate_agency.Infrastructure;
+@using real_estate_agency.Resources;
 
 @model AppUser
 @{
@@ -13,8 +14,8 @@
     <title>Index</title>
     <script type="text/javascript">
         function notificationLinkClick() {
-            document.getElementById("notif-link").innerHTML = "Оповещения";
-            document.getElementById("cabinet-link").innerHTML = "Кабинет";
+            document.getElementById("notif-link").innerHTML = @Resource.Notifications;
+            document.getElementById("cabinet-link").innerHTML = @Resource.PersonalCabinet;
         }
     </script>
 </head>
@@ -23,36 +24,36 @@
         <div class="row">
             <div class="col-md-12 mx-auto">
                 <div class="card card-body">
-                    <h3 class="text-center mb-4">Личный кабинет</h3>
+                    <h3 class="text-center mb-4">@Resource.PersonalCabinet</h3>
                     <div class="nav-container cabinet col-xl-12 mx-auto">
                         <div class="row">
                             <div class="cabinet-item col">
-                                @Ajax.ActionLink("Мои объявления", "MyAds", "Cabinet", new AjaxOptions() { UpdateTargetId = "contentDisplay" })
+                                @Ajax.ActionLink(Resource.MyAds, "MyAds", "Cabinet", new AjaxOptions() { UpdateTargetId = "contentDisplay" })
                             </div>
                             <div class="cabinet-item col">
-                                @Ajax.ActionLink("Мои закладки", "MyMarks", "Cabinet", new AjaxOptions() { UpdateTargetId = "contentDisplay" })
+                                @Ajax.ActionLink(Resource.MyBookmarks, "MyMarks", "Cabinet", new AjaxOptions() { UpdateTargetId = "contentDisplay" })
                             </div>
                             <div class="cabinet-item col">
                                 @{
-                                    string notif = "Оповещения " + ViewBag.NotifCount;
+                                    string notif = Resource.Notifications + " " + ViewBag.NotifCount;
                                 }
                                 @Ajax.ActionLink(notif, "MyNotifications", "Cabinet", null, new AjaxOptions() { UpdateTargetId = "contentDisplay" },
-                               new { onclick = "notificationLinkClick()", id = "notif-link" })
+                                    new { onclick = "notificationLinkClick()", id = "notif-link" })
                             </div>
                             <div class="cabinet-item col">
-                                @Ajax.ActionLink("Профиль", "ProfileSettings", "Cabinet", new AjaxOptions() { UpdateTargetId = "contentDisplay" })
+                                @Ajax.ActionLink(Resource.Profile, "ProfileSettings", "Cabinet", new AjaxOptions() { UpdateTargetId = "contentDisplay" })
                             </div>
                             @if (PermissionDirectory.IsAdmin(User))
                             {
                                 <div class="cabinet-item col">
-                                    @Html.ActionLink("Административная панель", "AdminPanel", "Admin")
+                                    @Html.ActionLink(Resource.AdminPanel, "AdminPanel", "Admin")
                                 </div>
 
                             }
                             else if (PermissionDirectory.IsModerator(User))
                             {
                                 <div class="container-item col">
-                                    @Html.ActionLink("Страница модератора", "ModeratorPanel", "Moderator");
+                                    @Html.ActionLink(Resource.ModeratorPanel, "ModeratorPanel", "Moderator");
                                 </div>
 
                             }

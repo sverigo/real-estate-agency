@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
+using real_estate_agency.Resources;
 
 namespace real_estate_agency.Models.ViewModels
 {
     public class UserRegisterViewModel
     {
-        [Required(ErrorMessage = "Введите логин!")]
+        [Required(ErrorMessageResourceName = "ModelValidatorInputLogin", ErrorMessageResourceType = typeof(Resource))]
         public string Login { get; set; }
 
-        [Required(ErrorMessage = "Введите имя!")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина имени должна быть от 3 до 50 символов!")]
+        [Required(ErrorMessageResourceName = "ModelValidatorInputName", ErrorMessageResourceType = typeof(Resource))]
+        [StringLength(50, MinimumLength = 3, ErrorMessageResourceName = "ModelValidatorLenName", ErrorMessageResourceType = typeof(Resource))]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Введите Email!")]
+        [Required(ErrorMessageResourceName = "ModelValidatorInputEmail", ErrorMessageResourceType = typeof(Resource))]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Введите пароль!")]
+        [Required(ErrorMessageResourceName = "ModelValidatorInputPassword", ErrorMessageResourceType = typeof(Resource))]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Подтвердите пароль!")]
+        [Required(ErrorMessageResourceName = "ModelValidatorInputConfirmationPassword", ErrorMessageResourceType = typeof(Resource))]
         public string ConfirmPassword { get; set; }
     }
 }

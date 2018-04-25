@@ -117,11 +117,122 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountValidator1" xml:space="preserve">
+    <value>Неверное имя или пароль!</value>
+  </data>
+  <data name="AccountValidator2" xml:space="preserve">
+    <value>Активируйте свою учетную запись. Проверьте почту!</value>
+  </data>
+  <data name="AccountValidator3" xml:space="preserve">
+    <value>Ваша учетная запись заблокирована до </value>
+  </data>
+  <data name="AccountValidator4" xml:space="preserve">
+    <value>Превышено количество попыток входа.</value>
+  </data>
+  <data name="AccountValidator5" xml:space="preserve">
+    <value>Возможно, кто-то пытается взломать Вашу учетную запись</value>
+  </data>
+  <data name="AccountValidator6" xml:space="preserve">
+    <value>Неверный пароль! Осталось попыток: </value>
+  </data>
+  <data name="AccountValidator7" xml:space="preserve">
+    <value>Укажите Email!</value>
+  </data>
+  <data name="AccountValidator8" xml:space="preserve">
+    <value>Пользователя с таким Email не существует!</value>
+  </data>
+  <data name="AccountValidator9" xml:space="preserve">
+    <value>Новый пароль успешно установлен!</value>
+  </data>
   <data name="AddAd" xml:space="preserve">
     <value>Добавить объявление</value>
   </data>
-  <data name="Cabinet" xml:space="preserve">
-    <value>Кабинет</value>
+  <data name="AddButton" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="AddModerator" xml:space="preserve">
+    <value>Добавить модератора</value>
+  </data>
+  <data name="AdminPanel" xml:space="preserve">
+    <value>Административная панель</value>
+  </data>
+  <data name="AdminValidator1" xml:space="preserve">
+    <value>Модератора с таким id не существует!</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Заблокировать</value>
+  </data>
+  <data name="Blocked" xml:space="preserve">
+    <value>Заблокирован</value>
+  </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>Заблокировать пользователя</value>
+  </data>
+  <data name="ChangeButton" xml:space="preserve">
+    <value>Сменить</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Изменить пароль</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Подтвердить</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Подтвердите новый пароль</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Подтвердите пароль</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Текущий пароль</value>
+  </data>
+  <data name="CustomPassValidator1" xml:space="preserve">
+    <value>Пароль должен содержать не менее 6 символов!</value>
+  </data>
+  <data name="CustomPassValidator2" xml:space="preserve">
+    <value>Пароль должен содержать цифры и буквы латинского алфавита!</value>
+  </data>
+  <data name="CustomUserValidator1" xml:space="preserve">
+    <value>Неверный формат Email адреса!</value>
+  </data>
+  <data name="CustomUserValidator2" xml:space="preserve">
+    <value>Указанный Email уже используется другим пользоветелем!</value>
+  </data>
+  <data name="CustomUserValidator3" xml:space="preserve">
+    <value>Пользователь с таким логином уже существует!</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Подробнее...</value>
+  </data>
+  <data name="ErrorPageMessage" xml:space="preserve">
+    <value>При обработке запроса произошла ошибка</value>
+  </data>
+  <data name="ErrorPageTitle" xml:space="preserve">
+    <value>Ошибка!</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="InputBlockReason" xml:space="preserve">
+    <value>Введите причину блокировки</value>
+  </data>
+  <data name="InputEmail" xml:space="preserve">
+    <value>Введите email</value>
+  </data>
+  <data name="InputLogin" xml:space="preserve">
+    <value>Введите логин</value>
+  </data>
+  <data name="InputLoginOrEmail" xml:space="preserve">
+    <value>Введите логин или email</value>
+  </data>
+  <data name="InputName" xml:space="preserve">
+    <value>Введите имя</value>
+  </data>
+  <data name="InputPassword" xml:space="preserve">
+    <value>Введите пароль</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Язык</value>
@@ -129,10 +240,145 @@
   <data name="Login" xml:space="preserve">
     <value>Войти</value>
   </data>
+  <data name="LoginName" xml:space="preserve">
+    <value>Логин</value>
+  </data>
   <data name="Logout" xml:space="preserve">
     <value>Выйти</value>
   </data>
+  <data name="ModeratorPanel" xml:space="preserve">
+    <value>Панель модератора</value>
+  </data>
+  <data name="Moderators" xml:space="preserve">
+    <value>Модераторы</value>
+  </data>
+  <data name="ModeratorValidator1" xml:space="preserve">
+    <value>Такого пользователя не существует!</value>
+  </data>
+  <data name="MyAds" xml:space="preserve">
+    <value>Мои объявления</value>
+  </data>
+  <data name="MyBookmarks" xml:space="preserve">
+    <value>Мои закладки</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Новый пароль</value>
+  </data>
+  <data name="NoAds" xml:space="preserve">
+    <value>У вас еще нет объявлений</value>
+  </data>
+  <data name="NoBookmarks" xml:space="preserve">
+    <value>У вас еще нет закладок</value>
+  </data>
+  <data name="NoNotifications" xml:space="preserve">
+    <value>Оповещений нет!</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Оповещения</value>
+  </data>
+  <data name="PasswordRecovery" xml:space="preserve">
+    <value>Восстановление пароля</value>
+  </data>
+  <data name="PasswordRecoveryMessage" xml:space="preserve">
+    <value>На указанный адрес будет отправлено сообщение со специальной ссылкой, с помощью которой вы сможете восстановить пароль.</value>
+  </data>
+  <data name="PasswordValidator1" xml:space="preserve">
+    <value>Введенные пароли не совпадают!</value>
+  </data>
+  <data name="PasswordValidator2" xml:space="preserve">
+    <value>Новые пароли не совпадают, подтвердите еще раз!</value>
+  </data>
+  <data name="PasswordValidator3" xml:space="preserve">
+    <value>Неверный текущий пароль!</value>
+  </data>
+  <data name="PersonalCabinet" xml:space="preserve">
+    <value>Личный кабинет</value>
+  </data>
+  <data name="Premium" xml:space="preserve">
+    <value>Премиум</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
+  <data name="ProfileSettings" xml:space="preserve">
+    <value>Настройки профиля</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Причина</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Зарегистрироваться</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="RemoveUserAd" xml:space="preserve">
+    <value>Удалить объявление пользователя</value>
+  </data>
+  <data name="SavingValidator1" xml:space="preserve">
+    <value>Изменения успешно сохранены!</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="Unblock" xml:space="preserve">
+    <value>Разблокировать</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Пользователи</value>
+  </data>
+  <data name="ModelValidatorInputConfirmationPassword" xml:space="preserve">
+    <value>Подтвердите пароль!</value>
+  </data>
+  <data name="ModelValidatorInputEmail" xml:space="preserve">
+    <value>Введите Email!</value>
+  </data>
+  <data name="ModelValidatorInputLogin" xml:space="preserve">
+    <value>Введите логин!</value>
+  </data>
+  <data name="ModelValidatorInputName" xml:space="preserve">
+    <value>Введите имя!</value>
+  </data>
+  <data name="ModelValidatorInputPassword" xml:space="preserve">
+    <value>Введите пароль!</value>
+  </data>
+  <data name="ModelValidatorLenName" xml:space="preserve">
+    <value>Длина имени должна быть от 3 до 50 символов!</value>
+  </data>
+  <data name="ModelValidatorConfirmNewPassword" xml:space="preserve">
+    <value>Подтвердите новый пароль!</value>
+  </data>
+  <data name="ModelValidatorInpitBlockDay" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="ModelValidatorInpitBlockHour" xml:space="preserve">
+    <value>Час</value>
+  </data>
+  <data name="ModelValidatorInpitBlockMonth" xml:space="preserve">
+    <value>Месяц</value>
+  </data>
+  <data name="ModelValidatorInpitBlockPermanently" xml:space="preserve">
+    <value>Навсегда</value>
+  </data>
+  <data name="ModelValidatorInpitBlockWeek" xml:space="preserve">
+    <value>Неделя</value>
+  </data>
+  <data name="ModelValidatorInputCurrentPassword" xml:space="preserve">
+    <value>Введите текущий пароль!</value>
+  </data>
+  <data name="ModelValidatorInputDurability" xml:space="preserve">
+    <value>Укажите длительность!</value>
+  </data>
+  <data name="ModelValidatorInputLoginOrEmail" xml:space="preserve">
+    <value>Введите логин или Email!</value>
+  </data>
+  <data name="ModelValidatorInputNewPassword" xml:space="preserve">
+    <value>Введите новый пароль!</value>
+  </data>
+  <data name="ModelValidatorInputReason" xml:space="preserve">
+    <value>Укажите причину!</value>
   </data>
 </root>

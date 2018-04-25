@@ -1,7 +1,8 @@
 ﻿@using real_estate_agency.Models.ViewModels;
+@using real_estate_agency.Resources;
 @model ChangeProfileViewModel
 
-<h4 class="text-center mb-5">Настройки профиля</h4>
+<h4 class="text-center mb-5">@Resource.ProfileSettings</h4>
 
 <div class="col-md-6 mx-auto">
     @Html.ValidationSummary(false)
@@ -14,12 +15,12 @@
             }
             @Html.HiddenFor(x => x.IdProfile)
             <div class="form-group">
-                @Html.TextBoxFor(x => x.Login, new { @class = "form-control input-lg", @placeholder = "Введите логин" })
+                @Html.TextBoxFor(x => x.Login, new { @class = "form-control input-lg", @placeholder = Resource.InputLogin })
             </div>
             <div class="form-group">
-                @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-lg", @placeholder = "Введите имя" })
+                @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-lg", @placeholder = Resource.InputName })
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Сменить</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">@Resource.ChangeButton</button>
         }
     </fieldset>
 </div>

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
+using real_estate_agency.Resources;
 
 namespace real_estate_agency.Models.ViewModels
 {
@@ -10,24 +7,24 @@ namespace real_estate_agency.Models.ViewModels
     {
         public string UserId { get; set; }
 
-        [Required(ErrorMessage = "Укажите причину")]
+        [Required(ErrorMessageResourceName = "ModelValidatorInputReason", ErrorMessageResourceType = typeof(Resource))]
         public string Message { get; set; }
 
-        [Required(ErrorMessage = "Укажите длительность")]
+        [Required(ErrorMessageResourceName = "ModelValidatorInputDurability", ErrorMessageResourceType = typeof(Resource))]
         public BlockDuration Duration { get; set; }
     }
 
     public enum BlockDuration
     {
-        [Display(Name = "Час")]
+        [Display(Name = "ModelValidatorInpitBlockHour", ResourceType = typeof(Resource))]
         Hour,
-        [Display(Name = "День")]
+        [Display(Name = "ModelValidatorInpitBlockDay", ResourceType = typeof(Resource))]
         Day,
-        [Display(Name = "Неделя")]
+        [Display(Name = "ModelValidatorInpitBlockWeek", ResourceType = typeof(Resource))]
         Week,
-        [Display(Name = "Месяц")]
+        [Display(Name = "ModelValidatorInpitBlockMonth", ResourceType = typeof(Resource))]
         Month,
-        [Display(Name = "Навсегда")]
+        [Display(Name = "ModelValidatorInpitBlockPermanently", ResourceType = typeof(Resource))]
         Forever
     }
 }

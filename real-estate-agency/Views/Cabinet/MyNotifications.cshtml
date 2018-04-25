@@ -1,12 +1,13 @@
 ﻿@using real_estate_agency.Models;
+@using real_estate_agency.Resources;
 @model IEnumerable<Notification>
 
-<h4 class="text-center mb-5">Оповещения</h4>
+<h4 class="text-center mb-5">@Resource.Notifications</h4>
 
 <div class="col-md-6 mx-auto">
     @if ((Model?.Count() ?? 0) == 0)
     {
-        <p style="text-align: center;">Оповещений нет!</p>
+        <p style="text-align: center;">@Resource.NoNotifications</p>
     }
     else
     {

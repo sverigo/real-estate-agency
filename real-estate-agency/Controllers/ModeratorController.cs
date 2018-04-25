@@ -7,6 +7,7 @@ using real_estate_agency.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using real_estate_agency.Models.ViewModels;
+using real_estate_agency.Resources;
 
 namespace real_estate_agency.Controllers
 {
@@ -99,7 +100,7 @@ namespace real_estate_agency.Controllers
             {
                 AppUser user = UserManager.FindById(model.UserId);
                 if (user == null)
-                    return View("Error", new string[] { "Такого пользователя не существует" });
+                    return View("Error", new string[] { Resource.ModeratorValidator1 });
 
                 TimeSpan duration = TimeSpan.FromDays(0);
                 switch (model.Duration)
@@ -140,7 +141,7 @@ namespace real_estate_agency.Controllers
         {
             AppUser user = await UserManager.FindByIdAsync(id);
             if (user == null)
-                return View("Error", new string[] { "Такого пользователя не существует" });
+                return View("Error", new string[] { Resource.ModeratorValidator1 });
 
             user.LockoutEndDateUtc = null;
             IdentityResult result = await UserManager.UpdateAsync(user);
