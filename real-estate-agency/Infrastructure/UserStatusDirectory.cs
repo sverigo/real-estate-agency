@@ -61,7 +61,7 @@ namespace real_estate_agency.Infrastructure
                         endDate = (DateTime)p.ConfirmedDate + TimeSpan.FromDays(p.Days);
                     return endDate > DateTime.UtcNow;
                 });
-                if (payment == null)
+                if (payment == null && UserManager.IsInRole(user.Id, Roles.PREMIUM_USER))
                 {
                     UserManager.RemoveFromRole(user.Id, Roles.PREMIUM_USER);
                     Notifier notifier = new Notifier();
