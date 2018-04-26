@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 using real_estate_agency.Models;
 using System;
 using System.Collections.Generic;
@@ -84,6 +85,11 @@ namespace real_estate_agency.Infrastructure
             return (ad.UserAuthorId ?? "") == user.Identity.GetUserId() ||
                 user.IsInRole(Roles.ADMINS) ||
                 user.IsInRole(Roles.MODERATORS);
+        }
+
+        public static bool IsPremium(AppUser user, IOwinContext owin)
+        {
+            return owin.GetUserManager<AppUserManager>().IsInRole(user.Id, Roles.PREMIUM_USER);
         }
 
         public static bool IsOwnerOfAd(string userId, Ad ad)

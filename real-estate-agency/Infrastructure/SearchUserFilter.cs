@@ -46,14 +46,12 @@ namespace real_estate_agency.Infrastructure
             {
                 result = result.Where(u => u.Email.ToLower().Contains(email)).ToList();
             }
-
-
-            //not implemented
-            //if (isPremium != null)
-            //{
-
-            //}
-
+            
+            if (isPremium != null)
+            {
+                result = result.Where(u => userManager.IsInRole(u.Id, UserStatusDirectory.Roles.PREMIUM_USER)).ToList();
+            }
+            
             if (isBlocked != null)
             {
                 if (isBlocked ?? false)
