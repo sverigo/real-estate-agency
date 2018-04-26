@@ -12,7 +12,7 @@ using real_estate_agency.Models.ViewModels;
 
 namespace real_estate_agency.Controllers
 {
-    [Authorize(Roles = PermissionDirectory.ADMINS + "," + PermissionDirectory.MODERATORS)]
+    [Authorize(Roles = UserStatusDirectory.Roles.ADMINS + "," + UserStatusDirectory.Roles.MODERATORS)]
     public class ModeratorController : Controller
     {
         AdsManager adsManager = new AdsManager();
@@ -27,7 +27,7 @@ namespace real_estate_agency.Controllers
             get { return HttpContext.GetOwinContext().GetUserManager<AppUserManager>(); }
         }
 
-        [Authorize(Roles = PermissionDirectory.MODERATORS)]
+        [Authorize(Roles = UserStatusDirectory.Roles.MODERATORS)]
         public ActionResult ModeratorPanel()
         {
             return View();
@@ -54,7 +54,7 @@ namespace real_estate_agency.Controllers
             string text = $"Ваше объявление {deletedAd.Title} было удалено. " +
                 $"Причина: {model.Message}";
 
-            Notifier notifier = new Notifier(UserManager);
+            Notifier notifier = new Notifier();
             IdentityResult result = notifier.NotifyUser(user, text, sender);
 
             if (result.Succeeded)

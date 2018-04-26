@@ -25,30 +25,37 @@
         <!--Menu-->
         <ul>
             <li>
-                @Ajax.ActionLink("Мои объявления", "MyAds", "Cabinet", 
-               new AjaxOptions() { UpdateTargetId = "contentDisplay" })
+                @Ajax.ActionLink("Мои объявления", "MyAds", "Cabinet",
+    new AjaxOptions() { UpdateTargetId = "contentDisplay" })
             </li>
             <li>
-                @Ajax.ActionLink("Мои закладки", "MyMarks", "Cabinet", 
-               new AjaxOptions() { UpdateTargetId = "contentDisplay" })
+                @Ajax.ActionLink("Мои закладки", "MyMarks", "Cabinet",
+    new AjaxOptions() { UpdateTargetId = "contentDisplay" })
+            </li>
+            <li>
+                @Ajax.ActionLink("Мои платежи", "MyPayments", "Cabinet",
+    new AjaxOptions() { UpdateTargetId = "contentDisplay" })
+            </li>
+            <li>
+                @Html.ActionLink("Приобрести премиум подписку", "BuyPremium", "Cabinet")
             </li>
             <li>
                 @{ 
                     string notif = "Оповещения " + ViewBag.NotifCount;
                 }
                 @Ajax.ActionLink(notif, "MyNotifications", "Cabinet", null,
-               new AjaxOptions() { UpdateTargetId = "contentDisplay" }, 
-               new { onclick = "notificationLinkClick()", id = "notif-link" })
+    new AjaxOptions() { UpdateTargetId = "contentDisplay" },
+    new { onclick = "notificationLinkClick()", id = "notif-link" })
             </li>
             <li>
                 @Ajax.ActionLink("Профиль", "ProfileSettings", "Cabinet",
-               new AjaxOptions() { UpdateTargetId = "contentDisplay" })
+    new AjaxOptions() { UpdateTargetId = "contentDisplay" })
             </li>
-            @if(PermissionDirectory.IsAdmin(User))
+            @if (UserStatusDirectory.IsAdmin(User))
             {
                 @Html.ActionLink("Административная панель", "AdminPanel", "Admin");
             }
-            else if (PermissionDirectory.IsModerator(User))
+            else if (UserStatusDirectory.IsModerator(User))
             {
                 @Html.ActionLink("Страница модератора", "ModeratorPanel", "Moderator");
             }
@@ -56,7 +63,7 @@
     </div>
 
     <div id="contentDisplay">
-
+        @{Html.RenderAction("MyAds", "Cabinet");}
     </div>
 </body>
 </html>

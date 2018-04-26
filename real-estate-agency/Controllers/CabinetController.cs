@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 
 namespace real_estate_agency.Controllers
@@ -22,13 +23,28 @@ namespace real_estate_agency.Controllers
 
         AdsManager adsManager = new AdsManager();
 
+        PaymentManager paymentManager = new PaymentManager();
+
         // GET: Cabinet
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            AppUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            int newNotificationsCount = user.Notifications.Where(n => !n.Seen).Count();
-            ViewBag.NotifCount = newNotificationsCount > 0 ? " +" + newNotificationsCount : "" ;
-            return View(user);
+            if (User?.Identity.IsAuthenticated ?? false)
+            {
+                try
+                {
+                    UserStatusDirectory userStatDirect = new UserStatusDirectory();
+                    UserStatus status = userStatDirect.GetUserStatus(User);
+                    if (status.isBlocked)
+                        return RedirectToAction("Logout", "Account", new { lockoutTime = status.lockoutTime });
+                    if (!string.IsNullOrEmpty(status.NotificationsCountSign))
+                        ViewBag.NotifCount = status.NotificationsCountSign;
+                }
+                catch (Exception ex)
+                {
+                    return View("Error", new string[] { ex.Message });
+                }
+            }
+            return View();
         }
 
         public PartialViewResult MyAds()
@@ -46,7 +62,7 @@ namespace real_estate_agency.Controllers
         public ActionResult MyNotifications()
         {
             AppUser user = UserManager.FindById(User.Identity.GetUserId());
-            Notifier notifier = new Notifier(UserManager);
+            Notifier notifier = new Notifier();
             IdentityResult result = notifier.SetNotificationsSeen(user);
             if (result == null || result.Succeeded)
             {
@@ -56,7 +72,74 @@ namespace real_estate_agency.Controllers
             else
                 return View("Error", result.Errors);
         }
+
+        public ActionResult MyPayments()
+        {
+            AppUser user = UserManager.FindById(User.Identity.GetUserId());
+            return PartialView("MyPayments", user.Payments.ToList());
+        }
         
+        public ActionResult BuyPremium()
+        {
+            if (User?.Identity.IsAuthenticated ?? false)
+            {
+                try
+                {
+                    UserStatusDirectory userStatDirect = new UserStatusDirectory();
+                    UserStatus status = userStatDirect.GetUserStatus(User);
+                    if (status.isBlocked)
+                        return RedirectToAction("Logout", "Account", new { lockoutTime = status.lockoutTime });
+                    if (!string.IsNullOrEmpty(status.NotificationsCountSign))
+                        ViewBag.NotifCount = status.NotificationsCountSign;
+                    if (status.isPremium)
+                        ViewBag.IsPremium = true;
+                    else
+                        ViewBag.IsPremium = false;
+                }
+                catch (Exception ex)
+                {
+                    return View("Error", new string[] { ex.Message });
+                }
+            }
+            return View("BuyPremium", paymentManager.Prices);
+        }
+
+        [HttpPost]
+        public ActionResult BuyPremium(int days, decimal amount)
+        {
+            AppUser user = UserManager.FindById(User.Identity.GetUserId());
+            string callBackUrl, resultUrl;
+            if (Convert.ToBoolean(WebConfigurationManager.AppSettings["OnServer"]))
+            {
+                callBackUrl = "http://" + HttpContext.Request.Url.Host + Url.Action("ConfirmPayment", "Cabinet");
+                resultUrl = HttpContext.Request.Url.Host + Url.Action("Index", "Cabinet");
+            }
+            else
+            {
+                callBackUrl = Url.Action("ConfirmPayment", "Cabinet", null, Request.Url.Scheme);
+                resultUrl = Url.Action("Index", "Cabinet", null, Request.Url.Scheme);
+            }
+            PaymentData paymentData;
+            try
+            {
+                paymentData = paymentManager.CreatePayment(user, days, amount,
+                    callBackUrl, resultUrl);
+                return View("ConfirmPayment", paymentData);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", ex.Message.Split('|'));
+            }
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ConfirmPayment(string data, string signature)
+        {
+            paymentManager.ConfirmPayment(data, signature);
+            return new EmptyResult();
+        }
+
         public PartialViewResult ProfileSettings()
         {
             return PartialView("ProfileSettings", User.Identity.GetUserId());

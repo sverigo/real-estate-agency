@@ -27,7 +27,7 @@ namespace real_estate_agency.Infrastructure
             bool? isPremium = conditions.IsPremium;
             bool? isBlocked = conditions.IsBlocked;
 
-            AppRole userRole = roleManager.FindByName(PermissionDirectory.USERS);
+            AppRole userRole = roleManager.FindByName(UserStatusDirectory.Roles.USERS);
             List<string> idsUsers = userRole.Users.Select(u => u.UserId).ToList();
             List<AppUser> result = userManager.Users.Where(u => idsUsers.Contains(u.Id))
                 .ToList();
@@ -46,14 +46,12 @@ namespace real_estate_agency.Infrastructure
             {
                 result = result.Where(u => u.Email.ToLower().Contains(email)).ToList();
             }
-
-
-            //not implemented
-            //if (isPremium != null)
-            //{
-
-            //}
-
+            
+            if (isPremium != null)
+            {
+                result = result.Where(u => userManager.IsInRole(u.Id, UserStatusDirectory.Roles.PREMIUM_USER)).ToList();
+            }
+            
             if (isBlocked != null)
             {
                 if (isBlocked ?? false)

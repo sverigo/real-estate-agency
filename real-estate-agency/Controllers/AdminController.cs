@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace real_estate_agency.Controllers
 {
-    [Authorize(Roles = PermissionDirectory.ADMINS)]
+    [Authorize(Roles = UserStatusDirectory.Roles.ADMINS)]
     public class AdminController : Controller
     {
         AdsManager adManager = new AdsManager();
@@ -30,7 +30,7 @@ namespace real_estate_agency.Controllers
         // GET: Admin
         public ActionResult AdminPanel()
         {
-            AppRole moderRole = RoleManager.FindByName(PermissionDirectory.MODERATORS);
+            AppRole moderRole = RoleManager.FindByName(UserStatusDirectory.Roles.MODERATORS);
             List<string> modersIds = moderRole.Users.Select(u => u.UserId).ToList();
             List<AppUser> moders = UserManager.Users.Where(u => modersIds.Contains(u.Id)).ToList();
             return View(moders);
@@ -56,11 +56,12 @@ namespace real_estate_agency.Controllers
                         UserName = userInfo.Login,
                         Name = userInfo.Name,
                         Email = userInfo.Email,
-                        EmailConfirmed = true
+                        EmailConfirmed = true,
+                        LockoutEnabled = false
                     };
 
                     IdentityResult creationResult = await UserManager.CreateAsync(user, userInfo.Password);
-                    IdentityResult roleResult = await UserManager.AddToRoleAsync(user.Id, PermissionDirectory.MODERATORS);
+                    IdentityResult roleResult = await UserManager.AddToRoleAsync(user.Id, UserStatusDirectory.Roles.MODERATORS);
                     if (creationResult.Succeeded && roleResult.Succeeded)
                         return RedirectToAction("AdminPanel");
                     else

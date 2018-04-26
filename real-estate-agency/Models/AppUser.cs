@@ -20,5 +20,7 @@ namespace real_estate_agency.Models
         public HashSet<MarkedAd> MarkedAds { get; set; }
 
         public virtual ICollection<Notification> Notifications { get; set; }
+
+        public virtual ICollection<Payment> Payments { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@using real_estate_agency.Models;
+@using real_estate_agency.Infrastructure;
 @model IEnumerable<AppUser>
 
 <table class="table table-responsive-sm">
@@ -18,7 +19,17 @@
                 <td>@user.UserName</td>
                 <td>@user.Name</td>
                 <td>@user.Email</td>
-                <td>-</td>
+                
+                <td>
+                    @if (UserStatusDirectory.IsPremium(user, HttpContext.Current.GetOwinContext()))
+                    {
+                        @:+
+                    }
+                    else
+                    {
+                        @:-
+                    }
+                </td>
 
                 @if (user.LockoutEndDateUtc < DateTime.UtcNow || user.LockoutEndDateUtc == null)
                 {
@@ -29,7 +40,7 @@
                 {
                     if (user.LockoutEndDateUtc != null)
                     {
-                        DateTime time = user.LockoutEndDateUtc?.ToLocalTime() ?? DateTime.Now;
+                        DateTime time = (DateTime)user.LockoutEndDateUtc;
                         <td>до @time</td>
                         <td>@Html.ActionLink("Разблокировать", "DeblockUser", "Moderator", new { id = user.Id }, null)</td>
                     }
