@@ -20,20 +20,20 @@
                 <td>@user.Name</td>
                 <td>@user.Email</td>
                 
-                <td>-</td>
+                <td>
+                    @if (UserStatusDirectory.IsPremium(user, HttpContext.Current.GetOwinContext()))
+                    {
+                        @:+
+                    }
+                    else
+                    {
+                        @:-
+                    }
+                </td>
 
                 @if (user.LockoutEndDateUtc < DateTime.UtcNow || user.LockoutEndDateUtc == null)
                 {
-                    <td>
-                        @if (UserStatusDirectory.IsPremium(user, HttpContext.Current.GetOwinContext()))
-                        {
-                            @:+
-                        }
-                        else
-                        {
-                            @:-
-                        }
-                    </td>
+                    <td>-</td>
                     <td>@Html.ActionLink("Заблокировать", "BlockUser", "Moderator", new { id = user.Id }, null)</td>
                 }
                 else
