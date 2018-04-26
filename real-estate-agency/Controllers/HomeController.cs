@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using real_estate_agency.Models;
-using DataParser;
-using System.Xml.Serialization;
-using System.IO;
 using PagedList;
-using System.Data.Entity;
 using real_estate_agency.Infrastructure;
 using real_estate_agency.Models.ViewModels;
 using System.Web;
@@ -47,7 +43,7 @@ namespace real_estate_agency.Controllers
             return View();
         }
 
-        public PartialViewResult AdFilter(MainPageViewModel model)
+        public PartialViewResult Ad(MainPageViewModel model)
         {
             var allAds = adsManager.AllAds.Reverse();
             int pageSize = 15;

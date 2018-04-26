@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using real_estate_agency.Resources;
+
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <title>Real Estate Agency</title>
@@ -22,27 +24,36 @@
         <div class="collapse navbar-collapse" id="navbarsblock">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    @Html.ActionLink("Добавить объявление", "Add", "Ads", null, new { @class = "nav-link" })
+                    @Html.ActionLink(Resource.AddAd, "Add", "Ads", null, new { @class = "nav-link" })
                 </li>
                 @{
                     if (User?.Identity.IsAuthenticated ?? false)
                     {
                         <li class="nav-item">
                             @{
-                                string cabinet = "Кабинет" + ViewBag.NotifCount;
+                                string cabinet = Resource.PersonalCabinet + ViewBag.NotifCount;
                             }
                             @Html.ActionLink(cabinet, "Index", "Cabinet", null, new { @class = "nav-link", id = "cabinet-link" })
                         </li>
                         <li class="nav-item">
-                            @Html.ActionLink("Выйти", "Logout", "Account", null, new { @class = "nav-link" })
+                            @Html.ActionLink(Resource.Logout, "Logout", "Account", null, new { @class = "nav-link" })
                         </li>
                     }
                     else
                     {
-                        <li class="nav-item">@Html.ActionLink("Вход", "Login", "Account", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item">@Html.ActionLink("Регистрация", "Register", "Account", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink(Resource.Login, "Login", "Account", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink(Resource.Register, "Register", "Account", null, new { @class = "nav-link" })</li>
                     }
                 }
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        @Resource.Language
+                    </a>
+                    <div class="dropdown-menu lang-switcher">
+                        @Html.ActionLink("Русский", "Change", "Language", new { LanguageAbbreviation = "ru" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Українська", "Change", "Language", new { LanguageAbbreviation = "uk" }, new { @class = "dropdown-item" })
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>

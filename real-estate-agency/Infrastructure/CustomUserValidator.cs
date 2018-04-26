@@ -3,9 +3,9 @@ using real_estate_agency.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using real_estate_agency.Resources;
 
 namespace real_estate_agency.Infrastructure
 {
@@ -37,20 +37,20 @@ namespace real_estate_agency.Infrastructure
                 }
             };
             if (!IsEmailValid.Invoke())
-                errors.Add("Неверный формат Email адреса!");
+                errors.Add(Resource.CustomUserValidator1);
 
             //check unique emails
             {
                 AppUser user = userManager.FindByEmail(item.Email);
                 if (user != null && user.Id != item.Id)
-                    errors.Add("Указанный Email уже используется другим пользоветелем!");
+                    errors.Add(Resource.CustomUserValidator2);
             }
 
             //check unique UserName
             {
                 AppUser user = userManager.FindByName(item.UserName);
                 if (user != null && user.Id != item.Id)
-                    errors.Add("Пользователь с таким логином уже существует!");
+                    errors.Add(Resource.CustomUserValidator3);
             }
 
             if (errors.Any())

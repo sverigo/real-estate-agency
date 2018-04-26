@@ -10,7 +10,8 @@
     <div class="add-title">
         <h2>Edit the Ad</h2>
     </div>
-    <form method="post" action="#">
+    @using (Html.BeginForm("Edit", "Ads", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
         <input type="hidden" name="UserAuthorId" value="@Model.UserAuthorId" />
         <input type="hidden" name="AdUrl" value="@Model.AdUrl" />
         <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
@@ -21,8 +22,9 @@
                 <tr>
                     <th>prevImage</th>
                     <td>
-                        <img src="@Model.PrevImage" />
-                        <input type="text" name="PrevImage" value="@Model.PrevImage" />
+                        <img class="prev-image" src="@Url.Content(Model.PrevImage)" />
+                        <input type="hidden" name="PrevImage" value="@Model.PrevImage" />
+                        <input type="file" name="uPrevImage" />
                     </td>
                 </tr>
                 <tr>
@@ -31,7 +33,14 @@
                 </tr>
                 <tr>
                     <th>Категория</th>
-                    <td><input type="text" name="Type" value="@Model.Type" /></td>
+                    <td>
+                        <!--to do here: Auto selected items-->
+                        <select name="Type">
+                            <option>Долгосрочная аренда квартир</option>
+                            <option>Кварира посуточно</option>
+                            <option>Квартира с почасовой оплатой</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <th>Адрес</th>
@@ -39,7 +48,7 @@
                 </tr>
                 <tr>
                     <th>Площадь</th>
-                    <td><input type="text" name="Area" value="@Model.Area" /></td>
+                    <td><input type="number" name="Area" value="@Model.Area" /></td>
                 </tr>
                 <tr>
                     <th>Автор</th>
@@ -47,7 +56,7 @@
                 </tr>
                 <tr>
                     <th>Цена</th>
-                    <td><input type="text" name="Value" value="@Model.Value" /></td>
+                    <td><input type="number" name="Value" value="@Model.Value" /></td>
                 </tr>
                 <tr>
                     <th>Валюта</th>
@@ -55,32 +64,85 @@
                 </tr>
                 <tr>
                     <th>Описание</th>
-                    <td><textarea name="Details">@Model.Details.ToString()</textarea></td>
+                    <td><textarea name="Details">@Model.Details</textarea></td>
                 </tr>
                 <tr>
                     <th>Этаж</th>
-                    <td><input type="text" name="Floors" value="@Model.Floors" /></td>
+                    <td><input type="number" name="Floors" value="@Model.Floors" /></td>
                 </tr>
                 <tr>
                     <th>Этажность</th>
-                    <td><input type="text" name="FloorsCount" value="@Model.FloorsCount" /></td>
+                    <td><input type="number" name="FloorsCount" value="@Model.FloorsCount" /></td>
                 </tr>
                 <tr>
                     <th>Количество комнат</th>
-                    <td><input type="text" name="RoomsCount" value="@Model.RoomsCount" /></td>
+                    <td><input type="number" name="RoomsCount" value="@Model.RoomsCount" /></td>
                 </tr>
                 <tr>
                     <th>Телефон</th>
-                    @foreach (var phoneItem in StringImgPhoneConverter.StringToList(Model.Phone))
-                    {
-                        <td><input type="text" name="Phone" value="@phoneItem" /></td>
-                    }
+                    <td>
+                        <div id="phonediv">
+                            @{
+                                if (Model.Phone.IsEmpty())
+                                {
+                                    <div class="but">
+                                        <input type="button" value="Х" id="delete0"
+                                               onclick="$('#Phone0').remove(); $('#delete0').remove();" 
+                                               /><input type="tel" name="Phone0" id="Phone0" />
+                                    </div>
+                                }
+                                int j = 0;
+                                foreach (var phoneItem in StringImgPhoneConverter.StringToList(Model.Phone))
+                                {
+                                    string name = "Phones" + j.ToString();
+                                    string button_name = "delete" + j.ToString();
+                                    j++;
+                                    <div class="but">
+                                        <input type="button" value="Х" id="@button_name"
+                                               onclick="$('#@name').remove(); $('#@button_name').remove();" />
+                                        <input type="tel" name="@name" id="@name" value="@phoneItem" />
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <input type="button" value="+" onclick="add_phone_field();" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Фотографии</th>
+                    <td>
+                        <div id="photodiv">
+                            @{
+                                int i = 0;
+                                foreach (var img in StringImgPhoneConverter.StringToList(Model.Images))
+                                {
+                                    string name = "Photos" + i.ToString();
+                                    string remove_check = "remove_check-" + i.ToString();
+                                    <img class="prev-image" name="@name" id="@name" src="@Url.Content(img)" />
+                                    
+                                    @Html.CheckBox(remove_check, true, new { @id="removeit"})
+                                    i++;
+                                }
+                                if (Model.Images.IsEmpty())
+                                {
+                                    <div class="but">
+                                        <input type="button" name="remove0" id="remove0" value="X"
+                                               onclick="$('#Images0').remove(); $('#remove0').remove(); " 
+                                               /><input type="file" accept="image/*" name="Images0" id="Images0" />
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <input type="button" value="+" onclick="add_photo_field();" />
+                    </td>
                 </tr>
                 <tr>
                     <td class="add-submit" colspan="2"><input type="submit" value="Изменить" /></td>
                 </tr>
             </table>
         </div>
-    </form>
-}
+                                }
+    }
 </main>
+
+@Scripts.Render("~/bundles/additional-fields")

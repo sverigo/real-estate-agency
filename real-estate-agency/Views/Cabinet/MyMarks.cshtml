@@ -1,11 +1,12 @@
 ﻿@using real_estate_agency.Models;
 @using real_estate_agency.Infrastructure;
+@using real_estate_agency.Resources;
 @model IEnumerable<Ad>
 <div>
-    <h2>Мои закладки</h2>
+    <h2>@Resource.MyBookmarks</h2>
     @if ((Model?.Count() ?? 0) == 0)
     {
-        <h2>У вас еще нет закладок</h2>
+        <h2>@Resource.NoBookmarks</h2>
     }
     else
     {
@@ -42,7 +43,7 @@
                                 <p><strong>Тип:</strong> @item.Type</p>
                                 <p><strong>Адрес:</strong> @item.Address</p>
                                 <p><strong>Стоимость:</strong> @item.Value @item.Currency</p>
-                                <p>@Html.ActionLink("Подробнее", "Details", "Ads", new { id = item.Id }, new { @class = "" })</p>
+                                <p>@Html.ActionLink(Resource.Details, "Details", "Ads", new { id = item.Id }, new { @class = "" })</p>
                             </div>
                             <div class="clearfix"></div>
                         </div>

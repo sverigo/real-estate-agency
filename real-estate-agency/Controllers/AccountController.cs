@@ -3,8 +3,6 @@ using Microsoft.AspNet.Identity.Owin;
 using real_estate_agency.Infrastructure;
 using real_estate_agency.Models.ViewModels;
 using real_estate_agency.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -12,6 +10,7 @@ using System.Web.Mvc;
 using real_estate_agency.Email;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
+using real_estate_agency.Resources;
 using System.Web.Configuration;
 
 namespace real_estate_agency.Controllers
@@ -47,19 +46,19 @@ namespace real_estate_agency.Controllers
                     await UserManager.FindByNameAsync(model.LoginOrEmail);
 
                 if (tryingUser == null)
-                    ModelState.AddModelError("", "Неверное имя или пароль!");
+                    ModelState.AddModelError("", Resource.AccountValidator1);
                 else
                 {
                     if (!tryingUser.EmailConfirmed)
                     {
-                        ModelState.AddModelError("", "Активируйте свою учетную запись. Проверьте почту!");
+                        ModelState.AddModelError("", Resource.AccountValidator2);
                         ViewBag.returnURL = returnURL;
                         return View(model);
                     }
 
                     if (UserManager.IsLockedOut(tryingUser.Id))
                     {
-                        ModelState.AddModelError("", "Ваша учетная запись заблокирована до " + tryingUser.LockoutEndDateUtc);
+                        ModelState.AddModelError("", Resource.AccountValidator3 + tryingUser.LockoutEndDateUtc?.ToLocalTime());
                         ViewBag.returnURL = returnURL;
                         return View(model);
                     }
@@ -71,15 +70,14 @@ namespace real_estate_agency.Controllers
 
                         if (UserManager.IsLockedOut(tryingUser.Id))
                         {
-                            string message = "Превышено количество попыток входа. " + 
-                                "Возможно, кто-то пытается взломать Вашу учетную запись";
+                            string message = Resource.AccountValidator4 + Resource.AccountValidator5;
                             EmailSender.SendUserBlockedMail(tryingUser, BlockDuration.Hour, message);
-                            ModelState.AddModelError("", "Ваша учетная запись заблокирована до " + tryingUser.LockoutEndDateUtc);
+                            ModelState.AddModelError("", Resource.AccountValidator3 + tryingUser.LockoutEndDateUtc?.ToLocalTime());
                         }
                         else
                         {
                             int attempts = UserManager.MaxFailedAccessAttemptsBeforeLockout - tryingUser.AccessFailedCount;
-                            ModelState.AddModelError("", "Неверный пароль! Осталось попыток: " + attempts);
+                            ModelState.AddModelError("", Resource.AccountValidator6 + attempts);
                         }
                     }
                     else
@@ -122,7 +120,7 @@ namespace real_estate_agency.Controllers
             if (ModelState.IsValid)
             {
                 if (userInfo.ConfirmPassword != userInfo.Password)
-                    ModelState.AddModelError("", "Введенные пароли не одинаковы!");
+                    ModelState.AddModelError("", Resource.PasswordValidator1);
                 else
                 {
                     AppUser user = new AppUser
@@ -190,13 +188,13 @@ namespace real_estate_agency.Controllers
         {
             if (string.IsNullOrEmpty(email))
             {
-                ModelState.AddModelError("", "Укажите Email!");
+                ModelState.AddModelError("", Resource.AccountValidator7);
                 return View(email);
             }
 
             AppUser user = await UserManager.FindByEmailAsync(email);
             if (user == null)
-                ModelState.AddModelError("", "Пользователя с таким Email не существует");
+                ModelState.AddModelError("", Resource.AccountValidator8);
             else
             {
                 string token = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
@@ -239,13 +237,13 @@ namespace real_estate_agency.Controllers
             if(ModelState.IsValid)
             {
                 if (model.Password != model.ConfirmPassword)
-                    ModelState.AddModelError("", "Введенные пароли не одинаковы!");
+                    ModelState.AddModelError("", Resource.PasswordValidator1);
                 else
                 {
                     IdentityResult result = await UserManager.ResetPasswordAsync(model.Id, 
                         model.Token, model.Password);
                     if (result.Succeeded)
-                        return View("Info", null, "Новый пароль успешно установлен!");
+                        return View("Info", null, Resource.AccountValidator9);
                     else
                         result.Errors.ToList().ForEach(err => ModelState.AddModelError("", err));
                 }

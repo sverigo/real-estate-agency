@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
+using real_estate_agency.Resources;
 
 namespace real_estate_agency.Models.ViewModels
 {
@@ -10,11 +7,11 @@ namespace real_estate_agency.Models.ViewModels
     {
         public string IdProfile { get; set; }
 
-        [Required(ErrorMessage = "Введите логин!")]
+        [Required(ErrorMessageResourceName = "ModelValidatorInputLogin", ErrorMessageResourceType = typeof(Resource))]
         public string Login { get; set; }
 
-        [Required(ErrorMessage = "Введите имя!")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина имени должна быть от 3 до 50 символов!")]
+        [Required(ErrorMessageResourceName = "ModelValidatorInputName", ErrorMessageResourceType = typeof(Resource))]
+        [StringLength(50, MinimumLength = 3, ErrorMessageResourceName = "ModelValidatorLenName", ErrorMessageResourceType = typeof(Resource))]
         public string Name { get; set; }
 
         //[Required(ErrorMessage = "Введите текущий пароль!")]
@@ -31,13 +28,13 @@ namespace real_estate_agency.Models.ViewModels
     {
         public string IdPassword { get; set; }
 
-        [Required(ErrorMessage = "Введите текущий пароль!")]
+        [Required(ErrorMessageResourceName = "ModelValidatorInputCurrentPassword", ErrorMessageResourceType = typeof(Resource))]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Введите новый пароль!")]
+        [Required(ErrorMessageResourceName = "ModelValidatorInputNewPassword", ErrorMessageResourceType = typeof(Resource))]
         public string NewPassword { get; set; }
 
-        [Required(ErrorMessage = "Подтвердите новый пароль!")]
+        [Required(ErrorMessageResourceName = "ModelValidatorConfirmNewPassword", ErrorMessageResourceType = typeof(Resource))]
         public string ConfirmNewPassword { get; set; }
     }
 }

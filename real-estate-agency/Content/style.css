@@ -352,3 +352,62 @@ footer {
     font-size: 15px;
     line-height: 3;
 }
+
+/*CABINET*/
+
+.cabinet {
+    margin-bottom: 20px;
+}
+
+.cabinet .cabinet-item {
+    text-align: center;
+}
+
+        .cabinet .cabinet-item a:hover {
+            text-decoration: none;
+            color: #000;
+        }
+
+    .cabinet .cabinet-item .active {
+        color: #000;
+    }
+
+.success-message {
+    list-style-type: none;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    font-family: Verdana, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.notification-date {
+  font-weight: bold;
+}
+
+.notification-message {
+
+}
+
+.notification-sender {
+    font-weight: bold;
+}
+
+.notification-sender-name {
+    font-weight: normal;
+}
+
+.notification-sender-username {
+    font-weight: normal;
+}
+
+/*отображение в одну линию поля и кнопки удаления поля для доп. картинок/телефонов*/
+.but input {
+            width: auto;
+            display: inline;
+        }

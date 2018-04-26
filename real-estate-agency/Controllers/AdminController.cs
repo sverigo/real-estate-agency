@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,6 +8,7 @@ using real_estate_agency.Models.ViewModels;
 using System.Threading.Tasks;
 using real_estate_agency.Models;
 using Microsoft.AspNet.Identity;
+using real_estate_agency.Resources;
 
 namespace real_estate_agency.Controllers
 {
@@ -48,7 +48,7 @@ namespace real_estate_agency.Controllers
             if (ModelState.IsValid)
             {
                 if (userInfo.ConfirmPassword != userInfo.Password)
-                    ModelState.AddModelError("", "Введенные пароли не одинаковы!");
+                    ModelState.AddModelError("", Resource.PasswordValidator1);
                 else
                 {
                     AppUser user = new AppUser
@@ -78,7 +78,7 @@ namespace real_estate_agency.Controllers
         {
             AppUser moder = await UserManager.FindByIdAsync(id);
             if (moder == null)
-                return View("Error", new string[] { "Модератора с таким id не существует" });
+                return View("Error", new string[] { Resource.AdminValidator1 });
 
             //remove moder's marks
             List<Ad> ads = adManager.GetMarkedAdsByUserAthorId(moder.Id).ToList();

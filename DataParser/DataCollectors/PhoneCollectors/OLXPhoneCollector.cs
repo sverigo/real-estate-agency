@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using DataParser.Constants.Common;
 using HtmlAgilityPack;
 using DataParser.Extensions;
@@ -27,11 +25,6 @@ namespace DataParser.DataCollectors.PhoneCollectors
             }
         }
 
-        protected override void DocumentCompletedHandler(object sender, System.Windows.Forms.WebBrowserDocumentCompletedEventArgs e)
-        { 
-            
-        }
-
         private bool ClickButton()
         {
             var browser = WebBrowserController.Instance.Browser;
@@ -47,7 +40,7 @@ namespace DataParser.DataCollectors.PhoneCollectors
         {
             tryCount = 0;
             localTimer.Interval = 5000;
-            secondTimer.Interval = 100;
+            secondTimer.Interval = 200;
             localTimer.Tick += LocalTimerTick;
             secondTimer.Tick += SecondTimerTick;
             localTimer.Start();
@@ -65,9 +58,10 @@ namespace DataParser.DataCollectors.PhoneCollectors
         private void LocalTimerTick(object sender, EventArgs e)
         {
             tryCount++;
-            WebBrowserController.Instance.Browser.Invoke(new Action(() => WebBrowserController.Instance.Browser.Refresh()));
+            var browser = WebBrowserController.Instance.Browser;
+            WebBrowserController.Instance.Browser.Invoke(new Action(() => browser.Refresh()));
 
-            if (tryCount > Constants.Common.HelperConstants.MaxTryCount)
+            if (tryCount > HelperConstants.MaxTryCount)
                 resetEvent.Set();
         }
 
@@ -91,18 +85,16 @@ namespace DataParser.DataCollectors.PhoneCollectors
                     SelectSingleNode(".//strong");
                 if (!strongNode.InnerText.ToLower().Contains("x"))
                 {
-                    List<string> numbers = new List<string>();
                     var spans = strongNode.SelectNodes("./span");
                     if (spans != null)
                     {
-                        spans.ToList().ForEach(span => numbers.Add(span.InnerText.Trim()));
+                        spans.ToList().ForEach(span => phones.Add(span.InnerText.Trim()));
                     }
                     else
                     {
-                        numbers.Add(strongNode.InnerText.Trim());
+                        phones.Add(strongNode.InnerText.Trim());
                     }
 
-                    phones = numbers;
                     browser.Stop();
                     resetEvent.Set();
                 }

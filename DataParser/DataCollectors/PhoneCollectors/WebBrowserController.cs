@@ -67,6 +67,7 @@ namespace DataParser.DataCollectors.PhoneCollectors
         internal void Dispose()
         {
             instance.Browser.Invoke(new Action(() => Application.Exit()));
+            instance = null;
         }
     }
 }

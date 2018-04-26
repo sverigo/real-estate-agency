@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataParser.Models;
 using DataParser.DataCollectors;
 using DataParser.Constants.Common;
+using DataParser.Helpers;
 
 namespace DataParser.DataConverters
 {
@@ -22,11 +22,19 @@ namespace DataParser.DataConverters
             imgList.Remove(model.PreviewImg);
 
             model.Images = imgList;
-            
             model.Phones = data.Phones;
 
             ConvertCommonParameters(ref model, data.CommonFields);
-            ConvertVariativeFields(ref model, data.VariativeFields);
+
+            try
+            {
+                model.OtherData = new SerializableDictionary<string, string>(ConvertVariativeFields(ref model, data.VariativeFields));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            
 
             return model;
         }
@@ -38,8 +46,9 @@ namespace DataParser.DataConverters
             model.Address = commonFields[DictionaryConstants.AddressKey];
             model.Price = commonFields[DictionaryConstants.PriceKey];
             model.Details = commonFields[DictionaryConstants.DetailsKey];
+            model.HasPhone = bool.Parse(commonFields[DictionaryConstants.HasPhoneKey]);
         }
 
-        protected abstract void ConvertVariativeFields(ref AdvertismentModel model, Dictionary<string, string> variativeFields);
+        protected abstract Dictionary<string, string> ConvertVariativeFields(ref AdvertismentModel model, Dictionary<string, string> variativeFields);
     }
 }

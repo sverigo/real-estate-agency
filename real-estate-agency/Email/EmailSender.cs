@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Net.Mail;
+﻿using System.Net.Mail;
 using System.Net;
-using System.Configuration;
-using System.Security.Policy;
-using System.Web.Mvc;
 using real_estate_agency.Models;
 using real_estate_agency.Models.ViewModels;
 using System.Web.Configuration;

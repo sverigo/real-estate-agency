@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using real_estate_agency.Models;
 using DataParser;
 using System.Data.Entity;
@@ -50,7 +49,8 @@ namespace real_estate_agency.Infrastructure
                 Ad newAd = new Ad()
                 {
                     Title = adModel.Title,
-                    Type = adModel.AdType,
+                    Type = adModel.ObjectType,
+                    Category = adModel.Category,
                     Address = adModel.Address,
                     Area = adModel.Area,
                     Author = adModel.AuthorName,

@@ -3,13 +3,13 @@ using Microsoft.AspNet.Identity.Owin;
 using real_estate_agency.Infrastructure;
 using real_estate_agency.Models;
 using real_estate_agency.Models.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using real_estate_agency.Resources;
 
 namespace real_estate_agency.Controllers
 {
@@ -168,7 +168,7 @@ namespace real_estate_agency.Controllers
                 IdentityResult updateResult = await UserManager.UpdateAsync(user);
                 if (updateResult.Succeeded)
                 {
-                    ViewBag.SuccessMessage = "Изменения успешно сохранены!";
+                    ViewBag.SuccessMessage = Resource.SavingValidator1;
                     return PartialView("ChangeProfile", model);
                 }
                 else
@@ -194,13 +194,13 @@ namespace real_estate_agency.Controllers
             if (ModelState.IsValid)
             {
                 if (model.NewPassword != model.ConfirmNewPassword)
-                    ModelState.AddModelError("", "Новые пароли не совпадают, подтвердите еще раз!");
+                    ModelState.AddModelError("", Resource.PasswordValidator2);
                 else
                 {
                     AppUser existingUser = await UserManager.FindByIdAsync(model.IdPassword);
                     AppUser user = await UserManager.FindAsync(existingUser.UserName, model.Password);
                     if (user == null)
-                        ModelState.AddModelError("", "Неверный текущий пароль!");
+                        ModelState.AddModelError("", Resource.PasswordValidator3);
                     else
                     {
                         IdentityResult result = await UserManager.PasswordValidator.ValidateAsync(model.NewPassword);
@@ -211,7 +211,7 @@ namespace real_estate_agency.Controllers
 
                             if (updateResult.Succeeded)
                             {
-                                ViewBag.SuccessMessage = "Изменения успешно сохранены!";
+                                ViewBag.SuccessMessage = Resource.SavingValidator1;
                                 return PartialView("ChangePassword", model);
                             }
                             else
