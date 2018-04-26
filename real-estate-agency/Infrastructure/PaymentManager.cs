@@ -95,6 +95,9 @@ namespace real_estate_agency.Infrastructure
                     dataBase.SaveChanges();
 
                     UserManager.AddToRole(userId, UserStatusDirectory.Roles.PREMIUM_USER);
+
+                    Notifier notif = new Notifier();
+                    notif.NotifyUser(UserManager.FindById(userId), "Премиум подписка активирована.");
                 }
             }
         }

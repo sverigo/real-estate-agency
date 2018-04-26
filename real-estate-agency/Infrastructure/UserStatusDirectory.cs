@@ -63,9 +63,9 @@ namespace real_estate_agency.Infrastructure
                 });
                 if (payment == null)
                 {
-                    //add notification
-                    //
                     UserManager.RemoveFromRole(user.Id, Roles.PREMIUM_USER);
+                    Notifier notifier = new Notifier();
+                    notifier.NotifyUser(user, "Срок премиум подписки истек.");
                 }
                 if (UserManager.IsInRole(user.Id, Roles.PREMIUM_USER))
                     status.isPremium = true;
