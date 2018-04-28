@@ -33,6 +33,13 @@
                             <div class="cabinet-item col">
                                 @Ajax.ActionLink(Resource.MyBookmarks, "MyMarks", "Cabinet", new AjaxOptions() { UpdateTargetId = "contentDisplay" })
                             </div>
+                            <div>
+                                @Ajax.ActionLink("Мои платежи", "MyPayments", "Cabinet",
+                                new AjaxOptions() { UpdateTargetId = "contentDisplay" })
+                            </div>
+                            <div>
+                                @Html.ActionLink("Приобрести премиум подписку", "BuyPremium", "Cabinet")
+                            </div>
                             <div class="cabinet-item col">
                                 @{
                                     string notif = Resource.Notifications + " " + ViewBag.NotifCount;
@@ -60,7 +67,7 @@
                         </div>
                     </div>
                     <div id="contentDisplay">
-
+                        @{Html.RenderAction("MyAds", "Cabinet");}
                     </div>
 
                 </div>

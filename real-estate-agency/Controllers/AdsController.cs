@@ -16,13 +16,26 @@ namespace real_estate_agency.Controllers
         AdsManager adsManager = new AdsManager();
         AdsManager forImages = new AdsManager();
 
+        UserStatusDirectory userStatDirect = new UserStatusDirectory();
+
         public ActionResult Add()
         {
-            if (Request.UrlReferrer != null)
+            if (User?.Identity.IsAuthenticated ?? false)
             {
-                ViewBag.ReturnUrl = Request.UrlReferrer.ToString();
+                try
+                {
+                    UserStatus status = userStatDirect.GetUserStatus(User);
+                    if (status.isBlocked)
+                        return RedirectToAction("Logout", "Account", new { lockoutTime = status.lockoutTime});
+                    if (!string.IsNullOrEmpty(status.NotificationsCountSign))
+                        ViewBag.NotifCount = status.NotificationsCountSign;
+                }
+                catch (Exception ex)
+                {
+                    return View("Error", new string[] { ex.Message });
+                }
             }
-
+            ViewBag.ReturnUrl = Request.UrlReferrer.ToString();
             return View();
         }
 
@@ -78,12 +91,28 @@ namespace real_estate_agency.Controllers
 
         public ActionResult Edit(int? id, string fromDetailsUrl)
         {
+            if (User?.Identity.IsAuthenticated ?? false)
+            {
+                try
+                {
+                    UserStatus status = userStatDirect.GetUserStatus(User);
+                    if (status.isBlocked)
+                        return RedirectToAction("Logout", "Account", new { lockoutTime = status.lockoutTime });
+                    if (!string.IsNullOrEmpty(status.NotificationsCountSign))
+                        ViewBag.NotifCount = status.NotificationsCountSign;
+                }
+                catch (Exception ex)
+                {
+                    return View("Error", new string[] { ex.Message });
+                }
+            }
+
             Ad ad = adsManager.FindById(id);
             string userId = User.Identity.GetUserId();
 
             if (ad == null)
                 return View("Error", new string[] { "Объявление с указанным id не существует!" });
-            else if (!PermissionDirectory.IsOwnerOfAd(User, ad))
+            else if (!UserStatusDirectory.IsOwnerOfAd(User, ad))
                 return View("Error", new string[] { "У вас нет прав редактировать это объявление!" });
             else
             {
@@ -184,19 +213,34 @@ namespace real_estate_agency.Controllers
 
         public ActionResult Remove(int id, string returnUrl)
         {
+            if (User?.Identity.IsAuthenticated ?? false)
+            {
+                try
+                {
+                    UserStatus status = userStatDirect.GetUserStatus(User);
+                    if (status.isBlocked)
+                        return RedirectToAction("Logout", "Account", new { lockoutTime = status.lockoutTime });
+                    if (!string.IsNullOrEmpty(status.NotificationsCountSign))
+                        ViewBag.NotifCount = status.NotificationsCountSign;
+                }
+                catch (Exception ex)
+                {
+                    return View("Error", new string[] { ex.Message });
+                }
+            }
+
             Ad ad = adsManager.FindById(id);
-            string userId = User.Identity.GetUserId();
 
             if (string.IsNullOrEmpty(returnUrl))
                 returnUrl = Request.UrlReferrer.ToString();
 
             if (ad == null)
                 return View("Error", new string[] { "Объявление с указанным id не существует!" });
-            else if (!PermissionDirectory.UserCanDeleteAd(User, ad))
+            else if (!UserStatusDirectory.UserCanDeleteAd(User, ad))
                 return View("Error", new string[] { "У вас нет прав редактировать это объявление!" });
-            else if (PermissionDirectory.IsOwnerOfAd(userId, ad))
+            else if (UserStatusDirectory.IsOwnerOfAd(User, ad))
                 adsManager.RemoveById(id);
-            else if (PermissionDirectory.IsAdmin(User) || PermissionDirectory.IsModerator(User))
+            else if (UserStatusDirectory.IsAdmin(User) || UserStatusDirectory.IsModerator(User))
             {
                 if (string.IsNullOrEmpty(ad.UserAuthorId))
                     adsManager.RemoveById(id);
@@ -225,7 +269,6 @@ namespace real_estate_agency.Controllers
         }
 
         [ChildActionOnly]
-        [AllowAnonymous]
         public ActionResult Marks(int id)
         {
             if (User.Identity.IsAuthenticated == false)

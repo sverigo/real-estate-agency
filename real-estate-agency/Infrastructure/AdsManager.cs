@@ -9,7 +9,7 @@ namespace real_estate_agency.Infrastructure
 {
     public class AdsManager
     {
-        RealEstateDBContext dataBase;
+        AppIdentityDBContext dataBase;
 
         public IEnumerable<Ad> AllAds
         {
@@ -18,7 +18,7 @@ namespace real_estate_agency.Infrastructure
 
         public AdsManager()
         {
-            dataBase = new RealEstateDBContext();
+            dataBase = new AppIdentityDBContext();
         }
 
         public void AddNewAd(Ad ad)

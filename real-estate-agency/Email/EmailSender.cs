@@ -42,7 +42,7 @@ namespace real_estate_agency.Email
             };
             message.Body = $"Здравствуйте, {user.Name}<br>" +
                 $"Для завершения регистрации активируйте Вашу учетную запись.<br>" +
-                $"<a href=\"{link}\">Активировать!</a>"; //http://localhost:53687
+                $"<a href=\"{link}\">Активировать!</a>";
 
             SendMail(user, message);
         }
@@ -70,7 +70,7 @@ namespace real_estate_agency.Email
                 IsBodyHtml = true,
                 Subject = "Блокировка учетной записи"
             };
-            string durationText = duration == BlockDuration.Forever ? "навсегда" : "до " + user.LockoutEndDateUtc?.ToLocalTime();
+            string durationText = duration == BlockDuration.Forever ? "навсегда" : "до " + user.LockoutEndDateUtc;
             message.Body = $"Здравствуйте, {user.Name}.<br>" +
                 $"Ваша учетная запись была заблокирована {durationText}.<br>" +
                 $"Причина: {cause}.<br>";

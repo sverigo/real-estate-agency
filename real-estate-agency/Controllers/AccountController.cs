@@ -11,6 +11,7 @@ using real_estate_agency.Email;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
 using real_estate_agency.Resources;
+using System.Web.Configuration;
 
 namespace real_estate_agency.Controllers
 {
@@ -98,10 +99,13 @@ namespace real_estate_agency.Controllers
             return View(model);
         }
 
-        public ActionResult Logout()
+        public ActionResult Logout(DateTime? lockoutTime)
         {
             AuthManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            if (lockoutTime == null)
+                return RedirectToAction("Index", "Home");
+            else
+                return View("Info", null, $"Учетная запись заблокирована до {lockoutTime}");
         }
 
         [HttpGet]
@@ -129,12 +133,17 @@ namespace real_estate_agency.Controllers
                     IdentityResult result = UserManager.Create(user, userInfo.Password);
                     IdentityResult roleRes = null;
                     if (result.Succeeded)
-                        roleRes = UserManager.AddToRole(user.Id, PermissionDirectory.USERS);
+                        roleRes = UserManager.AddToRole(user.Id, UserStatusDirectory.Roles.USERS);
                     if (result.Succeeded && (roleRes?.Succeeded ?? false)) 
                     {
                         //send email
                         string token = UserManager.GenerateEmailConfirmationToken(user.Id);
-                        string link = Url.Action("ConfirmEmail", "Account", new { id = user.Id, token = token },
+                        string link;
+                        if (Convert.ToBoolean(WebConfigurationManager.AppSettings["OnServer"]))
+                            link = "http://" + HttpContext.Request.Url.Host + Url.Action("ConfirmEmail", "Account",
+                                new { id = user.Id, token = token });
+                        else
+                            link = Url.Action("ConfirmEmail", "Account", new { id = user.Id, token = token },
                             Request.Url.Scheme);
                         EmailSender.SendConfirmEmail(user, link);
                         string info = $"На вашу почту {user.Email} было отправлено письмо со ссылкой для активации " +
@@ -160,7 +169,9 @@ namespace real_estate_agency.Controllers
             var result = await UserManager.ConfirmEmailAsync(id, token);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                string info = $"Ваша учетная запис была успешно активирована! " +
+                    $"Теперь вы можете совершить вход в систему!";
+                return View("Info", null, info);
             }
 
             return View("Error", result.Errors);
@@ -187,8 +198,13 @@ namespace real_estate_agency.Controllers
             else
             {
                 string token = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                string link = Url.Action("ResetPassword", "Account", new { id = user.Id, token = token }, 
-                    Request.Url.Scheme);
+                string link;
+                if (Convert.ToBoolean(WebConfigurationManager.AppSettings["OnServer"]))
+                    link = "http://" + HttpContext.Request.Url.Host + Url.Action("ResetPassword", "Account", 
+                        new { id = user.Id, token = token });
+                else
+                    link = Url.Action("ResetPassword", "Account", new { id = user.Id, token = token },
+                        Request.Url.Scheme);
                 EmailSender.SendPasswordResetMail(user, link);
                 string info = $"На вашу почту {user.Email} было отправлено письмо с ссылкой для " +
                             $"сброса пароля!";
