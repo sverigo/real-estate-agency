@@ -381,4 +381,10 @@
   <data name="ModelValidatorInputReason" xml:space="preserve">
     <value>Укажите причину!</value>
   </data>
+  <data name="BuyPremium" xml:space="preserve">
+    <value>Приобрести премиум подписку</value>
+  </data>
+  <data name="MyPayments" xml:space="preserve">
+    <value>Мои платежи</value>
+  </data>
 </root>

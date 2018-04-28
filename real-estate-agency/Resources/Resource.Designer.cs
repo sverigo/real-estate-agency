@@ -214,6 +214,15 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Приобрести премиум подписку.
+        /// </summary>
+        public static string BuyPremium {
+            get {
+                return ResourceManager.GetString("BuyPremium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Сменить.
         /// </summary>
         public static string ChangeButton {
@@ -642,6 +651,15 @@ namespace real_estate_agency.Resources {
         public static string MyBookmarks {
             get {
                 return ResourceManager.GetString("MyBookmarks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Мои платежи.
+        /// </summary>
+        public static string MyPayments {
+            get {
+                return ResourceManager.GetString("MyPayments", resourceCulture);
             }
         }
         

@@ -33,12 +33,11 @@
                             <div class="cabinet-item col">
                                 @Ajax.ActionLink(Resource.MyBookmarks, "MyMarks", "Cabinet", new AjaxOptions() { UpdateTargetId = "contentDisplay" })
                             </div>
-                            <div>
-                                @Ajax.ActionLink("Мои платежи", "MyPayments", "Cabinet",
-                                new AjaxOptions() { UpdateTargetId = "contentDisplay" })
+                            <div class="cabinet-item col">
+                                @Ajax.ActionLink(Resource.MyPayments, "MyPayments", "Cabinet", new AjaxOptions() { UpdateTargetId = "contentDisplay" })
                             </div>
-                            <div>
-                                @Html.ActionLink("Приобрести премиум подписку", "BuyPremium", "Cabinet")
+                            <div class="cabinet-item col">
+                                @Html.ActionLink(Resource.BuyPremium, "BuyPremium", "Cabinet")
                             </div>
                             <div class="cabinet-item col">
                                 @{
@@ -50,16 +49,16 @@
                             <div class="cabinet-item col">
                                 @Ajax.ActionLink(Resource.Profile, "ProfileSettings", "Cabinet", new AjaxOptions() { UpdateTargetId = "contentDisplay" })
                             </div>
-                            @if (PermissionDirectory.IsAdmin(User))
+                            @if (UserStatusDirectory.IsAdmin(User))
                             {
                                 <div class="cabinet-item col">
                                     @Html.ActionLink(Resource.AdminPanel, "AdminPanel", "Admin")
                                 </div>
 
                             }
-                            else if (PermissionDirectory.IsModerator(User))
+                            else if (UserStatusDirectory.IsModerator(User))
                             {
-                                <div class="container-item col">
+                                <div class="cabinet-item col">
                                     @Html.ActionLink(Resource.ModeratorPanel, "ModeratorPanel", "Moderator");
                                 </div>
 
