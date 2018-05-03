@@ -16,6 +16,7 @@ namespace real_estate_agency.Controllers
     public class AdminController : Controller
     {
         AdsManager adManager = new AdsManager();
+        PaymentManager payManager = new PaymentManager();
         
         private AppRoleManager RoleManager
         {
@@ -93,6 +94,28 @@ namespace real_estate_agency.Controllers
                 return RedirectToAction("AdminPanel");
             else
                 return View("Error", result.Errors);
+        }
+        
+        public ActionResult PricesList()
+        {
+            return PartialView("PricesList", payManager.Prices);
+        }
+
+        [HttpPost]
+        public ActionResult AddPrice(int days, decimal amount)
+        {
+            payManager.AddPrice(new Price
+            {
+                Amount = amount,
+                Days = days
+            });
+            return PartialView("PricesList", payManager.Prices);
+        }
+        
+        public ActionResult DeletePrice(int id)
+        {
+            payManager.DeletePriceById(id);
+            return PartialView("PricesList", payManager.Prices);
         }
     }
 }

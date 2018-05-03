@@ -384,6 +384,7 @@
     <Content Include="Views\Cabinet\MyPayments.cshtml" />
     <Content Include="Views\Cabinet\BuyPremium.cshtml" />
     <Content Include="Views\Cabinet\ConfirmPayment.cshtml" />
+    <Content Include="Views\Admin\PricesList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataParser\DataParser.csproj">

@@ -45,6 +45,19 @@ namespace real_estate_agency.Infrastructure
             publicKey = WebConfigurationManager.AppSettings["PublicKey"];
         }
 
+        public void AddPrice(Price price)
+        {
+            dataBase.Prices.Add(price);
+            dataBase.SaveChanges();
+        }
+
+        public void DeletePriceById(int id)
+        {
+            Price price = dataBase.Prices.Where(p => p.Id == id).FirstOrDefault();
+            dataBase.Prices.Remove(price);
+            dataBase.SaveChanges();
+        }
+
         public PaymentData CreatePayment(AppUser user, int days, decimal amount,
             string callBackUrl, string resultUrl)
         {

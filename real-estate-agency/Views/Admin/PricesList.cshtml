@@ -1,0 +1,18 @@
+﻿@using real_estate_agency.Models;
+@model IEnumerable<Price>
+
+<h3>Расценки подписок</h3>
+<table>
+    <tr>
+        <th>Количество дней</th>
+        <th>Цена</th>
+    </tr>
+    @foreach(Price price in Model)
+    {
+        <tr>
+            <td>@price.Days</td>
+            <td>@price.Amount грн</td>
+            <td>@Ajax.ActionLink("Удалить", "DeletePrice", "Admin", new { id = price.Id }, new AjaxOptions { UpdateTargetId = "prices-list" })</td>
+        </tr>
+    }
+</table>
