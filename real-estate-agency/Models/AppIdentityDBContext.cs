@@ -19,6 +19,8 @@ namespace real_estate_agency.Models
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Price> Prices { get; set; }
+        public virtual DbSet<Types> Types { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
 
         public AppIdentityDBContext():base("RealEstateAgencyDB") { }
 
@@ -68,7 +70,7 @@ namespace real_estate_agency.Models
             string name = WebConfigurationManager.AppSettings["AdminName"];
             string pass = WebConfigurationManager.AppSettings["AdminPass"];
             string email = WebConfigurationManager.AppSettings["AdminMail"];
-
+            
             foreach(string role in roleNames)
                 if (!roleMng.RoleExists(role))
                     roleMng.Create(new AppRole(role));
@@ -91,6 +93,28 @@ namespace real_estate_agency.Models
 
             if (!userMng.IsInRole(user.Id, UserStatusDirectory.Roles.ADMINS))
                 userMng.AddToRole(user.Id, UserStatusDirectory.Roles.ADMINS);
+
+            Types[] types =
+            {
+                new Types {Name = "Квартира", IsOwn = true },
+                new Types {Name = "Комната", IsOwn = true },
+                new Types {Name = "Дом", IsOwn = true }
+            };
+            Category[] categories =
+            {
+                new Category {Name = "Почасово", IsOwn = true },
+                new Category {Name = "Посуточно", IsOwn = true },
+                new Category {Name = "На долгий срок", IsOwn = true }
+            };
+            foreach(Types t in types)
+            {
+                context.Types.Add(t);
+            }
+            foreach (Category c in categories)
+            {
+                context.Categories.Add(c);
+            }
+            context.SaveChanges();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace real_estate_agency.Infrastructure
         public int MinFloor { get; set; }
         public int MaxFloor { get; set; }
         public string SortType { get; set; }
-        public string FlatRentType { get; set; }
+        public string RentType { get; set; }
 
         public IEnumerable<Ad> getRoomsFilter(IEnumerable<Ad> ads)
         {
@@ -76,8 +76,8 @@ namespace real_estate_agency.Infrastructure
 
         public IEnumerable<Ad> getFlatRentAds(IEnumerable<Ad> ads)
         {
-            if (FlatRentType != null && FlatRentType != "All")
-                return (from i in ads where i.Type == FlatRentType select i);
+            if (RentType != null && RentType != "All")
+                return (from i in ads where i.Category == RentType select i);
             else
                 return ads;
         }

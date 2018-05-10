@@ -35,7 +35,11 @@ namespace real_estate_agency.Controllers
                     return View("Error", new string[] { ex.Message });
                 }
             }
-            ViewBag.ReturnUrl = Request.UrlReferrer.ToString();
+            if (Request.UrlReferrer == null)
+                // recheck later
+                ViewBag.ReturnUrl = "/Home/Index";
+            else
+                ViewBag.ReturnUrl = Request.UrlReferrer.ToString();
             return View();
         }
 

@@ -29,10 +29,34 @@
                 <tr>
                     <th>Категория</th>
                     <td>
+                        <select name="Category">
+                            @{ 
+                                List<Category> catlist = real_estate_agency.Infrastructure.CategoryManager.GetCategoryList();
+                                foreach(Category cat in catlist)
+                                {
+                                    if (cat.IsOwn)
+                                    {
+                                        <option>@cat.Name</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Тип</th>
+                    <td>
                         <select name="Type">
-                            <option>Долгосрочная аренда квартир</option>
-                            <option>Кварира посуточно</option>
-                            <option>Квартира с почасовой оплатой</option>
+                            @{ 
+                                List<Types> typelist = real_estate_agency.Infrastructure.TypeManager.GetTypeList();
+                                foreach(Types t in typelist)
+                                {
+                                    if (t.IsOwn)
+                                    {
+                                        <option>@t.Name</option>
+                                    }
+                                }
+                            }
                         </select>
                     </td>
                 </tr>

@@ -211,12 +211,14 @@
     <Compile Include="Infrastructure\AdsManager.cs" />
     <Compile Include="Infrastructure\AppRoleManager.cs" />
     <Compile Include="Infrastructure\AppUserManager.cs" />
+    <Compile Include="Infrastructure\CategoryManager.cs" />
     <Compile Include="Infrastructure\CurrencySeparator.cs" />
     <Compile Include="Infrastructure\CustomPassValidator.cs" />
     <Compile Include="Infrastructure\CustomUserValidator.cs" />
     <Compile Include="Infrastructure\FilterOptions.cs" />
     <Compile Include="Infrastructure\Notifier.cs" />
     <Compile Include="Infrastructure\PaymentManager.cs" />
+    <Compile Include="Infrastructure\TypeManager.cs" />
     <Compile Include="Infrastructure\UserStatus.cs" />
     <Compile Include="Infrastructure\UserStatusDirectory.cs" />
     <Compile Include="Infrastructure\SearchUserFilter.cs" />
@@ -225,10 +227,12 @@
     <Compile Include="Models\AppIdentityDBContext.cs" />
     <Compile Include="Models\AppRole.cs" />
     <Compile Include="Models\AppUser.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\MarkedAds.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Price.cs" />
+    <Compile Include="Models\Types.cs" />
     <Compile Include="Models\ViewModels\BlockUserViewModel.cs" />
     <Compile Include="Models\ViewModels\MainPageViewModel.cs" />
     <Compile Include="Models\ViewModels\MarksViewModel.cs" />
@@ -335,7 +339,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

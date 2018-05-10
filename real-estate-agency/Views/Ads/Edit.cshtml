@@ -34,11 +34,48 @@
                 <tr>
                     <th>Категория</th>
                     <td>
-                        <!--to do here: Auto selected items-->
+                        <select name="Category">
+                            @{
+                                List<Category> catlist = real_estate_agency.Infrastructure.CategoryManager.GetCategoryList();
+                                foreach (Category cat in catlist)
+                                {
+                                    if (cat.IsOwn)
+                                    {
+                                        if (Model.Category == cat.Name)
+                                        {
+                                            <option selected="selected">@cat.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option>@cat.Name</option>
+                                        }
+                                    }
+                                }
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Тип</th>
+                    <td>
                         <select name="Type">
-                            <option>Долгосрочная аренда квартир</option>
-                            <option>Кварира посуточно</option>
-                            <option>Квартира с почасовой оплатой</option>
+                            @{
+                                List<Types> typelist = real_estate_agency.Infrastructure.TypeManager.GetTypeList();
+                                foreach (Types t in typelist)
+                                {
+                                    if (t.IsOwn)
+                                    {
+                                        if(Model.Type == t.Name)
+                                        {
+                                            <option selected="selected">@t.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option>@t.Name</option>
+                                        }
+                                    }
+                                }
+                            }
                         </select>
                     </td>
                 </tr>
