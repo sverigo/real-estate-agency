@@ -14,18 +14,19 @@
             <div class="row">
                 @foreach (var item in Model)
                 {
-                    var src = item.PrevImage;
-                    if (item.PrevImage == null)
-                    {
-                        src = "../Content/images/nophoto.png";
-                    }
                     <div class="box col-md-6">
                         @Html.ActionLink(" ", "Edit", "Ads", new { id = item.Id }, new { @class = "edit" })
-                        @Html.ActionLink(" ", "Remove", "Ads", new { id = item.Id }, new { @class = "remove" })
+                        @Html.ActionLink(" ", "Remove", "Ads",
+                               new { id = item.Id },
+                               new
+                               {
+                                   @class = "remove",
+                                   onclick = "return confirm('Действительно удалить?');"
+                               })
                         <p class="title">@item.Title</p>
                         <div class="row">
                             <div class="img-box">
-                                <img src="@src">
+                                <img src="@Url.Content(item.PrevImage)">
                             </div>
                             <div class="text-box">
                                 <p><strong>Тип:</strong> @item.Type</p>

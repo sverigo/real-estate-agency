@@ -50,13 +50,13 @@
                 <h2>@Model.Title</h2>
             </div>
             <div style="text-align: right;">
-                @if (UserStatusDirectory.UserCanDeleteAd(User, Model))
-                {
-                    @Html.ActionLink("Remove", "Remove", "Ads", new { id = Model.Id, returnUrl = ViewBag.ReturnUrl }, new { @class = "" })
-                }
                 @if (UserStatusDirectory.IsOwnerOfAd(User, Model))
                 {
                     @Html.ActionLink("Edit", "Edit", "Ads", new { id = Model.Id, fromDetailsUrl = ViewBag.FromDetailsUrl }, new { @class = "" })
+                }
+                @if (UserStatusDirectory.UserCanDeleteAd(User, Model))
+                {
+                    @Html.ActionLink("Remove", "Remove", "Ads", new { id = Model.Id, returnUrl = ViewBag.ReturnUrl }, new { @class = "", onclick = "return confirm('Действительно удалить?');" })
                 }
             </div>
             <div class="row">

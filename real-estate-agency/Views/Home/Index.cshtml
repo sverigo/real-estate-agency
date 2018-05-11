@@ -22,7 +22,7 @@
                         <select name="RentType" id="RentType" class="sort-dropdown">
                             @{ 
                                 List<Category> catlist = real_estate_agency.Infrastructure.CategoryManager.GetCategoryList();
-                                <option value="All">Все типы</option>
+                                <option value="All">Все категории</option>
                                 foreach(Category cat in catlist)
                                 {
                                     <option value="@cat.Name">@cat.Name</option>

@@ -16,9 +16,14 @@
         <input type="hidden" name="AdUrl" value="@Model.AdUrl" />
         <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
         <input type="hidden" name="fromDetailsUrl" value="@ViewBag.FromDetailsUrl" /> <!--special for freaking Details-->
-
+       
         <div class="add-container">
             <table class="add-table">
+                <tr>
+                    <td>
+                        @Html.ActionLink("Remove", "Remove", "Ads", new { id = Model.Id, returnUrl = ViewBag.ReturnUrl }, new { @class = "", onclick = "return confirm('Действительно удалить?');" })
+                    </td>
+                </tr>
                 <tr>
                     <th>prevImage</th>
                     <td>
