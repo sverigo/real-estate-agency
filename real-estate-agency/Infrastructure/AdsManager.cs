@@ -4,6 +4,7 @@ using System.Linq;
 using real_estate_agency.Models;
 using DataParser;
 using System.Data.Entity;
+using real_estate_agency.Infrastructure;
 
 namespace real_estate_agency.Infrastructure
 {
@@ -66,6 +67,8 @@ namespace real_estate_agency.Infrastructure
                     AdUrl = adModel.Url
                 };
 
+                UpdateTypesAndCategories(newAd);
+                
                 return newAd;
             });
 
@@ -159,6 +162,43 @@ namespace real_estate_agency.Infrastructure
             Ad ad = FindById(adId);
             var marked = ad.UsersMarked.Where(mk => mk.AppUserId == userId).FirstOrDefault();
             dataBase.MarkedAds.Remove(marked);
+            dataBase.SaveChanges();
+        }
+
+        private void UpdateTypesAndCategories(Ad ad)
+        {
+            List<Types> typesList = dataBase.Types.ToList();
+            List<Category> categoriesList = dataBase.Categories.ToList();
+            bool typeFound = false;
+            bool catFound = false;
+            foreach (Types t in typesList)
+            {
+                if(ad.Type == t.Name)
+                {
+                    typeFound = true;
+                    break;
+                }
+            }
+            foreach (Category c in categoriesList)
+            {
+                if (ad.Category == c.Name)
+                {
+                    catFound = true;
+                    break;
+                }
+            }
+
+            if (!typeFound)
+            {
+                Types newType = new Types() { Name = ad.Type, IsOwn = false };
+                dataBase.Types.Add(newType);
+            }
+            if (!catFound)
+            {
+                Category newCategory = new Category() { Name = ad.Category, IsOwn = false };
+                dataBase.Categories.Add(newCategory);
+            }
+
             dataBase.SaveChanges();
         }
     }
