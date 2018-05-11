@@ -58,7 +58,7 @@ namespace real_estate_agency.Controllers
             {
                 Currency = model.Currency,
                 SortType = model.SortType,
-                RentType = model.FlatRentType,
+                RentType = model.RentType,
                 MaxArea = model.MaxArea ?? 0,
                 MinArea = model.MinArea ?? 0,
                 MaxFloor = model.MaxFloor ?? 0,

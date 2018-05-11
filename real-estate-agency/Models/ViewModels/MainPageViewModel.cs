@@ -17,6 +17,6 @@
         public int? MinFloor { get; set; }
         public int? MaxFloor { get; set; }
         public string SortType { get; set; }
-        public string FlatRentType { get; set; }
+        public string RentType { get; set; }
     }
 }
