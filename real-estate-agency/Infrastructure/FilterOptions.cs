@@ -22,11 +22,11 @@ namespace real_estate_agency.Infrastructure
 
         public IEnumerable<Ad> getRoomsFilter(IEnumerable<Ad> ads)
         {
-            if (MinRoomsCount == 0 && MaxRoomsCount == 0)
+            if (MinRoomsCount <= 0 && MaxRoomsCount <= 0)
                 return ads;
-            else if (MaxRoomsCount == 0)
+            else if (MaxRoomsCount <= 0)
                 return (from i in ads where i.RoomsCount >= MinRoomsCount select i);
-            else if (MinRoomsCount == 0)
+            else if (MinRoomsCount <= 0)
                 return (from i in ads where i.RoomsCount <= MaxRoomsCount select i);
             else
                 return (from i in ads where i.RoomsCount >= MinRoomsCount && i.RoomsCount <= MaxRoomsCount select i);
@@ -36,11 +36,11 @@ namespace real_estate_agency.Infrastructure
         {
             ads = from i in ads /*where i.Currency == Currency*/ select i;
 
-            if (MinQuantity == 0 && MaxQuantity == 0)
+            if (MinQuantity <= 0 && MaxQuantity <= 0)
                 return ads;
-            else if (MaxQuantity == 0)
+            else if (MaxQuantity <= 0)
                 return (from i in ads where i.Value >= MinQuantity select i);
-            else if (MinQuantity == 0)
+            else if (MinQuantity <= 0)
                 return (from i in ads where i.Value <= MaxQuantity select i);
             else
                 return (from i in ads where i.Value >= MinQuantity && i.Value <= MaxQuantity select i);

@@ -39,6 +39,12 @@
                     <div class="filter quantity">
                         @Html.EditorFor(model => model.MinQuantity, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Цена от" } })
                         @Html.EditorFor(model => model.MaxQuantity, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Цена до" } })
+                        <select name="Currency" id="Currency" class="sort-dropdown">
+                            @foreach(CurrencyRate currency in real_estate_agency.Infrastructure.CurrencyOperations.GetCurrentExchangeRate())
+                            {
+                                <option>@currency.NameCode</option>
+                            }
+                        </select>
                     </div>
                     <div class="filter rooms">
                         @Html.EditorFor(model => model.MinRoomsCount, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Комнат от" } })

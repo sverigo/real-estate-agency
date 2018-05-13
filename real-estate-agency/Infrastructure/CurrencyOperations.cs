@@ -39,6 +39,29 @@ namespace real_estate_agency.Infrastructure
                     db.SaveChanges();
                 }
             }
+        }
+
+        public static double GetRateForCurrency(string currency)
+        {
+            AppIdentityDBContext db = new AppIdentityDBContext();
+            List<CurrencyRate> list = db.CurrencyRates.ToList();
+
+            foreach(CurrencyRate c in list)
+            {
+                if(c.NameCode == currency)
+                {
+                    return c.Rate;
+                }
+            }
+            return 1;
+        }
+
+        public static double GetСoefficient(string fromCurrency, string toCurrency)
+        {
+            double from = GetRateForCurrency(fromCurrency);
+            double to = GetRateForCurrency(toCurrency);
+            
+            return from/to;
             
         }
     }

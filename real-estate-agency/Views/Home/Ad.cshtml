@@ -41,7 +41,16 @@
             }
 
             <div class="quantity-box">
-                <strong>@item.Value @item.Currency</strong>
+                @if (item.Currency == Model.Currency || Model.Currency == null)
+                {
+                    <strong>@item.Value @item.Currency</strong>
+                }
+                else
+                {
+                    double k = real_estate_agency.Infrastructure.CurrencyOperations.GetСoefficient(item.Currency, Model.Currency);
+                    int res = (int)(item.Value * k);
+                    <strong>@(res) @Model.Currency</strong>
+                }
             </div>
         </div>
         <div class="info-box">
