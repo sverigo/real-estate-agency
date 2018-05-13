@@ -219,6 +219,8 @@
     <Compile Include="Infrastructure\AppRoleManager.cs" />
     <Compile Include="Infrastructure\AppUserManager.cs" />
     <Compile Include="Infrastructure\CategoryManager.cs" />
+    <Compile Include="Infrastructure\CurrencyExchangeParser.cs" />
+    <Compile Include="Infrastructure\CurrencyOperations.cs" />
     <Compile Include="Infrastructure\CurrencySeparator.cs" />
     <Compile Include="Infrastructure\CustomPassValidator.cs" />
     <Compile Include="Infrastructure\CustomUserValidator.cs" />
@@ -235,6 +237,7 @@
     <Compile Include="Models\AppRole.cs" />
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CurrencyRate.cs" />
     <Compile Include="Models\MarkedAds.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Payment.cs" />

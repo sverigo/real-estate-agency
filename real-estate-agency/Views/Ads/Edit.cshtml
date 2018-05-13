@@ -98,7 +98,25 @@
                 </tr>
                 <tr>
                     <th>Цена</th>
-                    <td><input type="number" name="Value" value="@Model.Value" /></td>
+                    <td>
+                        <input type="number" name="Value" value="@Model.Value" />
+                        <select name="Currency">
+                            @{
+                                List<CurrencyRate> list = real_estate_agency.Infrastructure.CurrencyOperations.GetCurrentExchangeRate();
+                                foreach (CurrencyRate item in list)
+                                {
+                                    if (Model.Currency == item.NameCode)
+                                    {
+                                        <option selected="selected">@item.NameCode</option>
+                                    }
+                                    else
+                                    {
+                                        <option>@item.NameCode</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <th>Валюта</th>

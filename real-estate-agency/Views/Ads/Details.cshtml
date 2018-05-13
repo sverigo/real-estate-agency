@@ -66,7 +66,7 @@
                 <div class="general-info">
                     <p><strong>Тип: </strong>@Model.Type </p>
                     <p><strong>Адрес: </strong><span id="Address">@Model.Address</span> </p>
-                    <p><strong>Количество комнат: </strong> @Model.RoomsCount-комнатная </p>
+                    <p><strong>Количество комнат: </strong> @Model.RoomsCount </p>
                     @if (Model.Floors != 0 && Model.FloorsCount != 0)
                     {
                         <p><strong>Этажность: </strong>   @Model.Floors из @Model.FloorsCount </p>
@@ -79,7 +79,7 @@
                     {
                         <p><strong>Площадь: </strong>@Model.Area </p>
                     }
-                    <p><strong>Цена: </strong>   @Model.Value </p>
+                    <p><strong>Цена: </strong>   @Model.Value @Model.Currency </p>
                     <p><strong>Арендатор: </strong>@Model.Author </p>
                     <div class="phone-set">
                         <p><strong>Телефон(ы): </strong></p>

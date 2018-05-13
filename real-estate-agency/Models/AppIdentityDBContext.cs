@@ -21,6 +21,7 @@ namespace real_estate_agency.Models
         public virtual DbSet<Price> Prices { get; set; }
         public virtual DbSet<Types> Types { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<CurrencyRate> CurrencyRates { get; set; }
 
         public AppIdentityDBContext():base("RealEstateAgencyDB") { }
 
@@ -114,6 +115,10 @@ namespace real_estate_agency.Models
             {
                 context.Categories.Add(c);
             }
+
+            context.CurrencyRates.Add(new CurrencyRate { NameCode = "UAH", Rate = 1.0, LastUpdate = DateTime.Now });
+            CurrencyOperations.UpdateCurrentExchangeRate();
+            
             context.SaveChanges();
         }
     }

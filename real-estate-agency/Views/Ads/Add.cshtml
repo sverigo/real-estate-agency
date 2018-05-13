@@ -74,7 +74,18 @@
                 </tr>
                 <tr>
                     <th>Цена</th>
-                    <td><input type="number" name="Value" /></td>
+                    <td>
+                        <input type="number" name="Value" /> 
+                        <select name="Currency">
+                            @{
+                                List<CurrencyRate> list = real_estate_agency.Infrastructure.CurrencyOperations.GetCurrentExchangeRate();
+                                foreach(CurrencyRate item in list)
+                                {
+                                    <option>@item.NameCode</option>
+                                }
+                            }
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <th>Описание</th>
@@ -123,7 +134,7 @@
                 </tr>
             </table>
         </div>
-    }
+                            }
 </main>
 
 @Scripts.Render("~/bundles/additional-fields")
