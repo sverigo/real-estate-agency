@@ -61,7 +61,14 @@
             </div>
             <div class="row">
                 <div class="prev-image">
-                    <a class="single-item" href="@Url.Content(Model.PrevImage)"><img src='@Url.Content(Model.PrevImage)' /></a>
+                    @if (Model.PrevImage == null)
+                    {
+                        <a class="single-item" href="@Url.Content("~/Content/images/nophoto.png")"><img src='@Url.Content("~/Content/images/nophoto.png")' /></a>
+                    }
+                    else
+                    {
+                        <a class="single-item" href="@Url.Content(Model.PrevImage)"><img src='@Url.Content(Model.PrevImage)' /></a>
+                    }
                 </div>
                 <div class="general-info">
                     <p><strong>Тип: </strong>@Model.Type </p>

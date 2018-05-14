@@ -26,11 +26,11 @@ namespace real_estate_agency.Infrastructure
             priceString = priceString.ToLower();
 
             if (priceString.Contains(EUR))
-                return EUR;
+                return "EUR";
             else if (priceString.Contains(USD))
-                return USD;
+                return "USD";
             else
-                return UAH;
+                return "UAH";
         }
     }
 }
