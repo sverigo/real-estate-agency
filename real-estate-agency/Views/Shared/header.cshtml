@@ -47,7 +47,21 @@
                 }
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        @Resource.Language
+                        @if (Request.Cookies["Language"] != null)
+                        {
+                            if (Request.Cookies["Language"].Value == "ru")
+                            {
+                                <span>RU</span>
+                            }
+                            else if (Request.Cookies["Language"].Value == "uk")
+                            {
+                                <span>UA</span>
+                            }
+                        }
+                        else
+                        {
+                            <span>RU</span>
+                        }
                     </a>
                     <div class="dropdown-menu lang-switcher">
                         @Html.ActionLink("Русский", "Change", "Language", new { LanguageAbbreviation = "ru" }, new { @class = "dropdown-item" })
