@@ -21,8 +21,8 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsblock" aria-controls="navbarsblock" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarsblock">
-            <ul class="navbar-nav mr-auto">
+        <div class="collapse navbar-collapse justify-content-end" id="navbarsblock">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     @Html.ActionLink(Resource.AddAd, "Add", "Ads", null, new { @class = "nav-link" })
                 </li>
@@ -51,21 +51,25 @@
                         {
                             if (Request.Cookies["Language"].Value == "ru")
                             {
-                                <span>RU</span>
+                                <img class="flag" src="~/Content/images/rus.png" />
                             }
                             else if (Request.Cookies["Language"].Value == "uk")
                             {
-                                <span>UA</span>
+                                <img class="flag" src="~/Content/images/ua.png" />
                             }
                         }
                         else
                         {
-                            <span>RU</span>
+                            <img class="flag" src="~/Content/images/rus.png" />
                         }
                     </a>
                     <div class="dropdown-menu lang-switcher">
-                        @Html.ActionLink("Русский", "Change", "Language", new { LanguageAbbreviation = "ru" }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Українська", "Change", "Language", new { LanguageAbbreviation = "uk" }, new { @class = "dropdown-item" })
+                        <a class="dropdown-item" href="@Url.Action("Change", "Language", new { LanguageAbbreviation = "ru" })">
+                            <img class="flag" src="~/Content/images/rus.png" /><span class="lang-name">Русский</span>
+                        </a>
+                        <a class="dropdown-item" href="@Url.Action("Change", "Language", new { LanguageAbbreviation = "uk" })">
+                            <img class="flag" src="~/Content/images/ua.png" /><span class="lang-name">Українська</span>
+                        </a>
                     </div>
                 </li>
             </ul>
