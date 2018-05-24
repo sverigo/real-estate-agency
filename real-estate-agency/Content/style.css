@@ -18,6 +18,10 @@ body {
     clear: both;
 }
 
+.center {
+    text-align: center;
+}
+
 /* NAVIGATION */
 
 .navbar {
@@ -38,6 +42,10 @@ body {
 .navbar-brand {
     color: #fff;
 }
+
+    .navbar-brand:hover {
+        color: #e7a61a;
+    }
 
     .navbar .text-item:hover,
     .navbar .text-item:active {
@@ -177,7 +185,12 @@ body {
     text-align: center;
 }
 
+
 /*PAGES */
+
+/* ADD/EDIT */
+
+/**/
 
 .box {
     padding: 15px 10px;
@@ -509,3 +522,17 @@ footer {
             width: auto;
             display: inline;
         }
+
+
+@media screen and (max-width: 500px) {
+    .filters .filter {
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .add-ad .form-control,
+    .edit-add .form-control {
+        width: 100%;
+    }
+}
