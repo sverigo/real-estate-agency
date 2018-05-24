@@ -3,9 +3,15 @@
 
 @if (!Model.IsMarkedByUser)
 {
-    @Ajax.ActionLink("В закладки", "SetMark", "Ads", new { id = Model.AdId}, new AjaxOptions { UpdateTargetId = "marks-" + Model.AdId })
+    @Ajax.ActionLink(" ", "SetMark", "Ads", new { id = Model.AdId }, new AjaxOptions { UpdateTargetId = "marks-" + Model.AdId }, new
+    {
+        @class = "non-active-mark"
+    })
 }
 else
 {
-    @Ajax.ActionLink("Из закладок", "RemoveMark", "Ads", new { id = Model.AdId }, new AjaxOptions { UpdateTargetId = "marks-" + Model.AdId })
+    @Ajax.ActionLink(" ", "RemoveMark", "Ads", new { id = Model.AdId }, new AjaxOptions { UpdateTargetId = "marks-" + Model.AdId }, new
+    {
+        @class = "active-mark"
+    })
 }

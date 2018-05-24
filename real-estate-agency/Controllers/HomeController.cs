@@ -46,7 +46,7 @@ namespace real_estate_agency.Controllers
         public PartialViewResult Ad(MainPageViewModel model)
         {
             var allAds = adsManager.AllAds.Reverse();
-            int pageSize = 15;
+            int pageSize = 12;
 
             if (model == null)
                 model = new MainPageViewModel();

@@ -8,58 +8,59 @@
 
 @Styles.Render("~/Content/pagedlist")
 
-<main>
+<main class="main-index">
     <div class="container-fluid">
-        <div class="row">
-            <div class="parser-block">
-                @using (Html.BeginForm("Click", "Home"))
-                {
-                    <input type="submit" value="TBA Parser" class="btn btn-default" />
-                }
-                @using (Ajax.BeginForm("Ad", "Home", null, new AjaxOptions { UpdateTargetId = "results" }, new { @class = "filters" }))
-                {
-                    <div class="filter sort">
-                        <select name="RentType" id="RentType" class="sort-dropdown">
-                            @{ 
-                                List<Category> catlist = real_estate_agency.Infrastructure.CategoryManager.GetCategoryList();
-                                <option value="All">Все категории</option>
-                                foreach(Category cat in catlist)
-                                {
-                                    <option value="@cat.Name">@cat.Name</option>
-                                }
-                            }
-                        </select>
-                       
-                        @Html.DropDownList("SortType", new List<SelectListItem> {
-                                                            new SelectListItem() {Text="Не сортировать", Value="valueNone"},
-                                                            new SelectListItem() {Text="По возрастанию цены", Value="valueAsc"},
-                                                            new SelectListItem() {Text="По убыванию цены", Value="valueDesc"}
-                                                   }, new { @class = "sort-dropdown" })
-                    </div>
-                    <div class="filter quantity">
-                        @Html.EditorFor(model => model.MinQuantity, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Цена от" } })
-                        @Html.EditorFor(model => model.MaxQuantity, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Цена до" } })
-                        <select name="Currency" id="Currency" class="sort-dropdown">
-                            @foreach(CurrencyRate currency in real_estate_agency.Infrastructure.CurrencyOperations.GetCurrentExchangeRate())
+        <div class="parser-block">
+            @using (Html.BeginForm("Click", "Home"))
+            {
+                <input type="submit" value="Получить последние объявления" class="btn btn-primary parsing-button" />
+            }
+        </div>
+        <div class="filter-block">
+            @using (Ajax.BeginForm("Ad", "Home", null, new AjaxOptions { UpdateTargetId = "results" }, new { @class = "filters" }))
+            {
+                <div class="form-group filter sort">
+                    <select name="RentType" id="RentType" class="form-control sort-dropdown">
+                        @{
+                            List<Category> catlist = real_estate_agency.Infrastructure.CategoryManager.GetCategoryList();
+                            <option value="All">Все категории</option>
+                            foreach (Category cat in catlist)
                             {
-                                <option>@currency.NameCode</option>
+                                <option value="@cat.Name">@cat.Name</option>
                             }
-                        </select>
-                    </div>
-                    <div class="filter rooms">
-                        @Html.EditorFor(model => model.MinRoomsCount, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Комнат от" } })
-                        @Html.EditorFor(model => model.MaxRoomsCount, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Комнат до" } })
-                    </div>
-                    <div class="filter floors">
-                        @Html.EditorFor(model => model.MinFloor, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Этажность от" } })
-                        @Html.EditorFor(model => model.MaxFloor, new { htmlAttributes = new { @class = "filter-field", @placeholder = "Этажность до" } })
-                    </div>
-                    <div class="filter search">
-                        <input class="filter-search" type="submit" value="Search" />
-                    </div>
+                        }
+                    </select>
 
-                }
-            </div>
+                    @Html.DropDownList("SortType", new List<SelectListItem> {
+                                                                    new SelectListItem() {Text="Не сортировать", Value="valueNone"},
+                                                                    new SelectListItem() {Text="По возрастанию цены", Value="valueAsc"},
+                                                                    new SelectListItem() {Text="По убыванию цены", Value="valueDesc"}
+                                                           }, new { @class = "form-control sort-dropdown" })
+                </div>
+                <div class="form-group filter quantity">
+                    @Html.EditorFor(model => model.MinQuantity, new { htmlAttributes = new { @class = "form-control filter-field", @placeholder = "Цена от" } })
+                    @Html.EditorFor(model => model.MaxQuantity, new { htmlAttributes = new { @class = "form-control filter-field", @placeholder = "Цена до" } })
+                    <select name="Currency" id="Currency" class="form-control sort-dropdown">
+                        @foreach (CurrencyRate currency in real_estate_agency.Infrastructure.CurrencyOperations.GetCurrentExchangeRate())
+                        {
+                            <option>@currency.NameCode</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group filter rooms">
+                    @Html.EditorFor(model => model.MinRoomsCount, new { htmlAttributes = new { @class = "form-control filter-field", @placeholder = "Комнат от" } })
+                    @Html.EditorFor(model => model.MaxRoomsCount, new { htmlAttributes = new { @class = "form-control filter-field", @placeholder = "Комнат до" } })
+                </div>
+                <div class="form-group filter floors">
+                    @Html.EditorFor(model => model.MinFloor, new { htmlAttributes = new { @class = "form-control filter-field", @placeholder = "Этажность от" } })
+                    @Html.EditorFor(model => model.MaxFloor, new { htmlAttributes = new { @class = "form-control filter-field", @placeholder = "Этажность до" } })
+                </div>
+                <div class="filter search">
+                    <input class="btn btn-primary filter-button" type="submit" value="Найти!" />
+                </div>
+
+            }
+
         </div>
         <div class="block col-md-12">
             <div id="results" class="row">

@@ -16,35 +16,16 @@
     @Scripts.Render("~/bundles/unobtrusive-ajax")
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md">
         <a class="navbar-brand" href="/Home/Index">Real Estate Agency</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsblock" aria-controls="navbarsblock" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarsblock">
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item text-item">
                     @Html.ActionLink(Resource.AddAd, "Add", "Ads", null, new { @class = "nav-link" })
                 </li>
-                @{
-                    if (User?.Identity.IsAuthenticated ?? false)
-                    {
-                        <li class="nav-item">
-                            @{
-                                string cabinet = Resource.PersonalCabinet + ViewBag.NotifCount;
-                            }
-                            @Html.ActionLink(cabinet, "Index", "Cabinet", null, new { @class = "nav-link", id = "cabinet-link" })
-                        </li>
-                        <li class="nav-item">
-                            @Html.ActionLink(Resource.Logout, "Logout", "Account", null, new { @class = "nav-link" })
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">@Html.ActionLink(Resource.Login, "Login", "Account", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item">@Html.ActionLink(Resource.Register, "Register", "Account", null, new { @class = "nav-link" })</li>
-                    }
-                }
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         @if (Request.Cookies["Language"] != null)
@@ -55,7 +36,7 @@
                             }
                             else if (Request.Cookies["Language"].Value == "uk")
                             {
-                                <img class="flag" src="~/Content/images/ua.png" />
+                                <img class="flag" src="~/Content/images/uk.png" />
                             }
                         }
                         else
@@ -68,10 +49,29 @@
                             <img class="flag" src="~/Content/images/rus.png" /><span class="lang-name">Русский</span>
                         </a>
                         <a class="dropdown-item" href="@Url.Action("Change", "Language", new { LanguageAbbreviation = "uk" })">
-                            <img class="flag" src="~/Content/images/ua.png" /><span class="lang-name">Українська</span>
+                            <img class="flag" src="~/Content/images/uk.png" /><span class="lang-name">Українська</span>
                         </a>
                     </div>
                 </li>
+                @{
+                    if (User?.Identity.IsAuthenticated ?? false)
+                    {
+                        <li class="nav-item text-item">
+                            @{
+                                string cabinet = Resource.PersonalCabinet + ViewBag.NotifCount;
+                            }
+                            @Html.ActionLink(cabinet, "Index", "Cabinet", null, new { @class = "nav-link", id = "cabinet-link" })
+                        </li>
+                        <li class="nav-item text-item">
+                            @Html.ActionLink(Resource.Logout, "Logout", "Account", null, new { @class = "nav-link" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item text-item">@Html.ActionLink(Resource.Login, "Login", "Account", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item text-item">@Html.ActionLink(Resource.Register, "Register", "Account", null, new { @class = "nav-link" })</li>
+                    }
+                }
             </ul>
         </div>
     </nav>

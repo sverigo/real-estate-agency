@@ -9,16 +9,16 @@
 
 @foreach (var item in Model.PagedListModel)
 {
-    <div class="box col-md-4 col-sm-6 col-xs-12">
+    <div class="box col-xl-3 col-md-6 col-sm-12 col-xs-12">
         @if (UserStatusDirectory.UserCanDeleteAd(User, item))
         {
             @Html.ActionLink(" ", "Remove", "Ads",
-                       new { id = item.Id },
-                       new
-                       {
-                           @class = "remove",
-                           onclick = "return confirm('Действительно удалить?');"
-                       })
+                                                new { id = item.Id },
+                                                new
+                                                {
+                                                    @class = "remove",
+                                                    onclick = "return confirm('Действительно удалить?');"
+                                                })
         }
         @if (!UserStatusDirectory.IsOwnerOfAd(User, item))
         {
@@ -30,14 +30,15 @@
         {
             @Html.ActionLink(" ", "Edit", "Ads", new { id = item.Id }, new { @class = "edit" })
         }
-        <p class="title">@item.Title</p>
+        <center><p class="type">@item.Type</p></center>
         <div class="img-box">
-            @if(item.PrevImage == null) {
-                <a class="single-item" href="@Url.Content("~/Content/images/nophoto.png")"><img src = '@Url.Content("~/Content/images/nophoto.png")' /></a>
+            @if (item.PrevImage == null)
+            {
+                <a class="single-item" href="@Url.Content("~/Content/images/nophoto.png")"><img src='@Url.Content("~/Content/images/nophoto.png")' /></a>
             }
             else
             {
-                <a class="single-item" href="@Url.Content(item.PrevImage)"><img src = '@Url.Content(item.PrevImage)' /></a>
+                <a class="single-item" href="@Url.Content(item.PrevImage)"><img src='@Url.Content(item.PrevImage)' /></a>
             }
 
             <div class="quantity-box">
@@ -54,22 +55,22 @@
             </div>
         </div>
         <div class="info-box">
-            <center><p><strong>@item.Type</strong></p></center>
+            <div class="alert title">@item.Title</div>
             <p><strong>Категория:</strong> @item.Category</p>
             <p><strong>Адрес:</strong> @item.Address</p>
             <p><strong>Количество комнат:</strong> @item.RoomsCount</p>
             @if (item.Floors != 0 && @item.FloorsCount != 0)
-                        {
-            <p><strong>Этаж: </strong>   @item.Floors из @item.FloorsCount </p>
-                        }
-                        else if (@item.FloorsCount == 0 && @item.Floors != 0)
-                        {
-            <p><strong>Этаж: </strong> @item.Floors</p>
-                        }
+            {
+                <p><strong>Этаж: </strong>   @item.Floors из @item.FloorsCount </p>
+            }
+            else if (@item.FloorsCount == 0 && @item.Floors != 0)
+            {
+                <p><strong>Этаж: </strong> @item.Floors</p>
+            }
             @if (@item.Area != null)
-                        {
-            <p><strong>Площадь: </strong>@item.Area </p>
-                        }
+            {
+                <p><strong>Площадь: </strong>@item.Area </p>
+            }
             <p>@Html.ActionLink("Подробнее", "Details", "Ads", new { id = item.Id }, new { @class = "" })</p>
         </div>
         <div class="clearfix"></div>
@@ -77,19 +78,19 @@
 }
 <br />
 <div id="pagesSwitch" class="pagesSwitch col-md-12 col-sm-12 col-lg-12 col-xs-12">
-    @Html.PagedListPager((IPagedList) Model.PagedListModel, page => Url.Action("Ad", "Home", new
-        {
-            Currency = Model.Currency ?? "",
-            MaxArea = Model.MaxArea,
-            MinArea = Model.MinArea,
-            MaxQuantity = Model.MaxQuantity,
-            MinQuantity = Model.MinQuantity,
-            MinFloor = Model.MinFloor,
-            MaxFloor = Model.MaxFloor,
-            MaxRoomsCount = Model.MaxRoomsCount,
-            MinRoomsCount = Model.MinRoomsCount,
-            Page = page
-        }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "results" }))
+    @Html.PagedListPager((IPagedList)Model.PagedListModel, page => Url.Action("Ad", "Home", new
+    {
+        Currency = Model.Currency ?? "",
+        MaxArea = Model.MaxArea,
+        MinArea = Model.MinArea,
+        MaxQuantity = Model.MaxQuantity,
+        MinQuantity = Model.MinQuantity,
+        MinFloor = Model.MinFloor,
+        MaxFloor = Model.MaxFloor,
+        MaxRoomsCount = Model.MaxRoomsCount,
+        MinRoomsCount = Model.MinRoomsCount,
+        Page = page
+    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "results" }))
 </div>
 
 @Scripts.Render("~/bundles/fancybox")
