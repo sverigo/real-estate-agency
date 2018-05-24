@@ -23,7 +23,8 @@
         @if (!UserStatusDirectory.IsOwnerOfAd(User, item))
         {
             <div id="marks-@item.Id">
-                @{Html.RenderAction("Marks", "Ads", new { id = item.Id });}
+                <!--THIS LINE-->
+                <!--{Html.RenderAction("Marks", "Ads", new { id = item.Id });}-->
             </div>
         }
         else
