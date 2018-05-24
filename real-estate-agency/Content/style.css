@@ -222,19 +222,15 @@ body {
 }
 
 .img-box {
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
+    outline: 0;
+    color: #212529;
+    margin: 20px;
+    height: 200px;
     position: relative;
+    border-radius: 10px;
+    background-position: center;
+    background-size: cover;
 }
-
-    .img-box img {
-        width: 100%;
-        height: auto;
-        max-height: 200px;
-        border: 4px solid #b0b0b0;
-        border-radius: 20px;
-    }
 
 .info-box {
     /*float: right;*/
@@ -540,7 +536,7 @@ footer {
 }
 
 /*отображение в одну линию поля и кнопки удаления поля для доп. картинок/телефонов*/
-.but input {
+.one-line {
             width: auto;
             display: inline;
         }
