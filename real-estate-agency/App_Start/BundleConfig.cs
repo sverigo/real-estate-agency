@@ -8,7 +8,7 @@ namespace real_estate_agency
         {
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.min.css",
-                "~/Content/style1.css"));
+                "~/Content/style.css"));
 
             bundles.Add(new StyleBundle("~/Content/fancybox").Include(
                 "~/Content/jquery.fancybox.css"));
