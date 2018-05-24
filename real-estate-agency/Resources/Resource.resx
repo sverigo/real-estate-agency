@@ -387,4 +387,52 @@
   <data name="MyPayments" xml:space="preserve">
     <value>Мои платежи</value>
   </data>
+  <data name="AddEditAddress" xml:space="preserve">
+    <value>Адрес:</value>
+  </data>
+  <data name="AddEditArea" xml:space="preserve">
+    <value>Площадь:</value>
+  </data>
+  <data name="AddEditCategory" xml:space="preserve">
+    <value>Категория:</value>
+  </data>
+  <data name="AddEditDetails" xml:space="preserve">
+    <value>Описание:</value>
+  </data>
+  <data name="AddEditFloor" xml:space="preserve">
+    <value>Этаж:</value>
+  </data>
+  <data name="AddEditFloorsCount" xml:space="preserve">
+    <value>Этажность:</value>
+  </data>
+  <data name="AddEditHeader" xml:space="preserve">
+    <value>Заголовок:</value>
+  </data>
+  <data name="AddEditImageOnPreview" xml:space="preserve">
+    <value>Изображение на превью:</value>
+  </data>
+  <data name="AddEditPhones" xml:space="preserve">
+    <value>Телефон(ы):</value>
+  </data>
+  <data name="AddEditPhotos" xml:space="preserve">
+    <value>Фотографии:</value>
+  </data>
+  <data name="AddEditQuantity" xml:space="preserve">
+    <value>Цена:</value>
+  </data>
+  <data name="AddEditRemoveAd" xml:space="preserve">
+    <value>Удалить объявление!</value>
+  </data>
+  <data name="AddEditRoomsCount" xml:space="preserve">
+    <value>Количество комнат:</value>
+  </data>
+  <data name="AddEditType" xml:space="preserve">
+    <value>Тип:</value>
+  </data>
+  <data name="AddNewAd" xml:space="preserve">
+    <value>Добавить новое объявление</value>
+  </data>
+  <data name="EditAd" xml:space="preserve">
+    <value>Отредактировать объявление</value>
+  </data>
 </root>

@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity;
 @using real_estate_agency.Models;
 @using System.Web.Optimization;
+@using real_estate_agency.Resources;
 
 @model Ad
 
@@ -12,21 +13,21 @@
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div class="card card-body">
-                <h3 class="text-center mb-4">Добавить новое объявление</h3>
+                <h3 class="text-center mb-4">@Resource.AddNewAd</h3>
                 @using (Html.BeginForm("Add", "Ads", FormMethod.Post, new { enctype = "multipart/form-data", @class = "add-ad" }))
                 {
                     <input type="hidden" name="UserAuthorId" value="@User.Identity.GetUserId()" />
                     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
                     <div class="form-group">
-                        <label for="addPrevImage">Картинка на превью:</label>
+                        <label for="addPrevImage">@Resource.AddEditImageOnPreview</label>
                         <input id="addPrevImage" class="form-control" type="file" name="uPrevImage" accept="image/*" />
                     </div>
                     <div class="form-group">
-                        <label for="addHeader">Заголовок:</label>
+                        <label for="addHeader">@Resource.AddEditHeader</label>
                         <input id="addHeader" class="form-control" type="text" name="Title" />
                     </div>
                     <div class="form-group">
-                        <label for="addCategory">Категория:</label>
+                        <label for="addCategory">@Resource.AddEditCategory</label>
                         <select id="addCategory" class="form-control" name="Category">
                             @{
                                 List<Category> catlist = real_estate_agency.Infrastructure.CategoryManager.GetCategoryList();
@@ -41,7 +42,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="addType">Тип:</label>
+                        <label for="addType">@Resource.AddEditType</label>
                         <select id="addType" class="form-control" name="Type">
                             @{
                                 List<Types> typelist = real_estate_agency.Infrastructure.TypeManager.GetTypeList();
@@ -56,11 +57,11 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="addAddress">Адрес:</label>
+                        <label for="addAddress">@Resource.AddEditAddress</label>
                         <input id="addAddress" class="form-control" type="text" name="Address" />
                     </div>
                     <div class="form-group">
-                        <label for="addArea">Площадь:</label>
+                        <label for="addArea">@Resource.AddEditArea</label>
                         <input id="addArea" class="form-control" type="number" name="Area" />
                     </div>
                     <div class="form-group">
@@ -68,7 +69,7 @@
                         <input id="addAuthor" class="form-control" type="text" name="Author" />
                     </div>
                     <div class="form-group">
-                        <label for="addQuantity">Цена:</label>
+                        <label for="addQuantity">@Resource.AddEditQuantity</label>
                         <input id="addQuantity" class="form-control" type="number" name="Value" />
                         <select class="form-control" name="Currency">
                             @{
@@ -81,23 +82,23 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="addDescription">Описание:</label>
+                        <label for="addDescription">@Resource.AddEditDetails</label>
                         <textarea id="addDescription" class="form-control" name="Details"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="addFloor">Этаж:</label>
+                        <label for="addFloor">@Resource.AddEditFloor</label>
                         <input id="addFloor" class="form-control" type="number" name="Floors" />
                     </div>
                     <div class="form-group">
-                        <label for="addFloorsCount">Этажность:</label>
+                        <label for="addFloorsCount">@Resource.AddEditFloorsCount</label>
                         <input id="addFloorsCount" class="form-control" type="number" name="FloorsCount" />
                     </div>
                     <div class="form-group">
-                        <label for="addRoomsCount">Количество комнат:</label>
+                        <label for="addRoomsCount">@Resource.AddEditRoomsCount</label>
                         <input id="addRoomsCount" class="form-control" type="number" name="RoomsCount" />
                     </div>
                     <div class="form-group">
-                        <label>Телефон:</label>
+                        <label>@Resource.AddEditPhones</label>
                         <div id="phonediv">
                             <div class="but form-group">
                                 <input class="form-control" type="button" value="Х" id="delete0"
@@ -108,7 +109,7 @@
                         <input class="form-control" type="button" value="+" onclick="add_phone_field();" />
                     </div>
                     <div class="form-group">
-                        <label>Фотографии:</label>
+                        <label>@Resource.AddEditPhotos</label>
                         <div id="photodiv">
                             <div class="but form-group">
                                 <input class="form-control" type="button" value="Х" id="remove0" onclick="$('#Images0').remove(); $('#remove0').remove();" />
@@ -118,7 +119,7 @@
                         <input class="form-control" type="button" value="+" onclick="add_photo_field();" />
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="submit" value="Добавить" />
+                        <input class="form-control" type="submit" value="@Resource.AddButton" />
                     </div>
                 }
             </div>

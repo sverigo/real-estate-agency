@@ -1,4 +1,5 @@
 ﻿@using real_estate_agency.Models;
+@using real_estate_agency.Resources;
 @model Ad
 @{
     Layout = "~/Views/Shared/header.cshtml";
@@ -10,27 +11,27 @@
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div class="card card-body">
-                <h3 class="text-center mb-4">Отредактировать объявление</h3>
+                <h3 class="text-center mb-4">@Resource.EditAd</h3>
                 @using (Html.BeginForm("Edit", "Ads", FormMethod.Post, new { enctype = "multipart/form-data", @class = "edit-ad" }))
                 {
                     <input type="hidden" name="UserAuthorId" value="@Model.UserAuthorId" />
                     <input type="hidden" name="AdUrl" value="@Model.AdUrl" />
                     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
                     <input type="hidden" name="fromDetailsUrl" value="@ViewBag.FromDetailsUrl" /> <!--special for freaking Details-->
-                    @Html.ActionLink("Remove", "Remove", "Ads", new { id = Model.Id, returnUrl = ViewBag.ReturnUrl }, new { @class = "", onclick = "return confirm('Действительно удалить?');" })
+                    @Html.ActionLink(Resource.AddEditRemoveAd, "Remove", "Ads", new { id = Model.Id, returnUrl = ViewBag.ReturnUrl }, new { onclick = "return confirm('Действительно удалить?');" })
                     <div class="form-group">
                         <img class="prev-image" src="@Url.Content(Model.PrevImage)" />
                         <input type="hidden" name="PrevImage" value="@Model.PrevImage" />
                         <br />
-                        <label for="editPrevImage">Картинка на превью:</label>
+                        <label for="editPrevImage">@Resource.AddEditImageOnPreview</label>
                         <input id="editPrevImage" class="form-control" type="file" name="uPrevImage" accept="image/*" />
                     </div>
                     <div class="form-group">
-                        <label for="editHeader">Заголовок:</label>
+                        <label for="editHeader">@Resource.AddEditHeader</label>
                         <input id="editHeader" class="form-control" type="text" name="Title" value="@Model.Title" />
                     </div>
                     <div class="form-group">
-                        <label for="editCategory">Категория:</label>
+                        <label for="editCategory">@Resource.AddEditCategory</label>
                         <select id="editCategory" class="form-control" name="Category">
                             @{
                                 List<Category> catlist = real_estate_agency.Infrastructure.CategoryManager.GetCategoryList();
@@ -52,7 +53,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="editType">Тип:</label>
+                        <label for="editType">@Resource.AddEditType</label>
                         <select id="editType" class="form-control" name="Type">
                             @{
                                 List<Types> typelist = real_estate_agency.Infrastructure.TypeManager.GetTypeList();
@@ -74,11 +75,11 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="editAddress">Адрес:</label>
+                        <label for="editAddress">@Resource.AddEditAddress</label>
                         <input id="editAddress" class="form-control" type="text" name="Address" value="@Model.Address" />
                     </div>
                     <div class="form-group">
-                        <label for="editArea">Площадь:</label>
+                        <label for="editArea">@Resource.AddEditArea</label>
                         <input id="editArea" class="form-control" type="number" name="Area" value="@Model.Area" />
                     </div>
                     <div class="form-group">
@@ -86,7 +87,7 @@
                         <input id="editAuthor" class="form-control" type="text" name="Author" value="@Model.Author" />
                     </div>
                     <div class="form-group">
-                        <label for="editQuantity">Цена:</label>
+                        <label for="editQuantity">@Resource.AddEditQuantity</label>
                         <input id="editQuantity" class="form-control" type="number" name="Value" value="@Model.Value" />
                         <select class="form-control" name="Currency">
                             @{
@@ -106,23 +107,23 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="editDescription">Описание:</label>
+                        <label for="editDescription">@Resource.AddEditDetails</label>
                         <textarea id="editDescription" class="form-control" name="Details">@Model.Details</textarea>
                     </div>
                     <div class="form-group">
-                        <label for="editFloor">Этаж:</label>
+                        <label for="editFloor">@Resource.AddEditFloor</label>
                         <input id="editFloor" class="form-control" type="number" name="Floors" value="@Model.Floors" />
                     </div>
                     <div class="form-group">
-                        <label for="editFloorsCount">Этажность:</label>
+                        <label for="editFloorsCount">@Resource.AddEditFloorsCount</label>
                         <input id="editFloorsCount" class="form-control" type="number" name="FloorsCount" value="@Model.FloorsCount" />
                     </div>
                     <div class="form-group">
-                        <label for="editRoomsCount">Количество комнат:</label>
+                        <label for="editRoomsCount">@Resource.AddEditRoomsCount</label>
                         <input id="editRoomsCount" class="form-control" type="number" name="RoomsCount" value="@Model.RoomsCount" />
                     </div>
                     <div class="form-group">
-                        <label>Телефон:</label>
+                        <label>@Resource.AddEditPhones</label>
                         <div id="phonediv">
                             @{
                                 if (Model.Phone.IsEmpty())
@@ -150,7 +151,7 @@
                         <input class="form-control" type="button" value="+" onclick="add_phone_field();" />
                     </div>
                     <div class="form-group">
-                        <label>Фотографии:</label>
+                        <label>@Resource.AddEditPhotos</label>
                         <div id="photodiv">
                             @{
                                 int i = 0;
@@ -176,7 +177,7 @@
                         <input class="form-control" type="button" value="+" onclick="add_photo_field();" />
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="submit" value="Изменить" />
+                        <input class="form-control" type="submit" value="@Resource.ChangeButton" />
                     </div>
                 }
             </div>

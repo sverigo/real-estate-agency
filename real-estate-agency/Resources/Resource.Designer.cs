@@ -160,11 +160,146 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Адрес:.
+        /// </summary>
+        public static string AddEditAddress {
+            get {
+                return ResourceManager.GetString("AddEditAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Площадь:.
+        /// </summary>
+        public static string AddEditArea {
+            get {
+                return ResourceManager.GetString("AddEditArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Категория:.
+        /// </summary>
+        public static string AddEditCategory {
+            get {
+                return ResourceManager.GetString("AddEditCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Описание:.
+        /// </summary>
+        public static string AddEditDetails {
+            get {
+                return ResourceManager.GetString("AddEditDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Этаж:.
+        /// </summary>
+        public static string AddEditFloor {
+            get {
+                return ResourceManager.GetString("AddEditFloor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Этажность:.
+        /// </summary>
+        public static string AddEditFloorsCount {
+            get {
+                return ResourceManager.GetString("AddEditFloorsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Заголовок:.
+        /// </summary>
+        public static string AddEditHeader {
+            get {
+                return ResourceManager.GetString("AddEditHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Изображение на превью:.
+        /// </summary>
+        public static string AddEditImageOnPreview {
+            get {
+                return ResourceManager.GetString("AddEditImageOnPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Телефон(ы):.
+        /// </summary>
+        public static string AddEditPhones {
+            get {
+                return ResourceManager.GetString("AddEditPhones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Фотографии:.
+        /// </summary>
+        public static string AddEditPhotos {
+            get {
+                return ResourceManager.GetString("AddEditPhotos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Цена:.
+        /// </summary>
+        public static string AddEditQuantity {
+            get {
+                return ResourceManager.GetString("AddEditQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Удалить объявление!.
+        /// </summary>
+        public static string AddEditRemoveAd {
+            get {
+                return ResourceManager.GetString("AddEditRemoveAd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Количество комнат:.
+        /// </summary>
+        public static string AddEditRoomsCount {
+            get {
+                return ResourceManager.GetString("AddEditRoomsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Тип:.
+        /// </summary>
+        public static string AddEditType {
+            get {
+                return ResourceManager.GetString("AddEditType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Добавить модератора.
         /// </summary>
         public static string AddModerator {
             get {
                 return ResourceManager.GetString("AddModerator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Добавить новое объявление.
+        /// </summary>
+        public static string AddNewAd {
+            get {
+                return ResourceManager.GetString("AddNewAd", resourceCulture);
             }
         }
         
@@ -336,6 +471,15 @@ namespace real_estate_agency.Resources {
         public static string Details {
             get {
                 return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Отредактировать объявление.
+        /// </summary>
+        public static string EditAd {
+            get {
+                return ResourceManager.GetString("EditAd", resourceCulture);
             }
         }
         
