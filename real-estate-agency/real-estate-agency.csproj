@@ -349,6 +349,14 @@
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\slick\ajax-loader.gif" />
+    <Content Include="Scripts\slick\fonts\slick.svg" />
+    <Content Include="Scripts\slick\slick-slider-img.js" />
+    <Content Include="Scripts\slick\slick-slider.js" />
+    <Content Include="Scripts\slick\slick-theme.css" />
+    <Content Include="Scripts\slick\slick.css" />
+    <Content Include="Scripts\slick\slick.js" />
+    <Content Include="Scripts\slick\slick.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -405,6 +413,14 @@
     <Content Include="Views\Cabinet\BuyPremium.cshtml" />
     <Content Include="Views\Cabinet\ConfirmPayment.cshtml" />
     <Content Include="Views\Admin\PricesList.cshtml" />
+    <Content Include="Scripts\slick\config.rb" />
+    <Content Include="Scripts\slick\fonts\slick.eot" />
+    <Content Include="Scripts\slick\fonts\slick.ttf" />
+    <Content Include="Scripts\slick\fonts\slick.woff" />
+    <Content Include="Scripts\slick\slick-theme.less" />
+    <Content Include="Scripts\slick\slick-theme.scss" />
+    <Content Include="Scripts\slick\slick.less" />
+    <Content Include="Scripts\slick\slick.scss" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataParser\DataParser.csproj">

@@ -16,6 +16,10 @@ namespace real_estate_agency
             bundles.Add(new StyleBundle("~/Content/pagedlist").Include(
                 "~/Content/PagedList.css"));
 
+            bundles.Add(new StyleBundle("~/Content/slick").Include(
+                "~/Scripts/slick/slick.css",
+                "~/Scripts/slick/slick-theme.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                 "~/Scripts/jquery-3.3.1.slim.min.js",
                 "~/Scripts/jquery-3.3.1.min.js"));
@@ -48,6 +52,10 @@ namespace real_estate_agency
 
             bundles.Add(new ScriptBundle("~/bundles/additional-fields").Include(
                 "~/Scripts/additional_fields.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/slick").Include(
+                "~/Scripts/slick/slick.min.js",
+                "~/Scripts/slick/slick-slider.js"));
         }
     }
 }

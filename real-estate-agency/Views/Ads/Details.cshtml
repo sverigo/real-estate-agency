@@ -7,6 +7,7 @@
     Layout = "~/Views/Shared/header.cshtml";
 }
 
+@Styles.Render("~/Content/slick")
 @Styles.Render("~/Content/fancybox")
 
 <script>
@@ -33,7 +34,6 @@
      }
 </script>
 <main>
-
     @{
         <div style="text-align: right;">
             @if (Model.AdUrl != null)
@@ -60,15 +60,25 @@
                 }
             </div>
             <div class="row">
-                <div class="prev-image">
-                    @if (Model.PrevImage == null)
+                <div class="image-set">
+                    @if (Model.Images == "")
                     {
-                        <a class="single-item" href="@Url.Content("~/Content/images/nophoto.png")"><img src='@Url.Content("~/Content/images/nophoto.png")' /></a>
+                        <div class="image-set-block">
+                            <img src='@Url.Content("~/Content/images/nophoto.png")' />
+                        </div>
                     }
                     else
                     {
-                        <a class="single-item" href="@Url.Content(Model.PrevImage)"><img src='@Url.Content(Model.PrevImage)' /></a>
+                        foreach (var img in StringImgPhoneConverter.StringToList(Model.Images))
+                        {
+                            <div class="image-set-block">
+                                <a class="group-item" rel="group" href="@Url.Content(img)">
+                                    <img src='@Url.Content(img)' />
+                                </a>
+                            </div>
+                        }
                     }
+
                 </div>
                 <div class="general-info">
                     <p><strong>Тип: </strong>@Model.Type </p>
@@ -106,12 +116,6 @@
             <div class="description">
                 <p>@Model.Details</p>
             </div>
-            <div class="image-set">
-                @foreach (var img in StringImgPhoneConverter.StringToList(Model.Images))
-                {
-                    <a class="group-item" rel="group" href="@Url.Content(img)"><img src='@Url.Content(img)' /></a>
-                }
-            </div>
             <div class="map-block">
                 <div id="map"></div>
             </div>
@@ -121,8 +125,19 @@
     }
 </main>
 
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
 @Scripts.Render("~/bundles/fancybox")
 @Scripts.Render("~/bundles/fancybox-gallery-single")
 @Scripts.Render("~/bundles/fancybox-gallery-group")
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs0eQvxU2jsqf71-Smlevn-NsX8W_V74g&callback=initMap"></script>
 <script src="~/Scripts/mapInitialize.js"></script>
+@Scripts.Render("~/bundles/slick")
+
+<script>
+    $('.image-set').slick({
+        infinite: true,
+        speed: 500,
+        fade: true,
+        cssEase: 'linear'
+    });
+</script>

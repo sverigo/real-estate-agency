@@ -22,8 +22,15 @@ body {
     text-align: center;
 }
 
-/* NAVIGATION */
+.custom-navbar-toggler {
+    border-color: rgb(255,255,255);
+}
 
+    .custom-navbar-toggler .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    }
+
+/* NAVIGATION */
 .navbar {
     background-color: #000;
     color: #fff;
@@ -256,11 +263,24 @@ main {
     text-align: center;
 }
 
+.image-set {
+    width: 300px;
+}
+
+    .image-set img {
+        width: 300px !important;
+        height: auto;
+    }
+
     .prev-image img {
         width: auto;
         max-height: 500px;
         max-width: 100%;
     }
+
+.slick-prev:before, .slick-next:before {
+    color: red !important;
+}
 
 .detail-title {
     padding: 15px;
@@ -325,6 +345,8 @@ main {
 .block .box .remove:before {
     transform: rotate(-45deg);
 }
+
+
 
 /*ADD PAGE*/
 
