@@ -24,10 +24,6 @@ namespace real_estate_agency.Models
 
         public string Area { get; set; }
 
-        public double? Latitude { get; set; }
-
-        public double? Longitude { get; set; }
-
         public string Author { get; set; }
 
         public string Images { get; set; }
