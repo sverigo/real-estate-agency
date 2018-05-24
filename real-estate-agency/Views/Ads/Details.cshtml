@@ -7,7 +7,6 @@
     Layout = "~/Views/Shared/header.cshtml";
 }
 
-@Styles.Render("~/Content/slick")
 @Styles.Render("~/Content/fancybox")
 
 <script>
@@ -34,6 +33,7 @@
      }
 </script>
 <main>
+
     @{
         <div style="text-align: right;">
             @if (Model.AdUrl != null)
@@ -60,25 +60,15 @@
                 }
             </div>
             <div class="row">
-                <div class="image-set">
-                    @if (Model.Images == "")
+                <div class="prev-image">
+                    @if (Model.PrevImage == null)
                     {
-                        <div class="image-set-block">
-                            <img src='@Url.Content("~/Content/images/nophoto.png")' />
-                        </div>
+                        <a class="single-item" href="@Url.Content("~/Content/images/nophoto.png")"><img src='@Url.Content("~/Content/images/nophoto.png")' /></a>
                     }
                     else
                     {
-                        foreach (var img in StringImgPhoneConverter.StringToList(Model.Images))
-                        {
-                            <div class="image-set-block">
-                                <a class="group-item" rel="group" href="@Url.Content(img)">
-                                    <img src='@Url.Content(img)' />
-                                </a>
-                            </div>
-                        }
+                        <a class="single-item" href="@Url.Content(Model.PrevImage)"><img src='@Url.Content(Model.PrevImage)' /></a>
                     }
-
                 </div>
                 <div class="general-info">
                     <p><strong>Тип: </strong>@Model.Type </p>
@@ -98,23 +88,34 @@
                     }
                     <p><strong>Цена: </strong>   @Model.Value @Model.Currency </p>
                     <p><strong>Арендатор: </strong>@Model.Author </p>
-                    <div class="phone-set">
-                        <p><strong>Телефон(ы): </strong></p>
-                        @foreach (var phoneItem in StringImgPhoneConverter.StringToList(Model.Phone))
-                        {
-                            <p>@phoneItem</p>
-                        }
-                        <ul data-bind="foreach: phones">
-                            <li data-bind="text: $data"></li>
-                        </ul>
-                        <form id="frm" method="get">
-                            <button id="button" type="button" onclick="showPhone()">Click</button>
-                        </form>
-                    </div>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="phone-set">
+                            <p><strong>Телефон(ы): </strong></p>
+                            @foreach (var phoneItem in StringImgPhoneConverter.StringToList(Model.Phone))
+                            {
+                                <p>@phoneItem</p>
+                            }
+                            <ul data-bind="foreach: phones">
+                                <li data-bind="text: $data"></li>
+                            </ul>
+                            <form id="frm" method="get">
+                                <button id="button" type="button" onclick="showPhone()">Click</button>
+                            </form>
+                        </div>
+                    }
+
                 </div>
             </div>
             <div class="description">
                 <p>@Model.Details</p>
+            </div>
+            <div class="image-set">
+                @foreach (var img in StringImgPhoneConverter.StringToList(Model.Images))
+                {
+                    <a class="group-item" rel="group" href="@Url.Content(img)"><img src='@Url.Content(img)' /></a>
+                }
             </div>
             <div class="map-block">
                 <div id="map"></div>
@@ -125,19 +126,8 @@
     }
 </main>
 
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
 @Scripts.Render("~/bundles/fancybox")
 @Scripts.Render("~/bundles/fancybox-gallery-single")
 @Scripts.Render("~/bundles/fancybox-gallery-group")
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs0eQvxU2jsqf71-Smlevn-NsX8W_V74g&callback=initMap"></script>
 <script src="~/Scripts/mapInitialize.js"></script>
-@Scripts.Render("~/bundles/slick")
-
-<script>
-    $('.image-set').slick({
-        infinite: true,
-        speed: 500,
-        fade: true,
-        cssEase: 'linear'
-    });
-</script>
