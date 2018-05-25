@@ -20,16 +20,18 @@
                                                     onclick = "return confirm('Действительно удалить?');"
                                                 })
         }
-        @if (!UserStatusDirectory.IsOwnerOfAd(User, item))
+        @if (User.Identity.IsAuthenticated)
         {
-            <div id="marks-@item.Id">
-                <!--THIS LINE-->
-                <!--{Html.RenderAction("Marks", "Ads", new { id = item.Id });}-->
-            </div>
-        }
-        else
-        {
-            @Html.ActionLink(" ", "Edit", "Ads", new { id = item.Id }, new { @class = "edit" })
+            if (!UserStatusDirectory.IsOwnerOfAd(User, item))
+            {
+                <div id="marks-@(item.Id)">
+                    @{Html.RenderAction("Marks", "Ads", new { id = item.Id });}
+                </div>
+            }
+            else
+            {
+                @Html.ActionLink(" ", "Edit", "Ads", new { id = item.Id }, new { @class = "edit" })
+            }
         }
         <center><p class="type">@item.Type</p></center>
         <a class="single-item" href="@(item.PrevImage)">
