@@ -56,15 +56,16 @@ namespace real_estate_agency.Controllers
             }
             ad.Phone = String.Join("|", phonesList);
             
-            ad.PrevImage = "~/Content/images/nophoto.png";
+            ad.PrevImage = Url.Content("~/Content/images/nophoto.png");
             ad.Images = "";
 
             var upload = Request.Files["uPrevImage"];
             if (upload != null && upload.ContentType.Contains("image/"))
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(upload.FileName);
-                ad.PrevImage = "~/Content/images/" + fileName;
-                upload.SaveAs(Server.MapPath(ad.PrevImage));
+                string path = "~/Content/images/" + fileName;
+                ad.PrevImage = Url.Content(path);
+                upload.SaveAs(Server.MapPath(path));
             }
 
 
@@ -78,7 +79,7 @@ namespace real_estate_agency.Controllers
                     {
                         string fileName = Guid.NewGuid().ToString() + Path.GetExtension(up.FileName);
                         string addr = "~/Content/images/" + fileName;
-                        imagesList.Add(addr);
+                        imagesList.Add(Url.Content(addr));
                         up.SaveAs(Server.MapPath(addr));
                     }
                 }
@@ -150,8 +151,9 @@ namespace real_estate_agency.Controllers
             if (upload != null && upload.ContentType.Contains("image/"))
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(upload.FileName);
-                ad.PrevImage = "~/Content/images/" + fileName;
-                upload.SaveAs(Server.MapPath(ad.PrevImage));
+                string path = "~/Content/images/" + fileName;
+                ad.PrevImage = path;
+                upload.SaveAs(Server.MapPath(path));
             }
 
             ad.Images = "";
@@ -194,7 +196,7 @@ namespace real_estate_agency.Controllers
                     {
                         string fileName = Guid.NewGuid().ToString() + Path.GetExtension(up.FileName);
                         string addr = "~/Content/images/" + fileName;
-                        imagesList.Add(addr);
+                        imagesList.Add(Url.Content(addr));
                         up.SaveAs(Server.MapPath(addr));
                     }
                 }

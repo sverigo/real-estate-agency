@@ -67,7 +67,7 @@
                     }
                     else
                     {
-                        <a class="single-item" href="@Url.Content(Model.PrevImage)"><img src='@Url.Content(Model.PrevImage)' /></a>
+                        <a class="single-item" href="@(Model.PrevImage)"><img src='@(Model.PrevImage)' /></a>
                     }
                 </div>
                 <div class="general-info">
@@ -114,7 +114,7 @@
             <div class="image-set">
                 @foreach (var img in StringImgPhoneConverter.StringToList(Model.Images))
                 {
-                    <a class="group-item" rel="group" href="@Url.Content(img)"><img src='@Url.Content(img)' /></a>
+                    <a class="group-item" rel="group" href="@(img)"><img src='@(img)' /></a>
                 }
             </div>
             <div class="map-block">

@@ -32,8 +32,8 @@
             @Html.ActionLink(" ", "Edit", "Ads", new { id = item.Id }, new { @class = "edit" })
         }
         <center><p class="type">@item.Type</p></center>
-        <a class="single-item" href="@Url.Content(item.PrevImage)">
-            <div class="img-box" style="background-image: url(@Url.Content(item.PrevImage))">
+        <a class="single-item" href="@(item.PrevImage)">
+            <div class="img-box" style="background-image: url(@(item.PrevImage))">
                 <div class="quantity-box">
                     @if (item.Currency == Model.Currency || Model.Currency == null)
                 {

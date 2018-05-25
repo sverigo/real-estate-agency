@@ -21,7 +21,7 @@
                     <input type="hidden" name="Author" value="@User.Identity.Name" />
                     @Html.ActionLink(Resource.AddEditRemoveAd, "Remove", "Ads", new { id = Model.Id, returnUrl = ViewBag.ReturnUrl }, new { onclick = "return confirm('Действительно удалить?');" })
                     <div class="form-group">
-                        <img class="prev-image" src="@Url.Content(Model.PrevImage)" />
+                        <img class="prev-image" src="@(Model.PrevImage)" />
                         <input type="hidden" name="PrevImage" value="@Model.PrevImage" />
                         <br />
                         <label for="editPrevImage">@Resource.AddEditImageOnPreview</label>
@@ -156,7 +156,7 @@
                                 {
                                     string name = "Photos" + i.ToString();
                                     string remove_check = "remove_check-" + i.ToString();
-                                    <img class="prev-image" name="@name" id="@name" src="@Url.Content(img)" />
+                                    <img class="prev-image" name="@name" id="@name" src="@(img)" />
 
                                     @Html.CheckBox(remove_check, true, new { @id = "removeit" })
                                     i++;
