@@ -88,8 +88,13 @@
                     }
                     <p><strong>Цена: </strong>   @Model.Value @Model.Currency </p>
                     <p><strong>Автор: </strong>@Model.Author </p>
-
-                    @if (User.Identity.IsAuthenticated)
+                    
+                    @{
+                        bool hasPhones = Model.Phone != null;
+                        bool exclusive = Model.AdUrl == null;
+                        bool authenticated = User.Identity.IsAuthenticated;
+                        }
+                    @if (hasPhones && (exclusive || (!exclusive && authenticated)))
                     {
                         <div class="phone-set">
                             <p><strong>Телефон(ы): </strong></p>
@@ -100,9 +105,11 @@
                             <ul data-bind="foreach: phones">
                                 <li data-bind="text: $data"></li>
                             </ul>
+                            <!--
                             <form id="frm" method="get">
                                 <button id="button" type="button" onclick="showPhone()">Click</button>
                             </form>
+                                -->
                         </div>
                     }
 
