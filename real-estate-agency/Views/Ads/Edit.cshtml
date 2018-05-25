@@ -19,8 +19,8 @@
                     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
                     <input type="hidden" name="fromDetailsUrl" value="@ViewBag.FromDetailsUrl" /> <!--special for freaking Details-->
                     <input type="hidden" name="Author" value="@User.Identity.Name" />
-                    
-                    @Html.ActionLink(Resource.AddEditRemoveAd, "Remove", "Ads", new { id = Model.Id, returnUrl = ViewBag.ReturnUrl }, new { onclick = "return confirm('Действительно удалить?');", style = "color:red;"})
+
+                    @Html.ActionLink(Resource.AddEditRemoveAd, "Remove", "Ads", new { id = Model.Id, returnUrl = ViewBag.ReturnUrl }, new { onclick = "return confirm('Действительно удалить?');", style = "color:red;" })
                     <div class="form-group">
                         <img class="prev-image" src="@(Model.PrevImage)" />
                         <input type="hidden" name="PrevImage" value="@Model.PrevImage" />
@@ -127,9 +127,10 @@
                                 if (Model.Phone.IsEmpty())
                                 {
                                     <div class="but form-group">
-                                        <input class="form-control" type="button" value="Х" id="delete0"
+                                        <input class="form-control add-edit-phone-photo-field" type="tel" name="Phone0" id="Phone0" />
+                                        <input class="form-control add-edit-phone-photo-remove-button" type="button" value="Х" id="delete0"
                                                onclick="$('#Phone0').remove(); $('#delete0').remove();" />
-                                        <input class="form-control" type="tel" name="Phone0" id="Phone0" />
+
                                     </div>
                                 }
                                 int j = 0;
@@ -139,14 +140,14 @@
                                     string button_name = "delete" + j.ToString();
                                     j++;
                                     <div class="but form-group">
-                                        <input class="form-control btn-danger" type="button" value="Х" id="@button_name"
+                                        <input class="form-control add-edit-phone-photo-field" type="tel" name="@name" id="@name" value="@phoneItem" />
+                                        <input class="form-control add-edit-phone-photo-remove-button" type="button" value="Х" id="@button_name"
                                                onclick="$('#@name').remove(); $('#@button_name').remove();" />
-                                        <input class="form-control" type="tel" name="@name" id="@name" value="@phoneItem" />
                                     </div>
                                 }
                             }
                         </div>
-                        <input class="form-control btn-info" type="button" value="+" onclick="add_phone_field();" />
+                        <input class="form-control add-edit-phone-photo-add-button" type="button" value="+" onclick="add_phone_field();" />
                     </div>
                     <div class="form-group">
                         <label>@Resource.AddEditPhotos</label>
@@ -165,14 +166,14 @@
                                 if (Model.Images.IsEmpty())
                                 {
                                     <div class="but form-group">
-                                        <input class="form-control btn-danger" type="button" name="remove0" id="remove0" value="X"
+                                        <input class="form-control add-edit-phone-photo-field" type="file" accept="image/*" name="Images0" id="Images0" />
+                                        <input class="form-control add-edit-phone-photo-remove-button" type="button" name="remove0" id="remove0" value="X"
                                                onclick="$('#Images0').remove(); $('#remove0').remove(); " />
-                                        <input class="form-control" type="file" accept="image/*" name="Images0" id="Images0" />
                                     </div>
                                 }
                             }
                         </div>
-                        <input class="form-control btn-info" type="button" value="+" onclick="add_photo_field();" />
+                        <input class="form-control add-edit-phone-photo-add-button" type="button" value="+" onclick="add_photo_field();" />
                     </div>
                     <div class="form-group">
                         <input class="form-control btn-success" type="submit" value="@Resource.ChangeButton" />

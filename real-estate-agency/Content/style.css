@@ -40,19 +40,19 @@ body {
     box-shadow: 0px 3px 20px 5px rgba(0,0,0,0.9);
 }
 
-.navbar .nav-link {
-    margin-left: .5rem;
-    margin-right: .5rem;
-}
-
-.navbar .nav-link,
-.navbar-brand {
-    color: #fff;
-}
-
-    .navbar-brand:hover {
-        color: #e7a61a;
+    .navbar .nav-link {
+        margin-left: .5rem;
+        margin-right: .5rem;
     }
+
+    .navbar .nav-link,
+    .navbar-brand {
+        color: #fff;
+    }
+
+        .navbar-brand:hover {
+            color: #e7a61a;
+        }
 
     .navbar .text-item:hover,
     .navbar .text-item:active {
@@ -147,9 +147,8 @@ body {
     .parsing-button:hover {
         background-color: #e7a61a;
     }
-    
+
 .parser-block {
-    
 }
 
 .filter-block {
@@ -196,6 +195,43 @@ body {
 /*PAGES */
 
 /* ADD/EDIT */
+
+.add-edit-phone-photo-field {
+    display: inline-block;
+    width: 85%;
+}
+
+.add-edit-phone-photo-remove-button {
+    display: inline-block;
+    width: 10%;
+    background-color: orange;
+    float: right;
+    cursor: pointer;
+}
+
+    .add-edit-phone-photo-remove-button:active,
+    .add-edit-phone-photo-remove-button:focus,
+    .add-edit-phone-photo-remove-button:active:hover,
+    .add-edit-phone-photo-remove-button:active:focus {
+        background-color: orange !important;
+        color: #fff;
+    }
+
+.add-edit-phone-photo-add-button {
+    width: 10%;
+    background-color: green;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+    .add-edit-phone-photo-add-button:active,
+    .add-edit-phone-photo-add-button:focus,
+    .add-edit-phone-photo-add-button:active:hover,
+    .add-edit-phone-photo-add-button:active:focus {
+        background-color: green !important;
+        color: #fff;
+    }
 
 /**/
 
@@ -268,11 +304,11 @@ main {
         height: auto;
     }
 
-    .prev-image img {
-        width: auto;
-        max-height: 500px;
-        max-width: 100%;
-    }
+.prev-image img {
+    width: auto;
+    max-height: 500px;
+    max-width: 100%;
+}
 
 .slick-prev:before, .slick-next:before {
     color: red !important;
@@ -420,9 +456,9 @@ footer {
     flex-flow: row wrap;
 }
 
-.filters .filter-button {
-    width: 180px;
-}
+    .filters .filter-button {
+        width: 180px;
+    }
 
 .filter {
     margin: 0 5px;
@@ -449,7 +485,6 @@ footer {
 }
 
 .sort-dropdown {
-   
 }
 
 .spoiler-title {
@@ -459,6 +494,7 @@ footer {
 .spoiler-body {
     background: #f1f1f1;
 }
+
 .validation-summary-errors ul {
     list-style-type: none;
     padding: 15px;
@@ -470,11 +506,11 @@ footer {
     border-color: #ebccd1;
 }
 
-.validation-summary-errors ul li {
-    font-family: Verdana, sans-serif;
-    font-size: 15px;
-    line-height: 1.5;
-}
+    .validation-summary-errors ul li {
+        font-family: Verdana, sans-serif;
+        font-size: 15px;
+        line-height: 1.5;
+    }
 
 .reset-password-string {
     font-family: Verdana, sans-serif;
@@ -488,18 +524,18 @@ footer {
     margin-bottom: 20px;
 }
 
-.cabinet .cabinet-item {
-    text-align: center;
-}
+    .cabinet .cabinet-item {
+        text-align: center;
+    }
 
         .cabinet .cabinet-item a:hover {
             text-decoration: none;
             color: #000;
         }
 
-    .cabinet .cabinet-item .active {
-        color: #000;
-    }
+        .cabinet .cabinet-item .active {
+            color: #000;
+        }
 
 .success-message {
     list-style-type: none;
@@ -516,11 +552,10 @@ footer {
 }
 
 .notification-date {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .notification-message {
-
 }
 
 .notification-sender {
@@ -537,9 +572,9 @@ footer {
 
 /*отображение в одну линию поля и кнопки удаления поля для доп. картинок/телефонов*/
 .one-line {
-            width: auto;
-            display: inline;
-        }
+    width: auto;
+    display: inline;
+}
 
 
 @media screen and (max-width: 500px) {
@@ -549,8 +584,15 @@ footer {
 }
 
 @media screen and (max-width: 400px) {
-    .add-ad .form-control,
-    .edit-add .form-control {
-        width: 100%;
+    .add-edit-phone-photo-field {
+        width: 75%;
+    }
+
+    .add-edit-phone-photo-remove-button {
+        width: 20%;
+    }
+
+    .add-edit-phone-photo-add-button {
+        width: 20%;
     }
 }
