@@ -18,6 +18,11 @@ namespace real_estate_agency.Controllers
 
         UserStatusDirectory userStatDirect = new UserStatusDirectory();
 
+        public ActionResult Index()
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
         public ActionResult Add()
         {
             if (User?.Identity.IsAuthenticated ?? false)
@@ -96,6 +101,10 @@ namespace real_estate_agency.Controllers
 
         public ActionResult Edit(int? id, string fromDetailsUrl)
         {
+            if(id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (User?.Identity.IsAuthenticated ?? false)
             {
                 try
@@ -260,6 +269,10 @@ namespace real_estate_agency.Controllers
         [AllowAnonymous]
         public ActionResult Details(int? id, string fromDetailsUrl)
         {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var currentAd = adsManager.FindById(id);
             if (currentAd == null)
                 return View("Error", new string[] { "Объявление с указанным id не существует!" });
