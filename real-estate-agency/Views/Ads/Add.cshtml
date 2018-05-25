@@ -18,6 +18,7 @@
                 {
                     <input type="hidden" name="UserAuthorId" value="@User.Identity.GetUserId()" />
                     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+                    <input type="hidden" value="@User.Identity.Name" name="Author" />
                     <div class="form-group">
                         <label for="addPrevImage">@Resource.AddEditImageOnPreview</label>
                         <input id="addPrevImage" class="form-control" type="file" name="uPrevImage" accept="image/*" />
@@ -63,10 +64,6 @@
                     <div class="form-group">
                         <label for="addArea">@Resource.AddEditArea</label>
                         <input id="addArea" class="form-control" type="number" name="Area" />
-                    </div>
-                    <div class="form-group">
-                        <label for="addAuthor">Автор:</label>
-                        <input id="addAuthor" class="form-control" type="text" name="Author" />
                     </div>
                     <div class="form-group">
                         <label for="addQuantity">@Resource.AddEditQuantity</label>
