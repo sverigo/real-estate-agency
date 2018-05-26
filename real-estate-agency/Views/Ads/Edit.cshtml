@@ -25,15 +25,15 @@
                         <img class="prev-image" src="@(Model.PrevImage)" />
                         <input type="hidden" name="PrevImage" value="@Model.PrevImage" />
                         <br />
-                        <label for="editPrevImage">@Resource.AddEditImageOnPreview</label>
+                        <label for="editPrevImage">@Resource.AddEditImageOnPreview:</label>
                         <input id="editPrevImage" class="form-control" type="file" name="uPrevImage" accept="image/*" />
                     </div>
                     <div class="form-group">
-                        <label for="editHeader">@Resource.AddEditHeader</label>
+                        <label for="editHeader">@Resource.AddEditHeader:</label>
                         <input id="editHeader" class="form-control" type="text" name="Title" value="@Model.Title" />
                     </div>
                     <div class="form-group">
-                        <label for="editCategory">@Resource.AddEditCategory</label>
+                        <label for="editCategory">@Resource.AddEditCategory:</label>
                         <select id="editCategory" class="form-control" name="Category">
                             @{
                                 List<Category> catlist = real_estate_agency.Infrastructure.CategoryManager.GetCategoryList();
@@ -55,7 +55,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="editType">@Resource.AddEditType</label>
+                        <label for="editType">@Resource.AddEditType:</label>
                         <select id="editType" class="form-control" name="Type">
                             @{
                                 List<Types> typelist = real_estate_agency.Infrastructure.TypeManager.GetTypeList();
@@ -77,15 +77,15 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="editAddress">@Resource.AddEditAddress</label>
+                        <label for="editAddress">@Resource.AddEditAddress:</label>
                         <input id="editAddress" class="form-control" type="text" name="Address" value="@Model.Address" />
                     </div>
                     <div class="form-group">
-                        <label for="editArea">@Resource.AddEditArea</label>
+                        <label for="editArea">@Resource.AddEditArea (м²):</label>
                         <input id="editArea" class="form-control" type="number" name="Area" value="@Model.Area" />
                     </div>
                     <div class="form-group">
-                        <label for="editQuantity">@Resource.AddEditQuantity</label>
+                        <label for="editQuantity">@Resource.AddEditQuantity:</label>
                         <input id="editQuantity" class="form-control" type="number" name="Value" value="@Model.Value" />
                         <select class="form-control" name="Currency">
                             @{
@@ -105,23 +105,23 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="editDescription">@Resource.AddEditDetails</label>
+                        <label for="editDescription">@Resource.AddEditDetails:</label>
                         <textarea id="editDescription" class="form-control" name="Details">@Model.Details</textarea>
                     </div>
                     <div class="form-group">
-                        <label for="editFloor">@Resource.AddEditFloor</label>
+                        <label for="editFloor">@Resource.AddEditFloor:</label>
                         <input id="editFloor" class="form-control" type="number" name="Floors" value="@Model.Floors" />
                     </div>
                     <div class="form-group">
-                        <label for="editFloorsCount">@Resource.AddEditFloorsCount</label>
+                        <label for="editFloorsCount">@Resource.AddEditFloorsCount:</label>
                         <input id="editFloorsCount" class="form-control" type="number" name="FloorsCount" value="@Model.FloorsCount" />
                     </div>
                     <div class="form-group">
-                        <label for="editRoomsCount">@Resource.AddEditRoomsCount</label>
+                        <label for="editRoomsCount">@Resource.AddEditRoomsCount:</label>
                         <input id="editRoomsCount" class="form-control" type="number" name="RoomsCount" value="@Model.RoomsCount" />
                     </div>
                     <div class="form-group">
-                        <label>@Resource.AddEditPhones</label>
+                        <label>@Resource.AddEditPhones:</label>
                         <div id="phonediv">
                             @{
                                 if (Model.Phone.IsEmpty())
@@ -150,7 +150,7 @@
                         <input class="form-control add-edit-phone-photo-add-button" type="button" value="+" onclick="add_phone_field();" />
                     </div>
                     <div class="form-group">
-                        <label>@Resource.AddEditPhotos</label>
+                        <label>@Resource.AddEditPhotos:</label>
                         <div id="photodiv">
                             @{
                                 int i = 0;

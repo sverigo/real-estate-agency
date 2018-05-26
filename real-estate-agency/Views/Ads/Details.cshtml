@@ -1,7 +1,8 @@
 ﻿@using real_estate_agency.Models;
-@model Ad
 @using System.Web.Optimization
 @using real_estate_agency.Infrastructure
+@using real_estate_agency.Resources;
+@model Ad
 
 @{
     Layout = "~/Views/Shared/header.cshtml";
@@ -35,8 +36,6 @@
     </script>*@
 
 <main class="details container">
-    <div style="text-align: right;">
-    </div>
     <h1 class="center">
         @Model.Title
         @if (UserStatusDirectory.IsOwnerOfAd(User, Model))
@@ -58,26 +57,26 @@
                     <div class="price">@Model.Value  @Model.Currency</div>
                     <div id="Address">@Model.Address</div>
                     <ul class="param-list">
-                        <li><b class="p1">Тип:</b> @Model.Type</li>
-                        <li><b class="p1">Категория:</b> @Model.Category</li>
+                        <li><b class="p1">@Resource.AddEditType:</b> @Model.Type</li>
+                        <li><b class="p1">@Resource.AddEditCategory:</b> @Model.Category</li>
                         @if (Model.AdUrl != null)
                         {
-                            <li><b class="p1">Оригинал:</b> <a href="@Model.AdUrl">перейти</a></li>
+                            <li><b class="p1">@Resource.AddEditOrigin:</b> <a href="@Model.AdUrl">@Resource.AddEditLink</a></li>
                         }
                         @if (Model.Floors != 0 && Model.FloorsCount != 0)
                         {
-                            <li><b class="p1">Этаж:</b> @Model.Floors из @Model.FloorsCount</li>
+                            <li><b class="p1">@Resource.AddEditFloor:</b> @Model.Floors @Resource.AddEditFrom @Model.FloorsCount</li>
                         }
                         else if (Model.Floors != 0)
                         {
-                            <li><b class="p1">Этаж:</b> @Model.Floors</li>
+                            <li><b class="p1">@Resource.AddEditFloor:</b> @Model.Floors</li>
                         }
-                        <li><b class="p1">Комнаты:</b> @Model.RoomsCount</li>
+                        <li><b class="p1">@Resource.AddEditRoomsCount:</b> @Model.RoomsCount</li>
                         @if (Model.Area != null)
                         {
-                            <li><b class="p1">Площадь:</b> @Model.Area</li>
+                            <li><b class="p1">@Resource.AddEditArea:</b> @Model.Area</li>
                         }
-                        <li><b class="p1">Автор:</b> @Model.Author</li>
+                        <li><b class="p1">@Resource.AddEditAuthor:</b> @Model.Author</li>
                     </ul>
                     @{
                         bool hasPhones = Model.Phone != null;
@@ -87,7 +86,7 @@
                     @if (hasPhones && (exclusive || (!exclusive && authenticated)))
                     {
                         <div class="phone-set">
-                            <p><b class="p1">Телефон(ы): </b></p>
+                            <p><b class="p1">@Resource.AddEditPhones: </b></p>
                             @foreach (var phoneItem in StringImgPhoneConverter.StringToList(Model.Phone))
                             {
                                 <span class="phone-item">@phoneItem</span>

@@ -388,51 +388,153 @@
     <value>Мої платежі</value>
   </data>
   <data name="AddEditAddress" xml:space="preserve">
-    <value>Адреса:</value>
+    <value>Адреса</value>
   </data>
   <data name="AddEditArea" xml:space="preserve">
-    <value>Площа:</value>
+    <value>Площа</value>
   </data>
   <data name="AddEditCategory" xml:space="preserve">
-    <value>Категорія:</value>
+    <value>Категорія</value>
   </data>
   <data name="AddEditDetails" xml:space="preserve">
-    <value>Опис:</value>
+    <value>Опис</value>
   </data>
   <data name="AddEditFloor" xml:space="preserve">
-    <value>Поверх:</value>
+    <value>Поверх</value>
   </data>
   <data name="AddEditFloorsCount" xml:space="preserve">
-    <value>Кількість поверхів:</value>
+    <value>Кількість поверхів</value>
   </data>
   <data name="AddEditHeader" xml:space="preserve">
-    <value>Заголовок:</value>
+    <value>Заголовок</value>
   </data>
   <data name="AddEditImageOnPreview" xml:space="preserve">
-    <value>Зображення на прев'ю:</value>
+    <value>Зображення на прев'ю</value>
   </data>
   <data name="AddEditPhones" xml:space="preserve">
-    <value>Телефон(и):</value>
+    <value>Телефон(и)</value>
   </data>
   <data name="AddEditPhotos" xml:space="preserve">
-    <value>Фотографії:</value>
+    <value>Фотографії</value>
   </data>
   <data name="AddEditQuantity" xml:space="preserve">
-    <value>Ціна:</value>
+    <value>Ціна</value>
   </data>
   <data name="AddEditRemoveAd" xml:space="preserve">
     <value>Видалити оголошення!</value>
   </data>
   <data name="AddEditRoomsCount" xml:space="preserve">
-    <value>Кількість кімнат:</value>
+    <value>Кімнати</value>
   </data>
   <data name="AddEditType" xml:space="preserve">
-    <value>Тип:</value>
+    <value>Тип</value>
   </data>
   <data name="AddNewAd" xml:space="preserve">
     <value>Додати нове оголошення</value>
   </data>
   <data name="EditAd" xml:space="preserve">
     <value>Відредагувати оголошення</value>
+  </data>
+  <data name="AddEditAuthor" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="AddEditFrom" xml:space="preserve">
+    <value>із</value>
+  </data>
+  <data name="AddEditLink" xml:space="preserve">
+    <value>перейти</value>
+  </data>
+  <data name="AddEditOrigin" xml:space="preserve">
+    <value>Оригінал</value>
+  </data>
+  <data name="AddPremium" xml:space="preserve">
+    <value>Додати підписку</value>
+  </data>
+  <data name="AddQuantity" xml:space="preserve">
+    <value>Додати ціну</value>
+  </data>
+  <data name="AllCategories" xml:space="preserve">
+    <value>Усі категорії</value>
+  </data>
+  <data name="FilterFloorFrom" xml:space="preserve">
+    <value>Поверх від</value>
+  </data>
+  <data name="FilterFloorTo" xml:space="preserve">
+    <value>Поверх до</value>
+  </data>
+  <data name="FilterQuantityFrom" xml:space="preserve">
+    <value>Ціна від</value>
+  </data>
+  <data name="FilterQuantityTo" xml:space="preserve">
+    <value>Ціна до</value>
+  </data>
+  <data name="FilterRoomsFrom" xml:space="preserve">
+    <value>Кімнат від</value>
+  </data>
+  <data name="FilterRoomsTo" xml:space="preserve">
+    <value>Кімнат до</value>
+  </data>
+  <data name="FindAd" xml:space="preserve">
+    <value>Знайти!</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Від</value>
+  </data>
+  <data name="GetLastAds" xml:space="preserve">
+    <value>Завантажити останні оголошення</value>
+  </data>
+  <data name="NoPayments" xml:space="preserve">
+    <value>Ви ще не виконували платежів</value>
+  </data>
+  <data name="PaymentConfirmed" xml:space="preserve">
+    <value>Оплату підтверджено</value>
+  </data>
+  <data name="PaymentForPay" xml:space="preserve">
+    <value>До сплати</value>
+  </data>
+  <data name="PaymentNotConfirmed" xml:space="preserve">
+    <value>Оплату ще не підтверджено</value>
+  </data>
+  <data name="PaymentNumber" xml:space="preserve">
+    <value>Номер квитанції</value>
+  </data>
+  <data name="PremiumBuyButton" xml:space="preserve">
+    <value>Купити</value>
+  </data>
+  <data name="PremiumCostTable" xml:space="preserve">
+    <value>Ціни на підписку</value>
+  </data>
+  <data name="PremiumDaysCount" xml:space="preserve">
+    <value>Кількість днів</value>
+  </data>
+  <data name="PremiumDuration" xml:space="preserve">
+    <value>Тривалість</value>
+  </data>
+  <data name="PremiumOnDays" xml:space="preserve">
+    <value>днів</value>
+  </data>
+  <data name="PremiumQuantity" xml:space="preserve">
+    <value>Ціна</value>
+  </data>
+  <data name="PremiumSum" xml:space="preserve">
+    <value>Сума</value>
+  </data>
+  <data name="PremiumWarning" xml:space="preserve">
+    <value>У вас вже є активна преміум підписка!</value>
+  </data>
+  <data name="PremiumWarning2" xml:space="preserve">
+    <value>Після підтвердження ви будете направлені на сторінку сплати LiqPay</value>
+  </data>
+  <data name="SortType1" xml:space="preserve">
+    <value>Не сортувати</value>
+  </data>
+  <data name="SortType2" xml:space="preserve">
+    <value>За зростанням ціни</value>
+  </data>
+  <data name="SortType3" xml:space="preserve">
+    <value>За спаданням ціни</value>
+  </data>
+  <data name="SubDuration" xml:space="preserve">
+    <value>Тривалість підписки (дні)</value>
   </data>
 </root>

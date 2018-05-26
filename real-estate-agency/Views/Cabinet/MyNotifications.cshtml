@@ -19,7 +19,7 @@
                 @if (notification.Sender != null)
                 {
                     <div class="notification-sender">
-                        От: <span class="notification-sender-name">@notification.Sender.Name</span> |
+                        @Resource.From: <span class="notification-sender-name">@notification.Sender.Name</span> |
                         <span class="notification-sender-username">@notification.Sender.UserName</span>
                     </div>
                 }

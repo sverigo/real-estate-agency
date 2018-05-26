@@ -160,7 +160,7 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Адрес:.
+        ///   Ищет локализованную строку, похожую на Адрес.
         /// </summary>
         public static string AddEditAddress {
             get {
@@ -169,7 +169,7 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Площадь:.
+        ///   Ищет локализованную строку, похожую на Площадь.
         /// </summary>
         public static string AddEditArea {
             get {
@@ -178,7 +178,16 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Категория:.
+        ///   Ищет локализованную строку, похожую на Автор.
+        /// </summary>
+        public static string AddEditAuthor {
+            get {
+                return ResourceManager.GetString("AddEditAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Категория.
         /// </summary>
         public static string AddEditCategory {
             get {
@@ -187,7 +196,7 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Описание:.
+        ///   Ищет локализованную строку, похожую на Описание.
         /// </summary>
         public static string AddEditDetails {
             get {
@@ -196,7 +205,7 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Этаж:.
+        ///   Ищет локализованную строку, похожую на Этаж.
         /// </summary>
         public static string AddEditFloor {
             get {
@@ -205,7 +214,7 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Этажность:.
+        ///   Ищет локализованную строку, похожую на Этажность.
         /// </summary>
         public static string AddEditFloorsCount {
             get {
@@ -214,7 +223,16 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Заголовок:.
+        ///   Ищет локализованную строку, похожую на из.
+        /// </summary>
+        public static string AddEditFrom {
+            get {
+                return ResourceManager.GetString("AddEditFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Заголовок.
         /// </summary>
         public static string AddEditHeader {
             get {
@@ -223,7 +241,7 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Изображение на превью:.
+        ///   Ищет локализованную строку, похожую на Изображение на превью.
         /// </summary>
         public static string AddEditImageOnPreview {
             get {
@@ -232,7 +250,25 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Телефон(ы):.
+        ///   Ищет локализованную строку, похожую на перейти.
+        /// </summary>
+        public static string AddEditLink {
+            get {
+                return ResourceManager.GetString("AddEditLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Оригинал.
+        /// </summary>
+        public static string AddEditOrigin {
+            get {
+                return ResourceManager.GetString("AddEditOrigin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Телефон(ы).
         /// </summary>
         public static string AddEditPhones {
             get {
@@ -241,7 +277,7 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Фотографии:.
+        ///   Ищет локализованную строку, похожую на Фотографии.
         /// </summary>
         public static string AddEditPhotos {
             get {
@@ -250,7 +286,7 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Цена:.
+        ///   Ищет локализованную строку, похожую на Цена.
         /// </summary>
         public static string AddEditQuantity {
             get {
@@ -268,7 +304,7 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Количество комнат:.
+        ///   Ищет локализованную строку, похожую на Комнаты.
         /// </summary>
         public static string AddEditRoomsCount {
             get {
@@ -277,7 +313,7 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Тип:.
+        ///   Ищет локализованную строку, похожую на Тип.
         /// </summary>
         public static string AddEditType {
             get {
@@ -304,6 +340,24 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Добавить подписку.
+        /// </summary>
+        public static string AddPremium {
+            get {
+                return ResourceManager.GetString("AddPremium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Добавить цену.
+        /// </summary>
+        public static string AddQuantity {
+            get {
+                return ResourceManager.GetString("AddQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Административная панель.
         /// </summary>
         public static string AdminPanel {
@@ -318,6 +372,15 @@ namespace real_estate_agency.Resources {
         public static string AdminValidator1 {
             get {
                 return ResourceManager.GetString("AdminValidator1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Все категории.
+        /// </summary>
+        public static string AllCategories {
+            get {
+                return ResourceManager.GetString("AllCategories", resourceCulture);
             }
         }
         
@@ -502,11 +565,92 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Этаж от.
+        /// </summary>
+        public static string FilterFloorFrom {
+            get {
+                return ResourceManager.GetString("FilterFloorFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Этаж до.
+        /// </summary>
+        public static string FilterFloorTo {
+            get {
+                return ResourceManager.GetString("FilterFloorTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Цена от.
+        /// </summary>
+        public static string FilterQuantityFrom {
+            get {
+                return ResourceManager.GetString("FilterQuantityFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Цена до.
+        /// </summary>
+        public static string FilterQuantityTo {
+            get {
+                return ResourceManager.GetString("FilterQuantityTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Комнат от.
+        /// </summary>
+        public static string FilterRoomsFrom {
+            get {
+                return ResourceManager.GetString("FilterRoomsFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Комнат до.
+        /// </summary>
+        public static string FilterRoomsTo {
+            get {
+                return ResourceManager.GetString("FilterRoomsTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Поиск.
         /// </summary>
         public static string Find {
             get {
                 return ResourceManager.GetString("Find", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Найти!.
+        /// </summary>
+        public static string FindAd {
+            get {
+                return ResourceManager.GetString("FindAd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на От.
+        /// </summary>
+        public static string From {
+            get {
+                return ResourceManager.GetString("From", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Получить последние объявления.
+        /// </summary>
+        public static string GetLastAds {
+            get {
+                return ResourceManager.GetString("GetLastAds", resourceCulture);
             }
         }
         
@@ -853,6 +997,15 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на У вас нет платежей.
+        /// </summary>
+        public static string NoPayments {
+            get {
+                return ResourceManager.GetString("NoPayments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Оповещения.
         /// </summary>
         public static string Notifications {
@@ -907,6 +1060,42 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Платеж подтвержден.
+        /// </summary>
+        public static string PaymentConfirmed {
+            get {
+                return ResourceManager.GetString("PaymentConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на К оплате.
+        /// </summary>
+        public static string PaymentForPay {
+            get {
+                return ResourceManager.GetString("PaymentForPay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Платеж пока не подтвержден.
+        /// </summary>
+        public static string PaymentNotConfirmed {
+            get {
+                return ResourceManager.GetString("PaymentNotConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Номер квитанции.
+        /// </summary>
+        public static string PaymentNumber {
+            get {
+                return ResourceManager.GetString("PaymentNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Личный кабинет.
         /// </summary>
         public static string PersonalCabinet {
@@ -921,6 +1110,87 @@ namespace real_estate_agency.Resources {
         public static string Premium {
             get {
                 return ResourceManager.GetString("Premium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Купить.
+        /// </summary>
+        public static string PremiumBuyButton {
+            get {
+                return ResourceManager.GetString("PremiumBuyButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Расценки подписок.
+        /// </summary>
+        public static string PremiumCostTable {
+            get {
+                return ResourceManager.GetString("PremiumCostTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Количество дней.
+        /// </summary>
+        public static string PremiumDaysCount {
+            get {
+                return ResourceManager.GetString("PremiumDaysCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Длительность.
+        /// </summary>
+        public static string PremiumDuration {
+            get {
+                return ResourceManager.GetString("PremiumDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на дней.
+        /// </summary>
+        public static string PremiumOnDays {
+            get {
+                return ResourceManager.GetString("PremiumOnDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Цена.
+        /// </summary>
+        public static string PremiumQuantity {
+            get {
+                return ResourceManager.GetString("PremiumQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сумма.
+        /// </summary>
+        public static string PremiumSum {
+            get {
+                return ResourceManager.GetString("PremiumSum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на У вас уже есть активная премиум подписка!.
+        /// </summary>
+        public static string PremiumWarning {
+            get {
+                return ResourceManager.GetString("PremiumWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на После подтверждения вы будете перенаправлены на страницу оплаты LiqPay.
+        /// </summary>
+        public static string PremiumWarning2 {
+            get {
+                return ResourceManager.GetString("PremiumWarning2", resourceCulture);
             }
         }
         
@@ -993,6 +1263,42 @@ namespace real_estate_agency.Resources {
         public static string Send {
             get {
                 return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не сортировать.
+        /// </summary>
+        public static string SortType1 {
+            get {
+                return ResourceManager.GetString("SortType1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на По возрастанию цены.
+        /// </summary>
+        public static string SortType2 {
+            get {
+                return ResourceManager.GetString("SortType2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на По убыванию цены.
+        /// </summary>
+        public static string SortType3 {
+            get {
+                return ResourceManager.GetString("SortType3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Длительность подписки (дни).
+        /// </summary>
+        public static string SubDuration {
+            get {
+                return ResourceManager.GetString("SubDuration", resourceCulture);
             }
         }
         

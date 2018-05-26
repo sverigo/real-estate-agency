@@ -2,6 +2,7 @@
 @using PagedList.Mvc;
 @using real_estate_agency.Infrastructure;
 @using real_estate_agency.Models.ViewModels;
+@using real_estate_agency.Resources;
 
 @model MainPageViewModel
 
@@ -55,10 +56,10 @@
             <a href="/Ads/Details/@item.Id.ToString()">
                 <div class="alert title">@item.Title</div>
             </a>
-            <p><strong>Категория:</strong> @item.Category</p>
-            <p><strong>Адрес:</strong> @item.Address</p>
+            <p><strong>@Resource.AddEditCategory:</strong> @item.Category</p>
+            <p><strong>@Resource.AddEditAddress:</strong> @item.Address</p>
             
-            <p>@Html.ActionLink("Подробнее", "Details", "Ads", new { id = item.Id }, new { @class = "" })</p>
+            <p>@Html.ActionLink(Resource.Details, "Details", "Ads", new { id = item.Id }, new { @class = "" })</p>
         </div>
         <div class="clearfix"></div>
     </div>

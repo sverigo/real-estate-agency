@@ -20,15 +20,15 @@
                     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
                     <input type="hidden" value="@User.Identity.Name" name="Author" />
                     <div class="form-group">
-                        <label for="addPrevImage">@Resource.AddEditImageOnPreview</label>
+                        <label for="addPrevImage">@Resource.AddEditImageOnPreview:</label>
                         <input id="addPrevImage" class="form-control" type="file" name="uPrevImage" accept="image/*" />
                     </div>
                     <div class="form-group">
-                        <label for="addHeader">@Resource.AddEditHeader</label>
+                        <label for="addHeader">@Resource.AddEditHeader:</label>
                         <input id="addHeader" class="form-control" type="text" name="Title" />
                     </div>
                     <div class="form-group">
-                        <label for="addCategory">@Resource.AddEditCategory</label>
+                        <label for="addCategory">@Resource.AddEditCategory:</label>
                         <select id="addCategory" class="form-control" name="Category">
                             @{
                                 List<Category> catlist = real_estate_agency.Infrastructure.CategoryManager.GetCategoryList();
@@ -43,7 +43,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="addType">@Resource.AddEditType</label>
+                        <label for="addType">@Resource.AddEditType:</label>
                         <select id="addType" class="form-control" name="Type">
                             @{
                                 List<Types> typelist = real_estate_agency.Infrastructure.TypeManager.GetTypeList();
@@ -58,15 +58,15 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="addAddress">@Resource.AddEditAddress</label>
+                        <label for="addAddress">@Resource.AddEditAddress:</label>
                         <input id="addAddress" class="form-control" type="text" name="Address" />
                     </div>
                     <div class="form-group">
-                        <label for="addArea">@Resource.AddEditArea (м²)</label>
+                        <label for="addArea">@Resource.AddEditArea (м²):</label>
                         <input id="addArea" class="form-control" type="number" name="Area" />
                     </div>
                     <div class="form-group">
-                        <label for="addQuantity">@Resource.AddEditQuantity</label>
+                        <label for="addQuantity">@Resource.AddEditQuantity:</label>
                         <input id="addQuantity" class="form-control" type="number" name="Value" />
                         <select class="form-control" name="Currency">
                             @{
@@ -79,23 +79,23 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="addDescription">@Resource.AddEditDetails</label>
+                        <label for="addDescription">@Resource.AddEditDetails:</label>
                         <textarea id="addDescription" class="form-control" name="Details"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="addFloor">@Resource.AddEditFloor</label>
+                        <label for="addFloor">@Resource.AddEditFloor:</label>
                         <input id="addFloor" class="form-control" type="number" name="Floors" />
                     </div>
                     <div class="form-group">
-                        <label for="addFloorsCount">@Resource.AddEditFloorsCount</label>
+                        <label for="addFloorsCount">@Resource.AddEditFloorsCount:</label>
                         <input id="addFloorsCount" class="form-control" type="number" name="FloorsCount" />
                     </div>
                     <div class="form-group">
-                        <label for="addRoomsCount">@Resource.AddEditRoomsCount</label>
+                        <label for="addRoomsCount">@Resource.AddEditRoomsCount:</label>
                         <input id="addRoomsCount" class="form-control" type="number" name="RoomsCount" />
                     </div>
                     <div class="form-group">
-                        <label>@Resource.AddEditPhones</label>
+                        <label>@Resource.AddEditPhones:</label>
                         <div id="phonediv">
                             <div class="but form-group">
                                 <input class="form-control add-edit-phone-photo-field" type="tel" name="Phone0" id="Phone0" />
@@ -106,7 +106,7 @@
                         <input class="form-control add-edit-phone-photo-add-button" type="button" value="+" onclick="add_phone_field();" />
                     </div>
                     <div class="form-group">
-                        <label>@Resource.AddEditPhotos</label>
+                        <label>@Resource.AddEditPhotos:</label>
                         <div id="photodiv">
                             <div class="but form-group">
                                 <input class="form-control add-edit-phone-photo-field" type="file" accept="image/*" name="Images0" id="Images0" />

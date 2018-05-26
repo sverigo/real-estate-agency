@@ -11,15 +11,21 @@
             <div class="card card-body">
                 <h3 class="text-center mb-4">@Resource.AdminPanel</h3>
                 <!--Prices-->
-                <div>
+                <div class="mx-auto">
+                    <h4 class="text-center mb-5">@Resource.AddPremium</h4>
                     @using (Ajax.BeginForm("AddPrice", "Admin", null, new AjaxOptions { UpdateTargetId = "prices-list" }))
                     {
-                        <label>Количество дней:</label>
-                        <input name="days" type="text"/>
-                        <label>Цена:</label>
-                        <input name="amount" type="text" />
-                        <button type="submit">Добавить цену</button>
+                        <div class="form-group">
+                            <label for="adminpanel-days">@Resource.PremiumDaysCount:</label>
+                            <input class="form-control" style="max-width: 300px;" id="adminpanel-days" name="days" type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label for="adminpanel-amount">@Resource.PremiumQuantity:</label>
+                            <input class="form-control" style="max-width: 300px;" id="adminpanel-amount" name="amount" type="text" />
+                        </div>
+                        <button class="btn btn-primary" type="submit">@Resource.AddQuantity</button>
                     }
+                    <br />
                     <div id="prices-list">
                         @{ Html.RenderAction("PricesList", "Admin"); }
                     </div>

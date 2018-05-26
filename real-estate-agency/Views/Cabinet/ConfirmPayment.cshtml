@@ -1,22 +1,31 @@
 ﻿@using real_estate_agency.Infrastructure;
+@using real_estate_agency.Resources;
 @model PaymentData
 @{
     ViewBag.Title = "ConfirmPayment";
     Layout = "~/Views/Shared/header.cshtml";
 }
 
-<h3>К оплате:</h3>
-<div>
-    <div>
-        Номер квитанции: @Model.Payment.Id
-        Длительность: @Model.Payment.Days дней.
-        Сумма: @Model.Payment.Amount грн.
+<div class="container-fluid py-3">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card card-body">
+                <h4 class="text-center mb-5">@Resource.PaymentForPay</h4>
+                <div class="col-md-12 mx-auto">
+                    <div><b style="display: inline-block; width: 150px;">@Resource.PaymentNumber:</b> @Model.Payment.Id</div>
+                    <div><b style="display: inline-block; width: 150px;">@Resource.PremiumDuration:</b> @Model.Payment.Days @Resource.PremiumOnDays.</div>
+                    <div><b style="display: inline-block; width: 150px;">@Resource.PremiumSum:</b> @Model.Payment.Amount грн.</div>
+                    <hr />
+                    <div class="alert alert-info">@Resource.PremiumWarning2</div>
+                    <hr />
+                    <form method="POST" action="https://www.liqpay.com/api/3/checkout" accept-charset="utf-8">
+                        <input type="hidden" name="data" value="@Model.Data" />
+                        <input type="hidden" name="signature" value="@Model.Signature" />
+                        <button class="btn btn-primary" type="submit">@Resource.Confirm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <i>После подтверждения вы будете перенаправлены на страницу оплаты LiqPay</i>
-    <form method="POST" action="https://www.liqpay.com/api/3/checkout" accept-charset="utf-8">
-        <input type="hidden" name="data" value="@Model.Data" />
-        <input type="hidden" name="signature" value="@Model.Signature" />
-        <button type="submit">Подтвердить</button>
-    </form>
 </div>
 

@@ -1,10 +1,12 @@
 ﻿@using real_estate_agency.Models;
 @using real_estate_agency.Resources;
 @using real_estate_agency.Infrastructure;
+@using real_estate_agency.Resources;
 @model IEnumerable<Ad>
 
-<div>
-    <h2>@Resource.MyAds</h2>
+<h4 class="text-center mb-5">@Resource.MyAds</h4>
+
+<div class="container">
     @if ((Model?.Count() ?? 0) == 0)
     {
         <h2>@Resource.NoAds</h2>
@@ -15,38 +17,47 @@
             <div class="row">
                 @foreach (var item in Model)
                 {
-                    <div class="box col-xl-3 col-md-6 col-sm-12 col-xs-12">
+                    <div class="box col-xl-4 col-md-6 col-sm-12 col-xs-12">
                         @if (UserStatusDirectory.UserCanDeleteAd(User, item))
                         {
                             @Html.ActionLink(" ", "Remove", "Ads",
-                                                new { id = item.Id },
-                                                new
-                                                {
-                                                    @class = "remove",
-                                                    onclick = "return confirm('Действительно удалить?');"
-                                                })
+                                                                 new { id = item.Id },
+                                                                 new
+                                                                 {
+                                                                     @class = "remove",
+                                                                     onclick = "return confirm('Действительно удалить?');"
+                                                                 })
                         }
-                        @Html.ActionLink(" ", "Edit", "Ads", new { id = item.Id }, new { @class = "edit" })
-                        
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (!UserStatusDirectory.IsOwnerOfAd(User, item))
+                            {
+                                <div id="marks-@(item.Id)">
+                                    @{Html.RenderAction("Marks", "Ads", new { id = item.Id });}
+                                </div>
+                            }
+                            else
+                            {
+                                @Html.ActionLink(" ", "Edit", "Ads", new { id = item.Id }, new { @class = "edit" })
+                            }
+                        }
                         <center><p class="type">@item.Type</p></center>
                         <a class="single-item" href="@(item.PrevImage)">
                             <div class="img-box" style="background-image: url(@(item.PrevImage))">
                                 <div class="quantity-box">
-                                    
-                                        <strong>@item.Value @item.Currency</strong>
-                                    
+                                    <strong>@item.Value @item.Currency</strong>
                                 </div>
                             </div>
                         </a>
 
                         <div class="info-box">
                             <a href="/Ads/Details/@item.Id.ToString()">
-                                <div class="alert title">@item.Title </div>
+                                <div class="alert title">@item.Title</div>
                             </a>
-                            <p><strong>Категория:</strong> @item.Category</p>
-                            <p><strong>Адрес:</strong> @item.Address</p>
+                            <p><strong>@Resource.AddEditCategory:</strong> @item.Category</p>
+                            <p><strong>@Resource.AddEditAddress:</strong> @item.Address</p>
 
-                            <p>@Html.ActionLink("Подробнее", "Details", "Ads", new { id = item.Id }, new { @class = "" })</p>
+                            <p>@Html.ActionLink(Resource.Details, "Details", "Ads", new { id = item.Id }, new { @class = "" })</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>

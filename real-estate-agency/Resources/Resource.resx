@@ -388,51 +388,153 @@
     <value>Мои платежи</value>
   </data>
   <data name="AddEditAddress" xml:space="preserve">
-    <value>Адрес:</value>
+    <value>Адрес</value>
   </data>
   <data name="AddEditArea" xml:space="preserve">
-    <value>Площадь:</value>
+    <value>Площадь</value>
   </data>
   <data name="AddEditCategory" xml:space="preserve">
-    <value>Категория:</value>
+    <value>Категория</value>
   </data>
   <data name="AddEditDetails" xml:space="preserve">
-    <value>Описание:</value>
+    <value>Описание</value>
   </data>
   <data name="AddEditFloor" xml:space="preserve">
-    <value>Этаж:</value>
+    <value>Этаж</value>
   </data>
   <data name="AddEditFloorsCount" xml:space="preserve">
-    <value>Этажность:</value>
+    <value>Этажность</value>
   </data>
   <data name="AddEditHeader" xml:space="preserve">
-    <value>Заголовок:</value>
+    <value>Заголовок</value>
   </data>
   <data name="AddEditImageOnPreview" xml:space="preserve">
-    <value>Изображение на превью:</value>
+    <value>Изображение на превью</value>
   </data>
   <data name="AddEditPhones" xml:space="preserve">
-    <value>Телефон(ы):</value>
+    <value>Телефон(ы)</value>
   </data>
   <data name="AddEditPhotos" xml:space="preserve">
-    <value>Фотографии:</value>
+    <value>Фотографии</value>
   </data>
   <data name="AddEditQuantity" xml:space="preserve">
-    <value>Цена:</value>
+    <value>Цена</value>
   </data>
   <data name="AddEditRemoveAd" xml:space="preserve">
     <value>Удалить объявление!</value>
   </data>
   <data name="AddEditRoomsCount" xml:space="preserve">
-    <value>Количество комнат:</value>
+    <value>Комнаты</value>
   </data>
   <data name="AddEditType" xml:space="preserve">
-    <value>Тип:</value>
+    <value>Тип</value>
   </data>
   <data name="AddNewAd" xml:space="preserve">
     <value>Добавить новое объявление</value>
   </data>
   <data name="EditAd" xml:space="preserve">
     <value>Отредактировать объявление</value>
+  </data>
+  <data name="AddEditAuthor" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="AddEditFrom" xml:space="preserve">
+    <value>из</value>
+  </data>
+  <data name="AddEditLink" xml:space="preserve">
+    <value>перейти</value>
+  </data>
+  <data name="AddEditOrigin" xml:space="preserve">
+    <value>Оригинал</value>
+  </data>
+  <data name="AddPremium" xml:space="preserve">
+    <value>Добавить подписку</value>
+  </data>
+  <data name="AddQuantity" xml:space="preserve">
+    <value>Добавить цену</value>
+  </data>
+  <data name="AllCategories" xml:space="preserve">
+    <value>Все категории</value>
+  </data>
+  <data name="FilterFloorFrom" xml:space="preserve">
+    <value>Этаж от</value>
+  </data>
+  <data name="FilterFloorTo" xml:space="preserve">
+    <value>Этаж до</value>
+  </data>
+  <data name="FilterQuantityFrom" xml:space="preserve">
+    <value>Цена от</value>
+  </data>
+  <data name="FilterQuantityTo" xml:space="preserve">
+    <value>Цена до</value>
+  </data>
+  <data name="FilterRoomsFrom" xml:space="preserve">
+    <value>Комнат от</value>
+  </data>
+  <data name="FilterRoomsTo" xml:space="preserve">
+    <value>Комнат до</value>
+  </data>
+  <data name="FindAd" xml:space="preserve">
+    <value>Найти!</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>От</value>
+  </data>
+  <data name="GetLastAds" xml:space="preserve">
+    <value>Получить последние объявления</value>
+  </data>
+  <data name="NoPayments" xml:space="preserve">
+    <value>У вас нет платежей</value>
+  </data>
+  <data name="PaymentConfirmed" xml:space="preserve">
+    <value>Платеж подтвержден</value>
+  </data>
+  <data name="PaymentForPay" xml:space="preserve">
+    <value>К оплате</value>
+  </data>
+  <data name="PaymentNotConfirmed" xml:space="preserve">
+    <value>Платеж пока не подтвержден</value>
+  </data>
+  <data name="PaymentNumber" xml:space="preserve">
+    <value>Номер квитанции</value>
+  </data>
+  <data name="PremiumBuyButton" xml:space="preserve">
+    <value>Купить</value>
+  </data>
+  <data name="PremiumCostTable" xml:space="preserve">
+    <value>Расценки подписок</value>
+  </data>
+  <data name="PremiumDaysCount" xml:space="preserve">
+    <value>Количество дней</value>
+  </data>
+  <data name="PremiumDuration" xml:space="preserve">
+    <value>Длительность</value>
+  </data>
+  <data name="PremiumOnDays" xml:space="preserve">
+    <value>дней</value>
+  </data>
+  <data name="PremiumQuantity" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="PremiumSum" xml:space="preserve">
+    <value>Сумма</value>
+  </data>
+  <data name="PremiumWarning" xml:space="preserve">
+    <value>У вас уже есть активная премиум подписка!</value>
+  </data>
+  <data name="PremiumWarning2" xml:space="preserve">
+    <value>После подтверждения вы будете перенаправлены на страницу оплаты LiqPay</value>
+  </data>
+  <data name="SortType1" xml:space="preserve">
+    <value>Не сортировать</value>
+  </data>
+  <data name="SortType2" xml:space="preserve">
+    <value>По возрастанию цены</value>
+  </data>
+  <data name="SortType3" xml:space="preserve">
+    <value>По убыванию цены</value>
+  </data>
+  <data name="SubDuration" xml:space="preserve">
+    <value>Длительность подписки (дни)</value>
   </data>
 </root>
