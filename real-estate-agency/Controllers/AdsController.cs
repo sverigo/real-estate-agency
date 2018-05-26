@@ -161,7 +161,7 @@ namespace real_estate_agency.Controllers
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(upload.FileName);
                 string path = "~/Content/images/" + fileName;
-                ad.PrevImage = path;
+                ad.PrevImage = Url.Content(path);
                 upload.SaveAs(Server.MapPath(path));
             }
 

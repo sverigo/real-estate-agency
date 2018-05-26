@@ -278,6 +278,8 @@
     <Content Include="Content\fancybox\fancybox_overlay.png" />
     <Content Include="Content\fancybox\fancybox_sprite%402x.png" />
     <Content Include="Content\fancybox\fancybox_sprite.png" />
+    <Content Include="Content\images\delete.png" />
+    <Content Include="Content\images\edit.png" />
     <Content Include="Content\images\non-marked.png" />
     <Content Include="Content\images\marked.png" />
     <Content Include="Content\images\nophoto.png" />
@@ -352,7 +354,6 @@
     <Content Include="Scripts\slick\ajax-loader.gif" />
     <Content Include="Scripts\slick\fonts\slick.svg" />
     <Content Include="Scripts\slick\slick-slider-img.js" />
-    <Content Include="Scripts\slick\slick-slider.js" />
     <Content Include="Scripts\slick\slick-theme.css" />
     <Content Include="Scripts\slick\slick.css" />
     <Content Include="Scripts\slick\slick.js" />

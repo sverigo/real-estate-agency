@@ -8,133 +8,130 @@
 }
 
 @Styles.Render("~/Content/fancybox")
+@Styles.Render("~/Content/slick")
 
-<script>
-    var viewModel = { phones: ko.observableArray() }
+@*<script>
+        var viewModel = { phones: ko.observableArray() }
 
-    $(document).ready(function () {
-        ko.applyBindings(viewModel);
-    });
+        $(document).ready(function () {
+            ko.applyBindings(viewModel);
+        });
 
-    function showPhone() {
+        function showPhone() {
 
-         $.ajax({
-             type: "GET",
-             url: "/Home/GetPhoneAjax",
-             data: {"id" : @Model.Id },
-             contentType: "application/json; charset=utf-8",
-             success: function (response, status) {
-                 viewModel.phones.push.apply(viewModel.phones, response);
-             },
-             failure: function (response) {
-                 alert(response);
-             }
-         });
-     }
-</script>
-<main>
+             $.ajax({
+                 type: "GET",
+                 url: "/Home/GetPhoneAjax",
+                 data: {"id" : @Model.Id },
+                 contentType: "application/json; charset=utf-8",
+                 success: function (response, status) {
+                     viewModel.phones.push.apply(viewModel.phones, response);
+                 },
+                 failure: function (response) {
+                     alert(response);
+                 }
+             });
+         }
+    </script>*@
 
-    @{
-        <div style="text-align: right;">
-            @if (Model.AdUrl != null)
-            {
-                <a href="@Model.AdUrl" class="origin">Go to origin</a>
-            }
-            else
-            {
-                <p class="origin">It is origin</p>
-            }
-        </div>
-        <div class="information">
-            <div class="detail-title">
-                <h2>@Model.Title</h2>
-            </div>
-            <div style="text-align: right;">
-                @if (UserStatusDirectory.IsOwnerOfAd(User, Model))
-                {
-                    @Html.ActionLink("Edit", "Edit", "Ads", new { id = Model.Id, fromDetailsUrl = ViewBag.FromDetailsUrl }, new { @class = "" })
-                }
-                @if (UserStatusDirectory.UserCanDeleteAd(User, Model))
-                {
-                    @Html.ActionLink("Remove", "Remove", "Ads", new { id = Model.Id, returnUrl = ViewBag.ReturnUrl }, new { @class = "", onclick = "return confirm('Действительно удалить?');" })
-                }
-            </div>
+<main class="details container">
+    <div style="text-align: right;">
+    </div>
+    <h1 class="center">
+        @Model.Title
+        @if (UserStatusDirectory.IsOwnerOfAd(User, Model))
+        {
+            @Html.ActionLink(" ", "Edit", "Ads", new { id = Model.Id, fromDetailsUrl = ViewBag.FromDetailsUrl }, new { @class = "edit-ad" })
+        }
+        @if (UserStatusDirectory.UserCanDeleteAd(User, Model))
+        {
+            @Html.ActionLink(" ", "Remove", "Ads", new { id = Model.Id, returnUrl = ViewBag.ReturnUrl }, new { @class = "remove-ad", onclick = "return confirm('Действительно удалить?');" })
+        }
+    </h1>
+    <div class="row">
+        <div class="card-information col-12">
             <div class="row">
-                <div class="prev-image">
-                    @if (Model.PrevImage == null)
-                    {
-                        <a class="single-item" href="@Url.Content("~/Content/images/nophoto.png")"><img src='@Url.Content("~/Content/images/nophoto.png")' /></a>
-                    }
-                    else
-                    {
-                        <a class="single-item" href="@(Model.PrevImage)"><img src='@(Model.PrevImage)' /></a>
-                    }
+                <div class="map col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    <div id="map"></div>
                 </div>
-                <div class="general-info">
-                    <p><strong>Тип: </strong>@Model.Type </p>
-                    <p><strong>Адрес: </strong><span id="Address">@Model.Address</span> </p>
-                    <p><strong>Количество комнат: </strong> @Model.RoomsCount </p>
-                    @if (Model.Floors != 0 && Model.FloorsCount != 0)
-                    {
-                        <p><strong>Этажность: </strong>   @Model.Floors из @Model.FloorsCount </p>
-                    }
-                    else if (Model.FloorsCount == 0 && Model.Floors != 0)
-                    {
-                        <p><strong>Этажность: </strong> @Model.Floors</p>
-                    }
-                    @if (Model.Area != null)
-                    {
-                        <p><strong>Площадь: </strong>@Model.Area </p>
-                    }
-                    <p><strong>Цена: </strong>   @Model.Value @Model.Currency </p>
-                    <p><strong>Автор: </strong>@Model.Author </p>
-                    
+                <div class="parameters col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    <div class="price">@Model.Value  @Model.Currency</div>
+                    <div id="Address">@Model.Address</div>
+                    <ul class="param-list">
+                        <li><b class="p1">Тип:</b> @Model.Type</li>
+                        <li><b class="p1">Категория:</b> @Model.Category</li>
+                        @if (Model.AdUrl != null)
+                        {
+                            <li><b class="p1">Оригинал:</b> <a href="@Model.AdUrl">перейти</a></li>
+                        }
+                        @if (Model.Floors != 0 && Model.FloorsCount != 0)
+                        {
+                            <li><b class="p1">Этаж:</b> @Model.Floors из @Model.FloorsCount</li>
+                        }
+                        else if (Model.Floors != 0)
+                        {
+                            <li><b class="p1">Этаж:</b> @Model.Floors</li>
+                        }
+                        <li><b class="p1">Комнаты:</b> @Model.RoomsCount</li>
+                        @if (Model.Area != null)
+                        {
+                            <li><b class="p1">Площадь:</b> @Model.Area</li>
+                        }
+                        <li><b class="p1">Автор:</b> @Model.Author</li>
+                    </ul>
                     @{
                         bool hasPhones = Model.Phone != null;
                         bool exclusive = Model.AdUrl == null;
                         bool authenticated = User.Identity.IsAuthenticated;
-                        }
+                    }
                     @if (hasPhones && (exclusive || (!exclusive && authenticated)))
                     {
                         <div class="phone-set">
-                            <p><strong>Телефон(ы): </strong></p>
+                            <p><b class="p1">Телефон(ы): </b></p>
                             @foreach (var phoneItem in StringImgPhoneConverter.StringToList(Model.Phone))
                             {
-                                <p>@phoneItem</p>
+                                <span class="phone-item">@phoneItem</span>
                             }
-                            <ul data-bind="foreach: phones">
+                            <!--<ul data-bind="foreach: phones">
                                 <li data-bind="text: $data"></li>
                             </ul>
-                            <!--
+
                             <form id="frm" method="get">
                                 <button id="button" type="button" onclick="showPhone()">Click</button>
                             </form>
                                 -->
                         </div>
                     }
-
                 </div>
             </div>
-            <div class="description">
-                <p>@Model.Details</p>
-            </div>
-            <div class="image-set">
+        </div>
+        <div class="description col-12">
+            <p>@Model.Details</p>
+        </div>
+        <div class="slider-container col-12">
+            <div class="slick-photos-slider">
+                @if (Model.PrevImage != null && !Model.PrevImage.Contains("nophoto"))
+                {
+                    <a class="group-item" rel="group" href="@(Model.PrevImage)">
+                        <div class="slick-photos-item" style="background-image: url(@Model.PrevImage)"></div>
+                    </a>
+                }
                 @foreach (var img in StringImgPhoneConverter.StringToList(Model.Images))
                 {
-                    <a class="group-item" rel="group" href="@(img)"><img src='@(img)' /></a>
+                    <a class="group-item" rel="group" href="@(img)">
+                        <div class="slick-photos-item" style="background-image: url(@img)"></div>
+                    </a>
                 }
             </div>
-            <div class="map-block">
-                <div id="map"></div>
-            </div>
-
-
         </div>
-    }
+    </div>
 </main>
 
+@Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/fancybox")
 @Scripts.Render("~/bundles/fancybox-gallery-single")
 @Scripts.Render("~/bundles/fancybox-gallery-group")
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs0eQvxU2jsqf71-Smlevn-NsX8W_V74g&callback=initMap"></script>
 <script src="~/Scripts/mapInitialize.js"></script>
+@Scripts.Render("~/bundles/slick")
+<script src="~/Scripts/slick/slick-slider-img.js"></script>

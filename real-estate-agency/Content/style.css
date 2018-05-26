@@ -42,7 +42,8 @@ body {
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
     }
 
-/* NAVIGATION */
+/* HEADER */
+
 .navbar {
     background-color: #000;
     color: #fff;
@@ -147,6 +148,9 @@ body {
     .buttons-block ul {
         margin: 0;
     }
+
+/* FOOTER */
+/* TODO */
 
 /*INDEX HOME*/
 
@@ -370,15 +374,26 @@ body {
     background-size: cover;
 }
 
+.slick-photos-item {
+    outline: 0;
+    color: #212529;
+    margin: 20px;
+    height: 260px;
+    position: relative;
+    border-radius: 10px 10px 10px 10px;
+    background-position: center;
+    background-size: cover;
+}
+
 .info-box {
     /*float: right;*/
     width: 100%;
     padding: 10px;
 }
 
-.info-box a {
-    text-decoration: none;
-}
+    .info-box a {
+        text-decoration: none;
+    }
 
 main {
     width: 90%;
@@ -417,8 +432,12 @@ main {
 }
 
 .slick-prev:before, .slick-next:before {
-    color: red !important;
+    color: var(--green-color) !important;
 }
+
+    .slick-prev:before:hover, .slick-next:before:hover {
+        color: var(--green-darker-color) !important;
+    }
 
 .detail-title {
     padding: 15px;
@@ -632,6 +651,72 @@ footer {
     font-weight: normal;
 }
 
+/* DETAILS */
+
+.details {
+}
+
+    .details h1 .edit-ad {
+        width: 30px;
+        height: 30px;
+        background-image: url("images/edit.png");
+        background-position: center center;
+        background-size: cover;
+        display: inline-block;
+    }
+
+    .details h1 .remove-ad {
+        width: 30px;
+        height: 30px;
+        background-image: url("images/delete.png");
+        background-position: center center;
+        background-size: cover;
+        display: inline-block;
+    }
+
+    .details h1 {
+        margin: 30px 0;
+    }
+
+    .details #map {
+        width: 100%;
+        height: 350px;
+        margin-bottom: 20px;
+    }
+
+    .details .parameters {
+        margin-bottom: 20px;
+    }
+
+        .details .parameters .price {
+            font-size: 28px;
+        }
+
+        .details .parameters .param-list {
+            list-style-type: none;
+            margin: 10px;
+        }
+
+            .details .parameters .param-list .p1 {
+                display: inline-block;
+                width: 120px;
+            }
+
+    .details .phone-set {
+    }
+
+        .details .phone-set p {
+            margin-bottom: 2px;
+        }
+
+        .details .phone-set .phone-item {
+            display: block;
+        }
+
+    .details .description {
+        overflow-x: hidden;
+    }
+
 /*отображение в одну линию поля и кнопки удаления поля для доп. картинок/телефонов*/
 .one-line {
     width: auto;
@@ -664,4 +749,3 @@ footer {
         width: 20%;
     }
 }
-
