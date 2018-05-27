@@ -107,10 +107,10 @@ namespace real_estate_agency.Infrastructure
                     payment.ConfirmedDate = DateTime.UtcNow;
                     dataBase.SaveChanges();
 
-                    UserManager.AddToRole(userId, UserStatusDirectory.Roles.PREMIUM_USER);
+                    IdentityResult result = UserManager.AddToRole(userId, UserStatusDirectory.Roles.PREMIUM_USER);
 
                     Notifier notif = new Notifier();
-                    notif.NotifyUser(UserManager.FindById(userId), "Премиум подписка активирована.");
+                    notif.NotifyUser(UserManager.FindById(userId), "Премиум подписка активирована." + result.Succeeded + " " + result.Errors.Aggregate((x1,x2) => x1 + " " + x2));
                 }
             }
         }
