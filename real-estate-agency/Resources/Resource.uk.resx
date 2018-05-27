@@ -537,4 +537,7 @@
   <data name="SubDuration" xml:space="preserve">
     <value>Тривалість підписки (дні)</value>
   </data>
+  <data name="DetailsError" xml:space="preserve">
+    <value>Оголошення з вказаним id не існує</value>
+  </data>
 </root>

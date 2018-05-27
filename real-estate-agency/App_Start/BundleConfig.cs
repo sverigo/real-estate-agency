@@ -7,7 +7,7 @@ namespace real_estate_agency
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/bootstrap.min.css",
+                "~/Content/bootstrap.css",
                 "~/Content/style.css"));
 
             bundles.Add(new StyleBundle("~/Content/fancybox").Include(
@@ -21,8 +21,8 @@ namespace real_estate_agency
                 "~/Scripts/slick/slick-theme.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                "~/Scripts/jquery-3.3.1.slim.min.js",
-                "~/Scripts/jquery-3.3.1.min.js"));
+                "~/Scripts/jquery-3.3.1.slim.js",
+                "~/Scripts/jquery-3.3.1.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                 "~/Scripts/jquery.validate*"));
@@ -37,7 +37,7 @@ namespace real_estate_agency
                 "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                "~/Scripts/bootstrap.min.js",
+                "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/fancybox").Include(
@@ -54,7 +54,7 @@ namespace real_estate_agency
                 "~/Scripts/additional_fields.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/slick").Include(
-                "~/Scripts/slick/slick.min.js",
+                "~/Scripts/slick/slick.js",
                 "~/Scripts/slick/slick-slider.js"));
         }
     }

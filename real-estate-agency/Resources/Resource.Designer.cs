@@ -538,6 +538,15 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Объявление с указанным id не существует.
+        /// </summary>
+        public static string DetailsError {
+            get {
+                return ResourceManager.GetString("DetailsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Отредактировать объявление.
         /// </summary>
         public static string EditAd {
