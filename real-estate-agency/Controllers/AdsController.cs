@@ -7,6 +7,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web;
 
 namespace real_estate_agency.Controllers
 {
@@ -92,7 +93,7 @@ namespace real_estate_agency.Controllers
             ad.Images = String.Join("|", imagesList);
 
 
-            if (User.IsInRole(UserStatusDirectory.Roles.PREMIUM_USER))
+            if (UserStatusDirectory.IsPremium(User.Identity.GetUserId(), HttpContext.GetOwinContext()))
             {
                 ad.IsPremium = true;
             }

@@ -89,7 +89,12 @@ namespace real_estate_agency.Infrastructure
 
         public static bool IsPremium(AppUser user, IOwinContext owin)
         {
-            return owin.GetUserManager<AppUserManager>().IsInRole(user.Id, Roles.PREMIUM_USER);
+            return IsPremium(user.Id, owin);
+        }
+
+        public static bool IsPremium(string id, IOwinContext owin)
+        {
+            return owin.GetUserManager<AppUserManager>().IsInRole(id, Roles.PREMIUM_USER);
         }
 
         public static bool IsOwnerOfAd(string userId, Ad ad)
