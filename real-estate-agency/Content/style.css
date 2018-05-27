@@ -339,6 +339,19 @@ body {
     border-radius: 10px;
 }
 
+.premium-box {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    background-color: rgba(255, 216, 23, 0.7);
+    margin: 0 auto;
+    font-size: 18px;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 10px 0;
+    color: var(--red-darker-color);
+}
+
 .quantity-box {
     position: absolute;
     width: 100%;
