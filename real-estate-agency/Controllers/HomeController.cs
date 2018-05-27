@@ -75,7 +75,11 @@ namespace real_estate_agency.Controllers
             allAds = options.getSortedAds(allAds);
             allAds = options.getFlatRentAds(allAds);
 
-            model.PagedListModel = allAds.ToPagedList(model.Page, pageSize);
+            List<Ad> final = new List<Ad>();
+            final.AddRange(allAds.Where(x => x.IsPremium));
+            final.AddRange(allAds.Where(x => !x.IsPremium));
+
+            model.PagedListModel = final.ToPagedList(model.Page, pageSize);
             return PartialView(model);
         }
 
