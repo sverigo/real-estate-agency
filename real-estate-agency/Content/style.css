@@ -210,7 +210,7 @@ body {
 .box .title {
     font-size: 16px;
     border-radius: 8px;
-    -background-color: yellow;
+    overflow: hidden;
     font-weight: bold;
     text-align: center;
 }
@@ -746,6 +746,10 @@ footer {
 @media screen and (max-width: 500px) {
     .filters .filter {
         margin: 0 auto;
+    }
+
+    .details .description {
+        text-align: center;
     }
 }
 
