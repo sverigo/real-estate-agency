@@ -91,8 +91,11 @@ namespace real_estate_agency.Controllers
             }
             ad.Images = String.Join("|", imagesList);
 
+
             if (User.IsInRole(UserStatusDirectory.Roles.PREMIUM_USER))
+            {
                 ad.IsPremium = true;
+            }
 
             adsManager.AddNewAd(ad);
             if (String.IsNullOrEmpty(returnUrl))
