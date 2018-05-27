@@ -52,53 +52,56 @@ namespace real_estate_agency.Controllers
         [HttpPost]
         public ActionResult Add(Ad ad, string returnUrl)
         {
-            List<string> phonesList = new List<string>();
-            foreach (string field in Request.Form)
+            if(Request.Form["g-recaptcha-response"] != string.Empty)
             {
-                if (field.Contains("Phone"))
+                List<string> phonesList = new List<string>();
+                foreach (string field in Request.Form)
                 {
-                    phonesList.Add(Request.Form[field]);
-                }
-            }
-            ad.Phone = String.Join("|", phonesList);
-            
-            ad.PrevImage = Url.Content("~/Content/images/nophoto.png");
-            ad.Images = "";
-
-            var upload = Request.Files["uPrevImage"];
-            if (upload != null && upload.ContentType.Contains("image/"))
-            {
-                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(upload.FileName);
-                string path = "~/Content/images/" + fileName;
-                ad.PrevImage = Url.Content(path);
-                upload.SaveAs(Server.MapPath(path));
-            }
-
-
-            List<string> imagesList = new List<string>();
-            foreach (string field in Request.Files)
-            {
-                if (field.Contains("Images"))
-                {
-                    var up = Request.Files[field];
-                    if (up != null && up.ContentType.Contains("image/"))
+                    if (field.Contains("Phone"))
                     {
-                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(up.FileName);
-                        string addr = "~/Content/images/" + fileName;
-                        imagesList.Add(Url.Content(addr));
-                        up.SaveAs(Server.MapPath(addr));
+                        phonesList.Add(Request.Form[field]);
                     }
                 }
+                ad.Phone = String.Join("|", phonesList);
+
+                ad.PrevImage = Url.Content("~/Content/images/nophoto.png");
+                ad.Images = "";
+
+                var upload = Request.Files["uPrevImage"];
+                if (upload != null && upload.ContentType.Contains("image/"))
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(upload.FileName);
+                    string path = "~/Content/images/" + fileName;
+                    ad.PrevImage = Url.Content(path);
+                    upload.SaveAs(Server.MapPath(path));
+                }
+
+
+                List<string> imagesList = new List<string>();
+                foreach (string field in Request.Files)
+                {
+                    if (field.Contains("Images"))
+                    {
+                        var up = Request.Files[field];
+                        if (up != null && up.ContentType.Contains("image/"))
+                        {
+                            string fileName = Guid.NewGuid().ToString() + Path.GetExtension(up.FileName);
+                            string addr = "~/Content/images/" + fileName;
+                            imagesList.Add(Url.Content(addr));
+                            up.SaveAs(Server.MapPath(addr));
+                        }
+                    }
+                }
+                ad.Images = String.Join("|", imagesList);
+
+
+                if (UserStatusDirectory.IsPremium(User.Identity.GetUserId(), HttpContext.GetOwinContext()))
+                {
+                    ad.IsPremium = true;
+                }
+
+                adsManager.AddNewAd(ad);
             }
-            ad.Images = String.Join("|", imagesList);
-
-
-            if (UserStatusDirectory.IsPremium(User.Identity.GetUserId(), HttpContext.GetOwinContext()))
-            {
-                ad.IsPremium = true;
-            }
-
-            adsManager.AddNewAd(ad);
             if (String.IsNullOrEmpty(returnUrl))
             {
                 return Redirect("/Home/Index/");
