@@ -76,7 +76,12 @@
                         {
                             <li><b class="p1">@Resource.AddEditArea:</b> @Model.Area</li>
                         }
-                        <li><b class="p1">@Resource.AddEditAuthor:</b> @Model.Author</li>
+                        <li><b class="p1">@Resource.AddEditAuthor:</b> @Model.Author 
+                            @if (Model.UserAuthor != null)
+                            {
+                                <span> / <b>@Model.UserAuthor.UserName.ToString()</b></span>
+                            }
+                        </li>
                     </ul>
                     @{
                         bool hasPhones = Model.Phone != null;
