@@ -71,9 +71,9 @@ namespace real_estate_agency.Controllers
                 if (upload != null && upload.ContentType.Contains("image/"))
                 {
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(upload.FileName);
-                    string path = "~/Content/images/" + fileName;
-                    ad.PrevImage = Url.Content(path);
-                    upload.SaveAs(Server.MapPath(path));
+                    GoogleDriveManager driveClient = new GoogleDriveManager();
+                    string new_image = driveClient.DriveUploadAndGetSrc(upload);
+                    ad.PrevImage = Url.Content(new_image);
                 }
 
 
@@ -86,9 +86,9 @@ namespace real_estate_agency.Controllers
                         if (up != null && up.ContentType.Contains("image/"))
                         {
                             string fileName = Guid.NewGuid().ToString() + Path.GetExtension(up.FileName);
-                            string addr = "~/Content/images/" + fileName;
-                            imagesList.Add(Url.Content(addr));
-                            up.SaveAs(Server.MapPath(addr));
+                            GoogleDriveManager driveClient = new GoogleDriveManager();
+                            string addr = driveClient.DriveUploadAndGetSrc(up);
+                            imagesList.Add(addr);
                         }
                     }
                 }
@@ -170,9 +170,9 @@ namespace real_estate_agency.Controllers
             if (upload != null && upload.ContentType.Contains("image/"))
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(upload.FileName);
-                string path = "~/Content/images/" + fileName;
+                GoogleDriveManager driveClient = new GoogleDriveManager();
+                string path = driveClient.DriveUploadAndGetSrc(upload);
                 ad.PrevImage = Url.Content(path);
-                upload.SaveAs(Server.MapPath(path));
             }
 
             ad.Images = "";
@@ -194,7 +194,9 @@ namespace real_estate_agency.Controllers
                         if (q == "false")
                         {
                             //удалить с сервера
-                            System.IO.File.Delete(Server.MapPath(existingImages[number]));
+                            //System.IO.File.Delete(Server.MapPath());
+                            GoogleDriveManager driveClient = new GoogleDriveManager();
+                            driveClient.DriveMoveFileToTrash(existingImages[number]);
                         }
                         else
                         {
@@ -214,9 +216,9 @@ namespace real_estate_agency.Controllers
                     if (up != null && up.ContentType.Contains("image/"))
                     {
                         string fileName = Guid.NewGuid().ToString() + Path.GetExtension(up.FileName);
-                        string addr = "~/Content/images/" + fileName;
+                        GoogleDriveManager driveClient = new GoogleDriveManager();
+                        string addr = driveClient.DriveUploadAndGetSrc(up);
                         imagesList.Add(Url.Content(addr));
-                        up.SaveAs(Server.MapPath(addr));
                     }
                 }
             }
@@ -264,7 +266,10 @@ namespace real_estate_agency.Controllers
             else if (!UserStatusDirectory.UserCanDeleteAd(User, ad))
                 return View("Error", new string[] { "У вас нет прав редактировать это объявление!" });
             else if (UserStatusDirectory.IsOwnerOfAd(User, ad))
+            {
                 adsManager.RemoveById(id);
+
+            }
             else if (UserStatusDirectory.IsAdmin(User) || UserStatusDirectory.IsModerator(User))
             {
                 if (string.IsNullOrEmpty(ad.UserAuthorId))

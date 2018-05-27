@@ -259,7 +259,7 @@
     <Compile Include="Infrastructure\CustomPassValidator.cs" />
     <Compile Include="Infrastructure\CustomUserValidator.cs" />
     <Compile Include="Infrastructure\FilterOptions.cs" />
-    <Compile Include="Infrastructure\GoogleDriveSvc.cs" />
+    <Compile Include="Infrastructure\GoogleDriveManager.cs" />
     <Compile Include="Infrastructure\Notifier.cs" />
     <Compile Include="Infrastructure\PaymentManager.cs" />
     <Compile Include="Infrastructure\TypeManager.cs" />
@@ -353,6 +353,7 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="App_Data\client_secret.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\gallery-group.js" />
@@ -472,7 +473,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include=".credentials\credentials.json\" />
     <Folder Include="Views\Language\" />
   </ItemGroup>
   <ItemGroup>
