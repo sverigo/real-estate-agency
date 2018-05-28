@@ -718,6 +718,15 @@ namespace real_estate_agency.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на В топе!.
+        /// </summary>
+        public static string InTop {
+            get {
+                return ResourceManager.GetString("InTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Язык.
         /// </summary>
         public static string Language {

@@ -540,4 +540,7 @@
   <data name="DetailsError" xml:space="preserve">
     <value>Оголошення з вказаним id не існує</value>
   </data>
+  <data name="InTop" xml:space="preserve">
+    <value>У топі!</value>
+  </data>
 </root>
