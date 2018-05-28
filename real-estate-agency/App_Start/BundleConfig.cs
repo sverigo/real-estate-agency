@@ -10,8 +10,8 @@ namespace real_estate_agency
                 "~/Content/bootstrap.css",
                 "~/Content/style.css"));
 
-            bundles.Add(new StyleBundle("~/Content/fancybox").Include(
-                "~/Content/jquery.fancybox.css"));
+            //bundles.Add(new StyleBundle("~/Content/fancybox").Include(
+            //    "~/Content/jquery.fancybox.css"));
 
             bundles.Add(new StyleBundle("~/Content/pagedlist").Include(
                 "~/Content/PagedList.css"));
@@ -40,15 +40,15 @@ namespace real_estate_agency
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/fancybox").Include(
-                "~/Scripts/jquery.fancybox.pack.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/fancybox").Include(
+            //    "~/Scripts/jquery.fancybox.pack.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/fancybox-gallery-single").Include(
-                "~/Scripts/gallery-single.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/fancybox-gallery-single").Include(
+            //    "~/Scripts/gallery-single.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/fancybox-gallery-group").Include(
-                "~/Scripts/jquery.mousewheel-3.0.6.pack.js",
-                "~/Scripts/gallery-group.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/fancybox-gallery-group").Include(
+            //    "~/Scripts/jquery.mousewheel-3.0.6.pack.js",
+            //    "~/Scripts/gallery-group.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/additional-fields").Include(
                 "~/Scripts/additional_fields.js"));

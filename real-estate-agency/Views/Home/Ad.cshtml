@@ -6,7 +6,8 @@
 
 @model MainPageViewModel
 
-@Styles.Render("~/Content/fancybox")
+@*@Styles.Render("~/Content/fancybox")*@
+<link rel="stylesheet" href="~/Content/jquery.fancybox.css" />
 
 @foreach (var item in Model.PagedListModel)
 {
@@ -14,12 +15,12 @@
         @if (UserStatusDirectory.UserCanDeleteAd(User, item))
         {
             @Html.ActionLink(" ", "Remove", "Ads",
-                                                     new { id = item.Id },
-                                                     new
-                                                     {
-                                                         @class = "remove",
-                                                         onclick = "return confirm('Действительно удалить?');"
-                                                     })
+                                                          new { id = item.Id },
+                                                          new
+                                                          {
+                                                              @class = "remove",
+                                                              onclick = "return confirm('Действительно удалить?');"
+                                                          })
         }
         @if (User.Identity.IsAuthenticated)
         {
@@ -87,5 +88,7 @@
     }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "results" }))
 </div>
 
-@Scripts.Render("~/bundles/fancybox")
-@Scripts.Render("~/bundles/fancybox-gallery-single")
+@*@Scripts.Render("~/bundles/fancybox")
+    @Scripts.Render("~/bundles/fancybox-gallery-single")*@
+<script src="~/Scripts/jquery.fancybox.pack.js"></script>
+<script src="~/Scripts/gallery-single.js"></script>

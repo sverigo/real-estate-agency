@@ -4,6 +4,8 @@
 @using real_estate_agency.Resources;
 @model IEnumerable<Ad>
 
+<link rel="stylesheet" href="~/Content/jquery.fancybox.css" />
+
 <h4 class="text-center mb-5">@Resource.MyAds</h4>
 
 <div class="container">
@@ -21,12 +23,12 @@
                         @if (UserStatusDirectory.UserCanDeleteAd(User, item))
                         {
                             @Html.ActionLink(" ", "Remove", "Ads",
-                                                                 new { id = item.Id },
-                                                                 new
-                                                                 {
-                                                                     @class = "remove",
-                                                                     onclick = "return confirm('Действительно удалить?');"
-                                                                 })
+                                                                      new { id = item.Id },
+                                                                      new
+                                                                      {
+                                                                          @class = "remove",
+                                                                          onclick = "return confirm('Действительно удалить?');"
+                                                                      })
                         }
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -66,3 +68,6 @@
         </div>
     }
 </div>
+
+<script src="~/Scripts/jquery.fancybox.pack.js"></script>
+<script src="~/Scripts/gallery-single.js"></script>
