@@ -3,7 +3,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using real_estate_agency.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 using System.Web;

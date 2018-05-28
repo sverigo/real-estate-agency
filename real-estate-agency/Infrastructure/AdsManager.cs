@@ -4,7 +4,6 @@ using System.Linq;
 using real_estate_agency.Models;
 using DataParser;
 using System.Data.Entity;
-using real_estate_agency.Infrastructure;
 
 namespace real_estate_agency.Infrastructure
 {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using real_estate_agency.Models;
 using real_estate_agency.Models.ViewModels;
 using Microsoft.AspNet.Identity;

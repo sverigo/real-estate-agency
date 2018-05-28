@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using real_estate_agency.Models;
 
 namespace real_estate_agency.Infrastructure

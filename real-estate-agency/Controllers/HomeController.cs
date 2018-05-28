@@ -8,8 +8,6 @@ using real_estate_agency.Infrastructure;
 using real_estate_agency.Models.ViewModels;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNet.Identity;
-using System.Security.Principal;
 
 namespace real_estate_agency.Controllers
 {
